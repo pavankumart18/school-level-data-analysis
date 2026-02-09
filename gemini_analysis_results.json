@@ -1,0 +1,207 @@
+{
+  "basic": {
+    "total_rows": 544,
+    "total_columns": 199,
+    "unique_schools": 92,
+    "fiscal_years": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  },
+  "key_metrics": {
+    "NAE_Overall_Average_Fee_USD": {
+      "mean": 26904.98,
+      "median": 24692.33,
+      "min": 8564.5,
+      "max": 78362.0
+    },
+    "StudentFTE": {
+      "mean": 1028.48,
+      "median": 895.15,
+      "min": 97.0,
+      "max": 3849.0
+    },
+    "CapacityFTE": {
+      "mean": 1476.89,
+      "median": 1350.0,
+      "min": 300.0,
+      "max": 4266.0
+    },
+    "Employee_Engagement_Score": {
+      "mean": 3.89,
+      "median": 3.91,
+      "min": 3.15,
+      "max": 4.34
+    },
+    "Teachers_Attrition_Pct": {
+      "mean": 0.17,
+      "median": 0.16,
+      "min": 0.0,
+      "max": 0.49
+    },
+    "nps_score": {
+      "mean": 28.2,
+      "median": 28.93,
+      "min": -36.64,
+      "max": 79.01
+    },
+    "Academic_Performance_Index": {
+      "mean": -0.03,
+      "median": 0.01,
+      "min": -6.27,
+      "max": 2.62
+    }
+  },
+  "api_correlations": {
+    "NAE_Overall_Average_Fee_USD": 0.365,
+    "StudentFTE": 0.041,
+    "Employee_Engagement_Score": -0.009,
+    "Teachers_Attrition_Pct": -0.135,
+    "nps_score": -0.159,
+    "school_age": 0.129
+  },
+  "hidden_gems": [
+    "School21",
+    "School32",
+    "School33",
+    "School53"
+  ],
+  "overpriced": [
+    "School20",
+    "School50",
+    "School90"
+  ],
+  "burnout_schools": [
+    "School13",
+    "School30",
+    "School41",
+    "School50",
+    "School70",
+    "School80"
+  ],
+  "over_capacity": [
+    {
+      "school": "School1",
+      "region": "Middle East",
+      "utilization": 216.2,
+      "nps": null
+    },
+    {
+      "school": "School2",
+      "region": "Middle East",
+      "utilization": 103.0,
+      "nps": null
+    },
+    {
+      "school": "School6",
+      "region": "Middle East",
+      "utilization": 110.0,
+      "nps": 24.9
+    },
+    {
+      "school": "School30",
+      "region": "Europe",
+      "utilization": 103.1,
+      "nps": null
+    },
+    {
+      "school": "School33",
+      "region": "The Americas",
+      "utilization": 118.4,
+      "nps": 50.3
+    },
+    {
+      "school": "School35",
+      "region": "Europe",
+      "utilization": 102.9,
+      "nps": 50.5
+    },
+    {
+      "school": "School39",
+      "region": "South East Asia & India",
+      "utilization": 107.1,
+      "nps": 21.0
+    },
+    {
+      "school": "School43",
+      "region": "Europe",
+      "utilization": 152.4,
+      "nps": 25.0
+    },
+    {
+      "school": "School44",
+      "region": "The Americas",
+      "utilization": 122.9,
+      "nps": 64.5
+    },
+    {
+      "school": "School60",
+      "region": "The Americas",
+      "utilization": 100.3,
+      "nps": 48.1
+    },
+    {
+      "school": "School63",
+      "region": "Middle East",
+      "utilization": 137.9,
+      "nps": 17.9
+    },
+    {
+      "school": "School68",
+      "region": "South East Asia & India",
+      "utilization": 100.9,
+      "nps": -19.5
+    },
+    {
+      "school": "School80",
+      "region": "Middle East",
+      "utilization": 100.1,
+      "nps": 20.3
+    },
+    {
+      "school": "School92",
+      "region": "The Americas",
+      "utilization": 100.8,
+      "nps": 30.6
+    }
+  ],
+  "fee_nps_by_region": {
+    "Middle East": -0.204,
+    "Europe": 0.093,
+    "The Americas": -0.196,
+    "China International": 0.264,
+    "South East Asia & India": -0.404,
+    "China Bilingual": -0.764
+  },
+  "curriculum_analysis": {
+    "enquiries_started": {
+      "A-Levels": 714.2,
+      "AP": 920.6,
+      "IB": 867.2,
+      "IGCSE": 1183.2
+    },
+    "nps_score": {
+      "A-Levels": 19.4,
+      "AP": 42.1,
+      "IB": 26.2,
+      "IGCSE": 2.7
+    },
+    "StudentFTE": {
+      "A-Levels": 941.6,
+      "AP": 1383.5,
+      "IB": 1064.9,
+      "IGCSE": 514.4
+    },
+    "Academic_Performance_Index": {
+      "A-Levels": 0.2,
+      "AP": -0.2,
+      "IB": -0.1,
+      "IGCSE": -0.4
+    }
+  }
+}

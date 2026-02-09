@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAE Strategic Analysis Dashboard</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0f1a;
+            --bg-card: rgba(17, 24, 39, 0.9);
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+            --accent: #c9a227;
+            --success: #10b981;
+            --danger: #ef4444;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #c9a227, #f0d78c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(201, 162, 39, 0.15);
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .chart-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .insight-box {
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.1), rgba(201, 162, 39, 0.05));
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .insight-label {
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .insight-text {
+            font-size: 1.1rem;
+        }
+
+        .bar {
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .bar:hover {
+            filter: brightness(1.2);
+        }
+
+        .axis text {
+            fill: var(--text-muted);
+            font-size: 11px;
+        }
+
+        .axis path,
+        .axis line {
+            stroke: var(--border);
+        }
+
+        .tooltip {
+            position: fixed;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+
+            .stats-grid,
+            .chart-row {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tooltip" id="tooltip"></div>
+    <div class="container">
+        <h1>The Quality Paradox</h1>
+        <p class="subtitle">Strategic Analysis of 92 Schools · 544 Observations · 199 Variables</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">92</div>
+                <div class="stat-label">Schools</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">418K</div>
+                <div class="stat-label">Students</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">366K</div>
+                <div class="stat-label">Enquiries</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">420K</div>
+                <div class="stat-label">Leads</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Demand Drivers</h2>
+            <p class="section-subtitle">Correlation coefficients with enquiries_started (what actually predicts demand)
+            </p>
+            <div class="chart-container">
+                <div id="drivers-chart"></div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-label">Key Finding</div>
+                <div class="insight-text"><strong>Leads submitted (r = 0.93)</strong> is the strongest predictor.
+                    Success breeds success - schools already getting interest continue to get more.</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Regional Performance</h2>
+            <p class="section-subtitle">Average enquiries per school-year by region</p>
+            <div class="chart-container">
+                <div id="region-chart"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">The NPS Paradox</h2>
+            <p class="section-subtitle">Quality scores correlate negatively with demand - a lifecycle effect</p>
+            <div class="chart-row">
+                <div class="chart-container">
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background:#10b981"></div> Positive
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background:#ef4444"></div> Negative
+                        </div>
+                    </div>
+                    <div id="nps-chart"></div>
+                </div>
+                <div class="chart-container">
+                    <div id="correlation-matrix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Enquiries Trend</h2>
+            <p class="section-subtitle">Year-over-year enquiry volume (FY2020-FY2026)</p>
+            <div class="chart-container">
+                <div id="trend-chart"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Capacity Utilization</h2>
+            <p class="section-subtitle">Distribution of school utilization (Students / Capacity)</p>
+            <div class="chart-container">
+                <div id="utilization-chart"></div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-label">Capacity Insight</div>
+                <div class="insight-text">Mean utilization is <strong>73%</strong>. 25 school-years operate above 100%
+                    capacity. Over-capacity creates scarcity perception that drives demand.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tooltip = d3.select("#tooltip");
+        const showTip = (e, html) => { tooltip.html(html).style("opacity", 1).style("left", (e.pageX + 15) + "px").style("top", (e.pageY - 10) + "px"); };
+        const hideTip = () => tooltip.style("opacity", 0);
+
+        // DATA
+        const driversData = [
+            { name: "leads_submitted", r: 0.93 }, { name: "StudentFTE", r: 0.74 }, { name: "CapacityFTE", r: 0.61 },
+            { name: "Revenue", r: 0.57 }, { name: "Student_Expat_Pct", r: 0.23 }, { name: "Academic_Index", r: 0.14 },
+            { name: "Engagement_Score", r: 0.00 }, { name: "school_age", r: -0.02 }, { name: "Average_Fee", r: -0.09 }, { name: "nps_score", r: -0.21 }
+        ];
+        const regionData = [
+            { name: "Middle East", value: 1696 }, { name: "China Bilingual", value: 1254 }, { name: "SEA & India", value: 789 },
+            { name: "Europe", value: 671 }, { name: "Americas", value: 612 }, { name: "China Int'l", value: 578 }
+        ];
+        const trendData = [
+            { year: "FY2020", value: 38853 }, { year: "FY2021", value: 48948 }, { year: "FY2022", value: 58491 },
+            { year: "FY2023", value: 68378 }, { year: "FY2024", value: 74488 }, { year: "FY2025", value: 66240 }
+        ];
+        const correlationData = [
+            { x: "Enquiries", y: "Leads", r: 0.93 }, { x: "Enquiries", y: "Students", r: 0.74 }, { x: "Enquiries", y: "Revenue", r: 0.57 },
+            { x: "Enquiries", y: "NPS", r: -0.21 }, { x: "Students", y: "Capacity", r: 0.84 }, { x: "Students", y: "Revenue", r: 0.67 },
+            { x: "Fees", y: "Expat%", r: 0.46 }, { x: "Engagement", y: "NPS", r: 0.41 }, { x: "Fees", y: "Academic", r: 0.37 }
+        ];
+        const utilizationData = [15, 25, 35, 45, 55, 65, 75, 85, 95, 105, 115].map((bin, i) => ({ bin, count: [10, 4, 7, 20, 13, 33, 23, 18, 14, 5, 3][i] }));
+
+        // CHART: Drivers
+        function drawDrivers() {
+            const container = d3.select("#drivers-chart");
+            const width = container.node().offsetWidth, height = 350;
+            const margin = { top: 10, right: 60, bottom: 30, left: 140 };
+            const svg = container.append("svg").attr("width", width).attr("height", height);
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+            const data = driversData.slice().sort((a, b) => a.r - b.r);
+            const x = d3.scaleLinear().domain([-0.3, 1]).range([0, width - margin.left - margin.right]);
+            const y = d3.scaleBand().domain(data.map(d => d.name)).range([height - margin.top - margin.bottom, 0]).padding(0.3);
+            g.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`).call(d3.axisBottom(x).ticks(5)).attr("class", "axis");
+            g.append("g").call(d3.axisLeft(y)).attr("class", "axis");
+            g.append("line").attr("x1", x(0)).attr("x2", x(0)).attr("y1", 0).attr("y2", height - margin.top - margin.bottom).attr("stroke", "#6b7280").attr("stroke-dasharray", "4,4");
+            g.selectAll(".bar").data(data).join("rect").attr("class", "bar").attr("x", d => x(Math.min(0, d.r))).attr("y", d => y(d.name)).attr("width", d => Math.abs(x(d.r) - x(0))).attr("height", y.bandwidth()).attr("fill", d => d.r >= 0 ? "#10b981" : "#ef4444").attr("rx", 4).on("mouseover", (e, d) => showTip(e, `<strong>${d.name}</strong><br>r = ${d.r.toFixed(2)}`)).on("mouseout", hideTip);
+            g.selectAll(".label").data(data).join("text").attr("x", d => x(d.r) + (d.r >= 0 ? 8 : -8)).attr("y", d => y(d.name) + y.bandwidth() / 2 + 4).attr("text-anchor", d => d.r >= 0 ? "start" : "end").attr("fill", "#e5e7eb").attr("font-size", "11px").text(d => (d.r >= 0 ? "+" : "") + d.r.toFixed(2));
+        }
+
+        // CHART: Regions
+        function drawRegions() {
+            const container = d3.select("#region-chart");
+            const width = container.node().offsetWidth, height = 280;
+            const margin = { top: 10, right: 60, bottom: 30, left: 120 };
+            const svg = container.append("svg").attr("width", width).attr("height", height);
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+            const data = regionData.slice().sort((a, b) => a.value - b.value);
+            const x = d3.scaleLinear().domain([0, 2000]).range([0, width - margin.left - margin.right]);
+            const y = d3.scaleBand().domain(data.map(d => d.name)).range([height - margin.top - margin.bottom, 0]).padding(0.3);
+            g.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`).call(d3.axisBottom(x).ticks(5)).attr("class", "axis");
+            g.append("g").call(d3.axisLeft(y)).attr("class", "axis");
+            const colorScale = d3.scaleSequential(d3.interpolateYlOrRd).domain([0, data.length - 1]);
+            g.selectAll(".bar").data(data).join("rect").attr("class", "bar").attr("x", 0).attr("y", d => y(d.name)).attr("width", d => x(d.value)).attr("height", y.bandwidth()).attr("fill", (d, i) => colorScale(i)).attr("rx", 4).on("mouseover", (e, d) => showTip(e, `<strong>${d.name}</strong><br>${d.value.toLocaleString()} avg enquiries`)).on("mouseout", hideTip);
+            g.selectAll(".label").data(data).join("text").attr("x", d => x(d.value) + 8).attr("y", d => y(d.name) + y.bandwidth() / 2 + 4).attr("fill", "#e5e7eb").attr("font-size", "12px").attr("font-weight", "600").text(d => d.value.toLocaleString());
+        }
+
+        // CHART: NPS Paradox
+        function drawNPS() {
+            const container = d3.select("#nps-chart");
+            const data = [{ name: "NPS Response Count", r: 0.34 }, { name: "NPS Score", r: -0.16 }, { name: "Teacher Quality", r: -0.18 }, { name: "Education Quality", r: -0.22 }, { name: "Principal Quality", r: -0.27 }];
+            const width = container.node().offsetWidth, height = 220;
+            const margin = { top: 10, right: 50, bottom: 30, left: 140 };
+            const svg = container.append("svg").attr("width", width).attr("height", height);
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+            const x = d3.scaleLinear().domain([-0.4, 0.5]).range([0, width - margin.left - margin.right]);
+            const y = d3.scaleBand().domain(data.map(d => d.name)).range([0, height - margin.top - margin.bottom]).padding(0.35);
+            g.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`).call(d3.axisBottom(x).ticks(5)).attr("class", "axis");
+            g.append("g").call(d3.axisLeft(y)).attr("class", "axis");
+            g.append("line").attr("x1", x(0)).attr("x2", x(0)).attr("y1", 0).attr("y2", height - margin.top - margin.bottom).attr("stroke", "#6b7280").attr("stroke-dasharray", "4,4");
+            g.selectAll(".bar").data(data).join("rect").attr("class", "bar").attr("x", d => x(Math.min(0, d.r))).attr("y", d => y(d.name)).attr("width", d => Math.abs(x(d.r) - x(0))).attr("height", y.bandwidth()).attr("fill", d => d.r >= 0 ? "#10b981" : "#ef4444").attr("rx", 4).on("mouseover", (e, d) => showTip(e, `<strong>${d.name}</strong><br>r = ${d.r >= 0 ? "+" : ""}${d.r.toFixed(2)}`)).on("mouseout", hideTip);
+        }
+
+        // CHART: Trend
+        function drawTrend() {
+            const container = d3.select("#trend-chart");
+            const width = container.node().offsetWidth, height = 280;
+            const margin = { top: 30, right: 30, bottom: 40, left: 60 };
+            const svg = container.append("svg").attr("width", width).attr("height", height);
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+            const x = d3.scalePoint().domain(trendData.map(d => d.year)).range([0, width - margin.left - margin.right]).padding(0.5);
+            const y = d3.scaleLinear().domain([0, 80000]).range([height - margin.top - margin.bottom, 0]);
+            g.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`).call(d3.axisBottom(x)).attr("class", "axis");
+            g.append("g").call(d3.axisLeft(y).ticks(5).tickFormat(d => d / 1000 + "K")).attr("class", "axis");
+            const line = d3.line().x(d => x(d.year)).y(d => y(d.value)).curve(d3.curveMonotoneX);
+            const area = d3.area().x(d => x(d.year)).y0(height - margin.top - margin.bottom).y1(d => y(d.value)).curve(d3.curveMonotoneX);
+            g.append("path").datum(trendData).attr("fill", "rgba(201,162,39,0.2)").attr("d", area);
+            g.append("path").datum(trendData).attr("fill", "none").attr("stroke", "#c9a227").attr("stroke-width", 3).attr("d", line);
+            g.selectAll("circle").data(trendData).join("circle").attr("cx", d => x(d.year)).attr("cy", d => y(d.value)).attr("r", 6).attr("fill", "#c9a227").attr("stroke", "#fff").attr("stroke-width", 2).on("mouseover", (e, d) => showTip(e, `<strong>${d.year}</strong><br>${d.value.toLocaleString()} enquiries`)).on("mouseout", hideTip);
+            g.selectAll(".value-label").data(trendData).join("text").attr("x", d => x(d.year)).attr("y", d => y(d.value) - 15).attr("text-anchor", "middle").attr("fill", "#e5e7eb").attr("font-size", "11px").attr("font-weight", "600").text(d => Math.round(d.value / 1000) + "K");
+        }
+
+        // CHART: Utilization Histogram
+        function drawUtilization() {
+            const container = d3.select("#utilization-chart");
+            const width = container.node().offsetWidth, height = 250;
+            const margin = { top: 20, right: 30, bottom: 40, left: 50 };
+            const svg = container.append("svg").attr("width", width).attr("height", height);
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+            const x = d3.scaleBand().domain(utilizationData.map(d => d.bin + "%")).range([0, width - margin.left - margin.right]).padding(0.1);
+            const y = d3.scaleLinear().domain([0, 35]).range([height - margin.top - margin.bottom, 0]);
+            g.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`).call(d3.axisBottom(x)).attr("class", "axis");
+            g.append("g").call(d3.axisLeft(y).ticks(5)).attr("class", "axis");
+            g.selectAll(".bar").data(utilizationData).join("rect").attr("class", "bar").attr("x", d => x(d.bin + "%")).attr("y", d => y(d.count)).attr("width", x.bandwidth()).attr("height", d => height - margin.top - margin.bottom - y(d.count)).attr("fill", d => d.bin >= 100 ? "#ef4444" : "#c9a227").attr("rx", 2).on("mouseover", (e, d) => showTip(e, `<strong>${d.bin}% utilization</strong><br>${d.count} school-years`)).on("mouseout", hideTip);
+            g.append("line").attr("x1", x("105%")).attr("x2", x("105%")).attr("y1", 0).attr("y2", height - margin.top - margin.bottom).attr("stroke", "#ef4444").attr("stroke-width", 2).attr("stroke-dasharray", "6,4");
+        }
+
+        // CHART: Correlation Matrix
+        function drawMatrix() {
+            const container = d3.select("#correlation-matrix");
+            const metrics = ["Enquiries", "Leads", "Students", "Capacity", "Fees", "Revenue", "NPS"];
+            const matrix = [[1, .93, .74, .61, -.09, .57, -.21], [.93, 1, .52, .39, -.18, .38, -.21], [.74, .52, 1, .84, -.37, .67, .02], [.61, .39, .84, 1, -.27, .54, -.10], [-.09, -.18, -.37, -.27, 1, .18, -.10], [.57, .38, .67, .54, .18, 1, .05], [-.21, -.21, .02, -.10, -.10, .05, 1]];
+            const width = container.node().offsetWidth, height = 280;
+            const margin = { top: 50, right: 10, bottom: 10, left: 70 };
+            const svg = container.append("svg").attr("width", width).attr("height", height);
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+            const cellSize = Math.min((width - margin.left - margin.right) / metrics.length, (height - margin.top - margin.bottom) / metrics.length);
+            const colorScale = d3.scaleSequential(d3.interpolateRdBu).domain([1, -1]);
+            metrics.forEach((m, i) => {
+                g.append("text").attr("x", i * cellSize + cellSize / 2).attr("y", -8).attr("text-anchor", "middle").attr("fill", "#9ca3af").attr("font-size", "10px").text(m);
+                g.append("text").attr("x", -8).attr("y", i * cellSize + cellSize / 2 + 4).attr("text-anchor", "end").attr("fill", "#9ca3af").attr("font-size", "10px").text(m);
+            });
+            metrics.forEach((row, i) => {
+                metrics.forEach((col, j) => {
+                    g.append("rect").attr("x", j * cellSize).attr("y", i * cellSize).attr("width", cellSize - 2).attr("height", cellSize - 2).attr("fill", colorScale(matrix[i][j])).attr("rx", 3).on("mouseover", (e) => showTip(e, `<strong>${metrics[i]} × ${metrics[j]}</strong><br>r = ${matrix[i][j].toFixed(2)}`)).on("mouseout", hideTip);
+                    if (i !== j) g.append("text").attr("x", j * cellSize + cellSize / 2 - 1).attr("y", i * cellSize + cellSize / 2 + 4).attr("text-anchor", "middle").attr("fill", Math.abs(matrix[i][j]) > 0.5 ? "#fff" : "#9ca3af").attr("font-size", "9px").text(matrix[i][j].toFixed(2));
+                });
+            });
+        }
+
+        // Initialize
+        drawDrivers(); drawRegions(); drawNPS(); drawTrend(); drawUtilization(); drawMatrix();
+        window.addEventListener("resize", () => { document.querySelectorAll("svg").forEach(s => s.remove()); drawDrivers(); drawRegions(); drawNPS(); drawTrend(); drawUtilization(); drawMatrix(); });
+    </script>
+</body>
+
+</html>

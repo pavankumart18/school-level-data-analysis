@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Quality Paradox | Nord Anglia Education Strategic Analysis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta name="description"
         content="A deep-dive exploratory data analysis of school-level performance across Nord Anglia Education's global network of 92 premium international schools.">
     <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -918,6 +919,14 @@
                 </svg>
                 Hypothesis
             </a>
+            <a href="leaderboard.html" class="nav-pill">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Leaderboard
+            </a>
         </div>
         <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
             <span id="themeIcon">🌙</span>
@@ -1512,6 +1521,16 @@
                     <div class="chart-subtitle">How business metrics drive each other</div>
                 </div>
             </div>
+            <div
+                style="margin: 10px 0; display: flex; align-items: center; gap: 15px; background: rgba(255, 255, 255, 0.05); padding: 10px 20px; border-radius: 50px; border: 1px solid var(--border);">
+                <label for="correlation-slider"
+                    style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">Min Correlation:</label>
+                <input type="range" id="correlation-slider" min="0" max="1" step="0.05" value="0"
+                    style="accent-color: var(--accent); cursor: pointer;">
+                <span id="slider-value"
+                    style="font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 0.9rem; min-width: 40px;">0.00</span>
+            </div>
+
             <div id="matrix-chart" style="display: flex; justify-content: center; width: 100%; margin: 10px 0;"></div>
 
             <div class="insight-box" style="align-self: center; max-width: 700px; margin-top: 10px;">
@@ -2016,6 +2035,8 @@ print("Analysis Complete. Top 3 Levers identified.")
         function drawMatrixChart() {
             const container = document.getElementById("matrix-chart");
             if (!container) return;
+            container.innerHTML = ''; // Clear previous content to avoid duplicates on redraw
+
             const metrics = ["Enquiries", "Leads", "Students", "Capacity", "Fees", "Revenue", "NPS"];
             const matrix = [
                 [1.00, 0.35, 0.23, 0.23, 0.33, 0.45, 0.04],
@@ -2054,6 +2075,8 @@ print("Analysis Complete. Top 3 Levers identified.")
                         .attr("x", j * cellSize + 1).attr("y", i * cellSize + 1)
                         .attr("width", cellSize - 2).attr("height", cellSize - 2)
                         .attr("fill", colorScale(val)).attr("rx", 4).style("cursor", "pointer")
+                        .attr("class", "matrix-cell")
+                        .attr("data-val", val)
                         .on("mouseover", (event) => showTooltip(event, `${metrics[i]} × ${metrics[j]}`, `r = ${val.toFixed(2)}`))
                         .on("mouseout", hideTooltip);
 
@@ -2061,10 +2084,36 @@ print("Analysis Complete. Top 3 Levers identified.")
                         g.append("text")
                             .attr("x", j * cellSize + cellSize / 2).attr("y", i * cellSize + cellSize / 2 + 4)
                             .attr("text-anchor", "middle").attr("fill", Math.abs(val) > 0.5 ? "#fff" : "#111827")
-                            .attr("font-size", "10px").attr("font-family", "'JetBrains Mono', monospace").text(val.toFixed(2));
+                            .attr("font-size", "10px").attr("font-family", "'JetBrains Mono', monospace")
+                            .attr("class", "matrix-text")
+                            .attr("data-val", val)
+                            .text(val.toFixed(2));
                     }
                 });
             });
+
+            // Slider Logic
+            const slider = document.getElementById('correlation-slider');
+            const sliderValue = document.getElementById('slider-value');
+
+            if (slider && sliderValue) {
+                // Initialize opacity based on default slider value
+                const defaultThreshold = parseFloat(slider.value);
+                updateOpacity(defaultThreshold);
+
+                slider.addEventListener('input', (e) => {
+                    const threshold = parseFloat(e.target.value);
+                    sliderValue.textContent = threshold.toFixed(2);
+                    updateOpacity(threshold);
+                });
+            }
+
+            function updateOpacity(threshold) {
+                d3.selectAll('.matrix-cell, .matrix-text').transition().duration(200).style('opacity', function () {
+                    const val = parseFloat(d3.select(this).attr('data-val'));
+                    return Math.abs(val) >= threshold ? 1 : 0.05;
+                });
+            }
         }
 
         // Draw all charts

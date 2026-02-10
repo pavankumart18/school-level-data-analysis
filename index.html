@@ -2014,7 +2014,8 @@ print("Analysis Complete. Top 3 Levers identified.")
             const svg = d3.select("#matrix-chart").append("svg").attr("width", width).attr("height", height);
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-            const colorScale = d3.scaleSequential(d3.interpolateRdBu).domain([1, -1]);
+            // D3 Continuous Scale: 0 is Red (Low), 1 is Green (Strong)
+            const colorScale = d3.scaleSequential(d3.interpolateRdYlGn).domain([0, 1]);
 
             // Column headers
             metrics.forEach((m, i) => {
@@ -2029,10 +2030,11 @@ print("Analysis Complete. Top 3 Levers identified.")
 
                 metrics.forEach((col, j) => {
                     const val = matrix[i][j];
+                    const absVal = Math.abs(val);
                     g.append("rect")
                         .attr("x", j * cellSize + 1).attr("y", i * cellSize + 1)
                         .attr("width", cellSize - 2).attr("height", cellSize - 2)
-                        .attr("fill", colorScale(val)).attr("rx", 4).style("cursor", "pointer")
+                        .attr("fill", colorScale(absVal)).attr("rx", 4).style("cursor", "pointer")
                         .attr("class", "matrix-cell")
                         .attr("data-val", val)
                         .on("mouseover", (event) => showTooltip(event, `${metrics[i]} × ${metrics[j]}`, `r = ${val.toFixed(2)}`))
@@ -2041,7 +2043,7 @@ print("Analysis Complete. Top 3 Levers identified.")
                     if (i !== j) {
                         g.append("text")
                             .attr("x", j * cellSize + cellSize / 2).attr("y", i * cellSize + cellSize / 2 + 4)
-                            .attr("text-anchor", "middle").attr("fill", Math.abs(val) > 0.5 ? "#fff" : "#111827")
+                            .attr("text-anchor", "middle").attr("fill", absVal > 0.6 ? "#fff" : "#111827")
                             .attr("font-size", "10px").attr("font-family", "'JetBrains Mono', monospace")
                             .attr("class", "matrix-text")
                             .attr("data-val", val)

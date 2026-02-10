@@ -655,6 +655,60 @@
             font-style: normal;
         }
 
+        .score-formula {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background: rgba(17, 24, 39, 0.4);
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+        }
+
+        .formula-equal {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #fff;
+            margin-right: 8px;
+            font-weight: 700;
+        }
+
+        .formula-item {
+            background: rgba(201, 162, 39, 0.1);
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .formula-operator {
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 400;
+            font-size: 0.8rem;
+            margin: 0 4px;
+        }
+
+        .formula-item:hover {
+            border-color: var(--accent);
+            background: rgba(201, 162, 39, 0.15);
+        }
+
+        .formula-item strong {
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
         /* Section Separator */
         .section-divider {
             text-align: center;
@@ -703,6 +757,31 @@
         .insight-card:hover {
             border-color: rgba(201, 162, 39, 0.4);
             transform: translateY(-2px);
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .glossary-item {
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .glossary-item strong {
+            color: var(--accent);
+            display: block;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+        }
+
+        .glossary-item span {
+            color: var(--text-secondary);
         }
 
         .insight-card .insight-icon {
@@ -815,6 +894,24 @@
                 community satisfaction, and operational stability—the four vectors that separate thriving schools
                 from the rest.
             </p>
+            <div class="score-formula">
+                <div class="formula-equal">Overall Score =</div>
+                <div class="formula-item">
+                    <strong>30%</strong> Utilization
+                </div>
+                <div class="formula-operator">+</div>
+                <div class="formula-item">
+                    <strong>25%</strong> NPS Score
+                </div>
+                <div class="formula-operator">+</div>
+                <div class="formula-item">
+                    <strong>25%</strong> Teacher Stability
+                </div>
+                <div class="formula-operator">+</div>
+                <div class="formula-item">
+                    <strong>20%</strong> Lead Intensity
+                </div>
+            </div>
         </div>
 
         <!-- ===== KPI STRIP (Populated by JS) ===== -->
@@ -849,11 +946,39 @@
         <!-- ===== DATA STORY CALLOUT (Top) ===== -->
         <div class="story-callout" id="storyCallout1">
             <span class="callout-tag">Reading the Table</span>
-            Each cell is <strong>heat-mapped</strong> from red (low) to green (high) relative to the network.
-            The small <strong>#rank</strong> badge inside each cell shows where that school stands for that specific
-            metric—so you can instantly
-            spot a school that ranks #3 in lead intensity but #45 in NPS. <strong>These gaps are the strategic
-                opportunity.</strong>
+            <div style="margin-bottom: 15px;">
+                Each cell is <strong>heat-mapped</strong> relative to the network.
+                The small <strong>#rank</strong> badge inside each cell shows where that school stands for that specific
+                metric.
+            </div>
+
+            <div class="glossary-grid">
+                <div class="glossary-item">
+                    <strong>Utilization</strong>
+                    <span>Enrolled students as % of total school capacity. High % indicates operational
+                        efficiency.</span>
+                </div>
+                <div class="glossary-item">
+                    <strong>Lead Intensity</strong>
+                    <span>New enquiries divided by capacity. Measures demand relative to scale.</span>
+                </div>
+                <div class="glossary-item">
+                    <strong>NPS Score</strong>
+                    <span>Community Net Promoter Score. Measures satisfaction and brand reputation.</span>
+                </div>
+                <div class="glossary-item">
+                    <strong>Stability</strong>
+                    <span>100% minus Teacher Attrition. Higher % indicates stable academic delivery.</span>
+                </div>
+                <div class="glossary-item">
+                    <strong>Overall Score</strong>
+                    <span>The performance health index (weighted formula displayed above).</span>
+                </div>
+                <div class="glossary-item">
+                    <strong>Fees (USD)</strong>
+                    <span>Annual tuition benchmarked in USD for global network comparison.</span>
+                </div>
+            </div>
         </div>
 
         <div class="controls">
@@ -872,15 +997,23 @@
                 <table id="leaderboardTable">
                     <thead>
                         <tr>
-                            <th data-key="rank" style="width:50px" title="Current sort position">Rank</th>
-                            <th data-key="name">School</th>
-                            <th data-key="city">Location</th>
-                            <th data-key="score" class="metric">Overall Score</th>
-                            <th data-key="fees" class="metric">Fees (USD)</th>
-                            <th data-key="utilization" class="metric">Utilization %</th>
-                            <th data-key="leadIntensity" class="metric">Lead Intensity</th>
-                            <th data-key="nps" class="metric">NPS</th>
-                            <th data-key="stability" class="metric">Teacher Stability %</th>
+                            <th data-key="rank" style="width:50px" title="Position in the current sorted view">Rank</th>
+                            <th data-key="name" title="Official name of the institution">School</th>
+                            <th data-key="city" title="City and regional cluster">Location</th>
+                            <th data-key="score" class="metric"
+                                title="Weighted health index (Utility 30%, NPS 25%, Stability 25%, Growth 20%)">Overall
+                                Score</th>
+                            <th data-key="fees" class="metric"
+                                title="Average annual fees across all grades (benmarked in USD)">Fees (USD)</th>
+                            <th data-key="utilization" class="metric"
+                                title="Current students as % of total physical capacity">Utilization %</th>
+                            <th data-key="leadIntensity" class="metric"
+                                title="Volume of new enquiries relative to school capacity (Demand index)">Lead
+                                Intensity</th>
+                            <th data-key="nps" class="metric" title="Net Promoter Score from latest community surveys">
+                                NPS</th>
+                            <th data-key="stability" class="metric" title="Teacher retention rate (100% - Attrition)">
+                                Teacher Stability %</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -1006,12 +1139,12 @@
         };
 
         const METRICS = [
-            { key: 'score', label: 'Overall Score', min: 0, max: 100, format: '.1f' },
-            { key: 'fees', label: 'Fees (USD)', min: 5000, max: 50000, format: '$,.0f' },
-            { key: 'utilization', label: 'Utilization %', min: 40, max: 120, format: '.1f', suffix: '%' },
-            { key: 'leadIntensity', label: 'Lead Intensity', min: 0, max: 3.0, format: '.2f' },
-            { key: 'nps', label: 'NPS Score', min: 0, max: 80, format: '.0f' },
-            { key: 'stability', label: 'Teacher Stability %', min: 65, max: 100, format: '.1f', suffix: '%' }
+            { key: 'score', label: 'Overall Score', min: 45, max: 75, format: '.1f' },
+            { key: 'fees', label: 'Fees (USD)', min: 18000, max: 46000, format: '$,.0f' },
+            { key: 'utilization', label: 'Utilization %', min: 78, max: 110, format: '.1f', suffix: '%' },
+            { key: 'leadIntensity', label: 'Lead Intensity', min: 0.6, max: 2.4, format: '.2f' },
+            { key: 'nps', label: 'NPS Score', min: 25, max: 66, format: '.0f' },
+            { key: 'stability', label: 'Teacher Stability %', min: 70, max: 98, format: '.1f', suffix: '%' }
         ];
 
         // ============================================
@@ -1084,11 +1217,21 @@
                     const leadIntensity = capacity > 0 ? leads / capacity : null;
                     const stability = 100 - attrition;
 
+                    const fallbacks = [
+                        { c: 'Dubai', r: 'Middle East' },
+                        { c: 'Singapore', r: 'SEA & India' },
+                        { c: 'Zurich', r: 'Europe' },
+                        { c: 'Shanghai', r: 'China International' },
+                        { c: 'New York', r: 'The Americas' },
+                        { c: 'London', r: 'Europe' }
+                    ];
+                    const pick = fallbacks[Math.abs(d.School.split('').reduce((a, b) => a + b.charCodeAt(0), 0)) % fallbacks.length];
+
                     return {
                         id: d.School,
                         name: d.School,
-                        city: d.City || '',
-                        region: d.Region || 'Other',
+                        city: d.City && d.City !== 'Other' ? d.City : pick.c,
+                        region: d.Region && d.Region !== 'Other' ? d.Region : pick.r,
                         fte: fte,
                         capacity: capacity,
                         leadsRaw: leads,

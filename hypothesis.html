@@ -1240,6 +1240,37 @@
             .attr("text-anchor", "middle").attr("fill", "#4b5563").attr("font-size", "0.85rem")
             .attr("letter-spacing", "2px").style("opacity", 1).text("SCROLL TO ANALYZE DRIVERS");
 
+        // Helper: Simple Linear Regression
+        function getRegression(data, xAccessor, yAccessor, xScale, yScale) {
+            const n = data.length;
+            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+            data.forEach(d => {
+                const x = xAccessor(d);
+                const y = yAccessor(d);
+                sumX += x;
+                sumY += y;
+                sumXY += x * y;
+                sumX2 += x * x;
+            });
+            const m = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+            const b = (sumY - m * sumX) / n;
+
+            // Get domain bounds for the line
+            const xDomain = xScale.domain();
+            const x1 = xDomain[0];
+            const y1 = m * x1 + b;
+            const x2 = xDomain[1];
+            const y2 = m * x2 + b;
+
+            return { x1: xScale(x1), y1: yScale(y1), x2: xScale(x2), y2: yScale(y2) };
+        }
+
+        const regressionLine = storySvg.append("line")
+            .attr("class", "regression-line")
+            .attr("stroke-width", 2)
+            .attr("stroke-dasharray", "5,5")
+            .style("opacity", 0);
+
         function updateStory(step) {
             const t = d3.transition().duration(800);
 
@@ -1250,8 +1281,7 @@
                 storySvg.select(".x-label").transition(t).style("opacity", 0);
                 storySvg.select(".y-label").transition(t).style("opacity", 0);
                 storySvg.select(".intro-text").transition(t).style("opacity", 1);
-                storySvg.select(".x-axis").transition(t).style("opacity", 0);
-                storySvg.select(".y-axis").transition(t).style("opacity", 0);
+                regressionLine.transition(t).style("opacity", 0);
                 return; // Exit early
             }
 
@@ -1284,53 +1314,68 @@
             if (step == 2) {
                 const fakeData = storyData.map(d => ({ ...d, fakeRate: (d.nps + 30) / 100 }));
                 sx.domain([15, 75]);
-                storySvg.select(".intro-text").transition(t).style("opacity", 0);
-                storySvg.select(".x-axis").transition(t).style("opacity", 1).call(d3.axisBottom(sx));
-                storySvg.select(".y-axis").transition(t).style("opacity", 1).call(d3.axisLeft(sy));
+                storySvg.select(".x-axis").transition(t).call(d3.axisBottom(sx));
+                storySvg.select(".y-axis").transition(t).call(d3.axisLeft(sy));
                 storySvg.select(".x-label").transition(t).style("opacity", 1).text("NPS Score (Hypothetical: Quality = Efficiency)");
-                storySvg.select(".y-label").transition(t).style("opacity", 1);
 
                 updateCircles(fakeData,
                     d => `<strong>Hypothetical Result</strong><br>NPS: ${d.nps.toFixed(0)}<br>Rate: ${d.fakeRate.toFixed(2)}`,
                     d => sx(d.nps), d => sy(d.fakeRate), d => 7, "#fcd34d", 0.7
                 );
+
+                const reg = getRegression(fakeData, d => d.nps, d => d.fakeRate, sx, sy);
+                regressionLine.transition(t)
+                    .attr("x1", reg.x1).attr("y1", reg.y1).attr("x2", reg.x2).attr("y2", reg.y2)
+                    .attr("stroke", "#fcd34d").style("opacity", 0.8);
             }
 
             if (step == 3) {
                 sx.domain([15, 75]);
-                storySvg.select(".x-axis").transition(t).style("opacity", 1).call(d3.axisBottom(sx));
-                storySvg.select(".y-axis").transition(t).style("opacity", 1).call(d3.axisLeft(sy));
+                storySvg.select(".x-axis").transition(t).call(d3.axisBottom(sx));
+                storySvg.select(".y-axis").transition(t).call(d3.axisLeft(sy));
                 storySvg.select(".x-label").style("opacity", 1).text("NPS Score (The Real Satisfaction Link)");
-                storySvg.select(".y-label").style("opacity", 1);
 
                 updateCircles(storyData,
                     d => `<strong>Actual School Performance</strong><br>NPS: ${d.nps.toFixed(0)}<br>Rate: ${d.rate.toFixed(2)}`,
                     d => sx(d.nps), d => sy(d.rate), d => 7, "#6b7280", 0.6
                 );
+
+                const reg = getRegression(storyData, d => d.nps, d => d.rate, sx, sy);
+                regressionLine.transition(t)
+                    .attr("x1", reg.x1).attr("y1", reg.y1).attr("x2", reg.x2).attr("y2", reg.y2)
+                    .attr("stroke", "#9ca3af").style("opacity", 0.6);
             }
 
             if (step == 4) {
-                storySvg.select(".x-axis").transition(t).style("opacity", 1).call(d3.axisBottom(sFees).tickFormat(d => "$" + d / 1000 + "k"));
-                storySvg.select(".y-axis").transition(t).style("opacity", 1).call(d3.axisLeft(sy));
+                storySvg.select(".x-axis").transition(t).call(d3.axisBottom(sFees).tickFormat(d => "$" + d / 1000 + "k"));
+                storySvg.select(".y-axis").transition(t).call(d3.axisLeft(sy));
                 storySvg.select(".x-label").style("opacity", 1).text("Average Fees (Market Filter Effect)");
-                storySvg.select(".y-label").style("opacity", 1);
 
                 updateCircles(storyData,
                     d => `<strong>Pricing Pressure</strong><br>Fees: $${(d.fees / 1000).toFixed(1)}k<br>Rate: ${d.rate.toFixed(2)}`,
                     d => sFees(d.fees), d => sy(d.rate), d => 7, "#ef4444", 0.8
                 );
+
+                const reg = getRegression(storyData, d => d.fees, d => d.rate, sFees, sy);
+                regressionLine.transition(t)
+                    .attr("x1", reg.x1).attr("y1", reg.y1).attr("x2", reg.x2).attr("y2", reg.y2)
+                    .attr("stroke", "#ef4444").style("opacity", 0.5);
             }
 
             if (step == 5) {
-                storySvg.select(".x-axis").transition(t).style("opacity", 1).call(d3.axisBottom(sScale));
-                storySvg.select(".y-axis").transition(t).style("opacity", 1).call(d3.axisLeft(sy));
+                storySvg.select(".x-axis").transition(t).call(d3.axisBottom(sScale));
+                storySvg.select(".y-axis").transition(t).call(d3.axisLeft(sy));
                 storySvg.select(".x-label").style("opacity", 1).text("Enrolled Students (Scale Effect: r=0.83)");
-                storySvg.select(".y-label").style("opacity", 1);
 
                 updateCircles(storyData,
                     d => `<strong>The Scale Driver</strong><br>Students: ${d.scale.toFixed(0)}<br>Rate: ${d.rate.toFixed(2)}`,
                     d => sScale(d.scale), d => sy(d.rate), d => Math.max(3, d.scale / 120), "#10b981", 0.8
                 );
+
+                const reg = getRegression(storyData, d => d.scale, d => d.rate, sScale, sy);
+                regressionLine.transition(t)
+                    .attr("x1", reg.x1).attr("y1", reg.y1).attr("x2", reg.x2).attr("y2", reg.y2)
+                    .attr("stroke", "#10b981").style("opacity", 0.8);
             }
         }
 

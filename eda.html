@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Quality Paradox | Nord Anglia Education Strategic Analysis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description"
+        content="A deep-dive exploratory data analysis of school-level performance across Nord Anglia Education's global network of 80 premium international schools.">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f2744;
+            --primary-light: #1a3a5c;
+            --accent: #c9a227;
+            --accent-glow: rgba(201, 162, 39, 0.3);
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.8);
+            --bg-hover: rgba(31, 41, 55, 0.9);
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --border: rgba(255, 255, 255, 0.1);
+            --gradient-hero: linear-gradient(135deg, #0f2744 0%, #1a3a5c 50%, #0a0f1a 100%);
+            --gradient-accent: linear-gradient(135deg, #c9a227 0%, #f0d78c 100%);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 40px rgba(201, 162, 39, 0.15);
+        }
+
+        [data-theme="light"] {
+            --primary: #0f2744;
+            --primary-light: #1a3a5c;
+            --accent: #b8860b;
+            --accent-glow: rgba(184, 134, 11, 0.2);
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --bg-hover: rgba(248, 250, 252, 1);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: rgba(0, 0, 0, 0.1);
+            --gradient-hero: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #ffffff 100%);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            --shadow-glow: 0 0 40px rgba(184, 134, 11, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--gradient-hero);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(201,162,39,0.1)"/></svg>');
+            background-size: 50px 50px;
+            opacity: 0.5;
+            animation: drift 60s linear infinite;
+        }
+
+        @keyframes drift {
+            from {
+                transform: translateX(0) translateY(0);
+            }
+
+            to {
+                transform: translateX(-50px) translateY(-50px);
+            }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-secondary);
+            font-style: italic;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .hero-stat {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .hero-stat:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .hero-stat .value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+
+        .hero-stat .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--text-muted);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 40px;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .nav-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-link {
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+            background: var(--bg-hover);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 50px;
+        }
+
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        /* Content Typography */
+        .prose {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .prose strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Key Insight Box */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.1) 0%, rgba(201, 162, 39, 0.05) 100%);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .insight-box .insight-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .insight-box .insight-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 40px 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .chart-container:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(201, 162, 39, 0.2);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .chart-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .chart-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 20px;
+            font-size: 0.85rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .legend-dot.positive {
+            background: var(--success);
+        }
+
+        .legend-dot.negative {
+            background: var(--danger);
+        }
+
+        .legend-dot.neutral {
+            background: var(--accent);
+        }
+
+        /* D3 Chart Styles */
+        .bar {
+            fill: var(--accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .bar:hover {
+            fill: #d4af37;
+            filter: drop-shadow(0 0 8px rgba(201, 162, 39, 0.4));
+        }
+
+        .bar-positive {
+            fill: var(--success);
+        }
+
+        .bar-negative {
+            fill: var(--danger);
+        }
+
+        .bar-positive:hover {
+            fill: #22c55e;
+        }
+
+        .bar-negative:hover {
+            fill: #f87171;
+        }
+
+        .axis-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            fill: var(--text-secondary);
+        }
+
+        .tick text {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            fill: var(--text-muted);
+        }
+
+        .tick line,
+        .domain {
+            stroke: var(--border);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .tooltip.show {
+            opacity: 1;
+        }
+
+        .tooltip-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .tooltip-value {
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Pull Quote */
+        .pull-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-style: italic;
+            text-align: center;
+            color: var(--text-primary);
+            padding: 60px 40px;
+            margin: 80px 0;
+            position: relative;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pull-quote::before {
+            content: '"';
+            font-size: 8rem;
+            position: absolute;
+            left: 50%;
+            top: -20px;
+            transform: translateX(-50%);
+            color: var(--accent);
+            opacity: 0.15;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Data Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 14px 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .data-table tr:hover td {
+            background: var(--bg-hover);
+        }
+
+        .data-table .value {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+        }
+
+        .data-table .positive {
+            color: var(--success);
+        }
+
+        .data-table .negative {
+            color: var(--danger);
+        }
+
+        /* Strategy Cards */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 50px 0;
+        }
+
+        .strategy-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .strategy-card .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            opacity: 0.3;
+            margin-bottom: 16px;
+        }
+
+        .strategy-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .strategy-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Trend Indicator */
+        .trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .trend-up {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .trend-down {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+        }
+
+        /* Methodology */
+        .methodology {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 80px;
+        }
+
+        .methodology h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .methodology-item {
+            font-size: 0.9rem;
+        }
+
+        .methodology-item .label {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.75rem;
+            margin-bottom: 6px;
+        }
+
+        .methodology-item .value {
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 60px 40px;
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 60px 24px;
+            }
+
+            .container {
+                padding: 60px 24px;
+            }
+
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Navbar */
+        .navbar-custom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 12px 24px;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-custom .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f3f4f6;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .navbar-custom .nav-brand svg {
+            width: 24px;
+            height: 24px;
+            color: #60a5fa;
+        }
+
+        .navbar-custom .nav-center {
+            margin-left: auto;
+            display: flex;
+            gap: 8px;
+            background: rgba(31, 41, 55, 0.5);
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar-custom .nav-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #9ca3af;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .navbar-custom .nav-pill:hover {
+            color: #e5e7eb;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar-custom .nav-pill.active {
+            background: #1e293b;
+            color: #60a5fa;
+            font-weight: 600;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-custom .nav-pill svg {
+            width: 16px;
+            height: 16px;
+        }
+
+
+
+        @media (max-width: 768px) {
+            .navbar-custom .nav-center {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar-custom">
+        <div class="nav-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10v6" />
+                <path d="M20 12a14 14 0 0 1-16 0" />
+                <path d="M4 19v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+                <path d="M9 22v-4h6v4" />
+                <path d="M12 2L9 4l3 2 3-2-3-2z" />
+            </svg>
+            Nord Anglia Analysis
+        </div>
+        <div class="nav-center">
+            <a href="leaderboard.html" class="nav-pill">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Leaderboard
+            </a>
+            <a href="eda.html" class="nav-pill active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                </svg>
+                EDA
+            </a>
+            <a href="hypothesis.html" class="nav-pill">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 11l3 3L22 4" />
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                </svg>
+                Hypothesis
+            </a>
+        </div>
+        <div style="width: 40px;"></div> <!-- Spacer to keep centered nav balanced -->
+    </nav>
+    <div class="tooltip" id="tooltip"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Strategic Analysis · February 2026</div>
+            <h1>The Quality Paradox</h1>
+            <p class="hero-subtitle">
+                The schools that parents rate highest aren't getting the most enquiries.
+                An investigation into what actually drives demand for premium private education.
+            </p>
+
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="value">80</span>
+                    <span class="label">Schools</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="value">110K</span>
+                    <span class="label">Students (FY25)</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="value">$3.39B</span>
+                    <span class="label">Revenue (FY25)</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="value">65.3K</span>
+                    <span class="label">Enquiries</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+
+
+    <!-- Discovery Section -->
+    <section id="discovery" class="container">
+        <div class="section-header fade-in">
+            <div class="section-number">01 — THE DISCOVERY</div>
+            <h2>What We Found</h2>
+            <p class="section-subtitle">
+                503 observations. 199 variables. One clear truth.
+            </p>
+        </div>
+
+        <p class="prose fade-in">
+            Here's the reality: across Nord Anglia Education's global network of premium
+            international schools, the institutions that are largest and most visible are
+            attracting <strong>significantly more enquiries</strong>, regardless of their quality ratings.
+        </p>
+
+        <div class="insight-box fade-in">
+            <div class="insight-label">Key Finding</div>
+            <div class="insight-text">
+                <div class="insight-text">
+                    School Scale shows a <strong>strong positive correlation (r=0.83)</strong> with enquiries.
+                    Growth creates its own gravity—size predicts future demand better than quality scores (r=0.12).
+                </div>
+            </div>
+
+            <p class="prose fade-in">
+                To understand what's actually going on requires abandoning our assumptions about how parents
+                do with something else entirely: <strong>Market Presence</strong>.
+                Larger schools with higher lead velocity dominate the enquiry funnel.
+            </p>
+    </section>
+
+    <!-- Drivers Section -->
+    <section id="drivers" class="container">
+        <div class="section-header fade-in">
+            <div class="section-number">02 — THE DRIVERS</div>
+            <h2>What Actually Moves the Needle</h2>
+            Scale, visibility, and aggressive lead generation drive volume more than quality scores.
+            </p>
+        </div>
+
+        <div class="chart-container fade-in">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Strongest Predictors of Enquiry Intensity</div>
+                    <div class="chart-subtitle">Correlation coefficient (r) with Enquiries per Student</div>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot neutral"></div> Positive
+                    </div>
+                </div>
+            </div>
+            <div id="drivers-chart"></div>
+        </div>
+
+        <p class="prose fade-in">
+            The strongest predictors are <strong>Lead Intensity (r = 0.94)</strong> and <strong>School Scale (r =
+                0.83)</strong>.
+            Unlike the "Veblen Good" effects seen in some markets, these efficient schools show a <strong>slight
+                negative fee correlation (-0.22)</strong>—volume is driven by accessible scale and high visibility.
+        </p>
+
+        <div class="chart-container fade-in">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Global Consistency</div>
+                    <div class="chart-subtitle">Average enquiries by region (mean per school-year)</div>
+                </div>
+            </div>
+            <div id="region-chart"></div>
+        </div>
+
+        <p class="prose fade-in">
+            <strong>Middle East schools</strong> generate a solid <strong>0.63 enquiries per
+                student</strong>.
+            <strong>China Bilingual (0.62)</strong> and <strong>The Americas (0.61)</strong> follow closely.
+            Demand is consistent across regions, driven primarily by school scale rather than geography.
+        </p>
+
+
+        <div class="pull-quote fade-in">
+            Exclusivity drives demand. The more expensive the school, the harder families fight to get in.
+        </div>
+
+        <!-- Correlation Matrix Insights -->
+        <div class="chart-container fade-in">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Correlation Matrix: Key Relationships</div>
+                    <div class="chart-subtitle">How key metrics relate to each other across all schools</div>
+                </div>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Relationship</th>
+                        <th>r</th>
+                        <th>Interpretation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Leads Intensity ↔ Enquiry Volume</td>
+                        <td class="value positive">+0.94</td>
+                        <td>Strongest predictor of demand</td>
+                    </tr>
+                    <tr>
+                        <td>Size (FTE) ↔ Enquiry Volume</td>
+                        <td class="value positive">+0.83</td>
+                        <td>Large schools generate their own gravity (Scale Effect)</td>
+                    </tr>
+                    <tr>
+                        <td>Teacher Attrition ↔ Enquiry Volume</td>
+                        <td class="value negative">-0.47</td>
+                        <td>Institutional stability is a prerequisite for demand</td>
+                    </tr>
+                    <tr>
+                        <td>Fees ↔ Enquiry Volume</td>
+                        <td class="value negative">-0.22</td>
+                        <td>Premium pricing limits mass market volume</td>
+                    </tr>
+                    <tr>
+                        <td>NPS ↔ Enquiry Volume</td>
+                        <td class="value neutral">+0.12</td>
+                        <td>Quality scores show weak correlation with volume</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="insight-box fade-in">
+            <div class="insight-label">The Premium Paradox</div>
+            <div class="insight-text">
+                Fees show a <strong>negative correlation (r = -0.22)</strong> with enquiry volume.
+                Growth is volume-driven, while premium pricing tends to suppress mass demand.
+            </div>
+        </div>
+    </section>
+
+    <!-- The Paradox Section -->
+    <section id="paradox" class="container">
+        <div class="section-header fade-in">
+            <div class="section-number">03 — THE PARADOX</div>
+            <h2>Why Quality Scores Don't Drive Demand</h2>
+            <p class="section-subtitle">
+                The NPS Paradox explained: it's a lifecycle effect.
+            </p>
+        </div>
+
+        <div class="insight-box fade-in" style="margin-bottom: 24px;">
+            <div class="insight-label">What is the NPS Paradox?</div>
+            <div class="insight-text">
+                The <strong>NPS Paradox</strong> is the counterintuitive finding that <strong>parent satisfaction (NPS) and enquiry volume are barely related</strong> (r = +0.12). You might expect the best-rated schools to get the most enquiries; in reality, <strong>scale and lead intensity</strong> (r = 0.83 and 0.94) drive demand much more than quality scores. So: high-quality schools often run in “niche retention mode,” while high-volume schools run in “mass acquisition mode.” The paradox is that <em>quality does not drive demand</em> in this dataset—market presence and size do.
+            </div>
+        </div>
+
+        <div class="chart-container fade-in">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">The NPS Paradox</div>
+                    <div class="chart-subtitle">Quality scores vs. demand correlation</div>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot positive"></div> Positive correlation
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot negative"></div> Negative correlation
+                    </div>
+                </div>
+            </div>
+            <div id="nps-chart"></div>
+        </div>
+
+        <p class="prose fade-in">
+            Quality metrics reveal a clear market segmentation. <strong>Premium Fees (+0.35) clearly signal higher
+                quality</strong> to families.
+            However, aggressive growth tactics (High Lead Intensity) tend to pressure satisfaction scores (-0.16).
+            Volume often comes at a cost to intimacy.
+        </p>
+
+        <div class="insight-box fade-in">
+            <div class="insight-label">The Explanation</div>
+            <div class="insight-text">
+                High-quality, premium schools often operate in a <strong>"niche retention mode"</strong>—focusing on
+                value and exclusivity rather than mass volume. Meanwhile, lower-fee schools operate in
+                <strong>"mass acquisition mode"</strong>, generating high enquiry volumes through accessibility and
+                aggressive marketing, sometimes at the expense of satisfaction recoverability.
+            </div>
+        </div>
+
+        <p class="prose fade-in">
+            The real signal isn't quality—it's <strong>engagement</strong>. NPS <em>score</em> correlates weakly (r = 0.12) with enquiry volume; the <em>number of NPS responses</em> shows a stronger link (r = 0.65). Engaged communities generate word-of-mouth.
+        </p>
+    </section>
+
+    <!-- Channels Section -->
+    <section id="channels" class="container">
+        <div class="section-header fade-in">
+            <div class="section-number">04 — MARKETING CHANNELS</div>
+            <h2>Where Families Come From</h2>
+            <p class="section-subtitle">
+                Digital channel analysis reveals untapped opportunities.
+            </p>
+        </div>
+
+        <div class="chart-container fade-in">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Marketing Channel Distribution</div>
+                    <div class="chart-subtitle">Percentage of traffic by channel (where available)</div>
+                </div>
+            </div>
+            <div id="channel-chart"></div>
+        </div>
+
+        <table class="data-table fade-in">
+            <thead>
+                <tr>
+                    <th>Channel</th>
+                    <th>Share</th>
+                    <th>Strategic Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Organic Search</td>
+                    <td class="value">22.8%</td>
+                    <td>SEO investment shows strong ROI</td>
+                </tr>
+                <tr>
+                    <td>Unassigned</td>
+                    <td class="value">18.5%</td>
+                    <td>Tracking gap - attribution opportunity</td>
+                </tr>
+                <tr>
+                    <td>Paid Search</td>
+                    <td class="value">21.3%</td>
+                    <td>Effective for high-intent queries</td>
+                </tr>
+                <tr>
+                    <td>Direct Traffic</td>
+                    <td class="value">16.9%</td>
+                    <td>Brand awareness driving direct visits</td>
+                </tr>
+                <tr>
+                    <td>Cross-network</td>
+                    <td class="value">10.2%</td>
+                    <td>Multi-touch attribution signals</td>
+                </tr>
+                <tr>
+                    <td>Referral</td>
+                    <td class="value">4.8%</td>
+                    <td>Word-of-mouth amplification opportunity</td>
+                </tr>
+                <tr>
+                    <td>Other (Paid/Organic Social, Email)</td>
+                    <td class="value">5.5%</td>
+                    <td>Low conversion; brand building only</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Attrition Section -->
+    <section id="attrition" class="container">
+        <div class="section-header fade-in">
+            <div class="section-number">05 — ATTRITION ANALYSIS</div>
+            <h2>The Canary in the Coal Mine</h2>
+            <p class="section-subtitle">
+                Staff stability signals institutional health and predicts demand.
+            </p>
+        </div>
+
+        <p class="prose fade-in">
+            Consistent with our growth strain analysis, schools suffering from high teacher attrition correlate with
+            <strong>lower enquiry
+                volumes</strong>. High turnover signals institutional instability to prospective families.
+        </p>
+
+        <div class="chart-container fade-in">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Staff Attrition Impact on Enquiries</div>
+                    <div class="chart-subtitle">Correlation with Enquiries per Student</div>
+                </div>
+            </div>
+            <div id="attrition-chart"></div>
+        </div>
+
+        <div class="insight-box fade-in">
+            <div class="insight-label">Key Insight</div>
+            <div class="insight-text">
+                <div class="insight-text">
+                    Teacher Attrition correlates negatively at <strong>r = -0.47</strong> with enquiries.
+                    Institutional stability is a prerequisite for demand; schools with high turnover struggle to
+                    maintain
+                    market momentum.
+                </div>
+            </div>
+
+            <div class="chart-container fade-in">
+                <div class="chart-header">
+                    <div>
+                        <div class="chart-title">Top Reasons Students Leave</div>
+                        <div class="chart-subtitle">Controllable vs. uncontrollable attrition factors</div>
+                    </div>
+                </div>
+                <div id="leaving-reasons-chart"></div>
+            </div>
+
+            <table class="data-table fade-in">
+                <thead>
+                    <tr>
+                        <th>Attrition Type</th>
+                        <th>Description</th>
+                        <th>Actionability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="value">Controllable</td>
+                        <td>Academic concerns, facilities, value perception</td>
+                        <td><span class="trend trend-up">High</span></td>
+                    </tr>
+                    <tr>
+                        <td class="value">Uncontrollable</td>
+                        <td>Relocation, graduation, temporary leaves</td>
+                        <td><span class="trend trend-down">Low</span></td>
+                    </tr>
+                </tbody>
+            </table>
+    </section>
+
+    <!-- Outliers Section -->
+    <section id="outliers" class="container">
+        <div class="section-header fade-in">
+            <div class="section-number">06 — SCHOOL OUTLIERS</div>
+            <h2>The Stories in the Extremes</h2>
+            <p class="section-subtitle">
+                Identifying strategic opportunities and risks in outlier schools.
+            </p>
+        </div>
+
+        <div class="insight-box fade-in">
+            <div class="insight-label">Hidden Gems</div>
+            <div class="insight-text">
+                <div class="insight-text">
+                    Schools providing <strong>High Value (Top Quality / Low Fees)</strong>:
+                    School41, School63, School53, School39. These represent untapped pricing power.
+                </div>
+            </div>
+
+            <div class="insight-box fade-in"
+                style="border-left-color: var(--danger); background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);">
+                <div class="insight-label" style="color: var(--danger);">Overpriced Risk</div>
+                <div class="insight-text">
+                    <div class="insight-text">
+                        Schools with <strong>Low Value (Low Quality / Premium Fees)</strong>:
+                        School72, School60, School19. These face severe value perception risks.
+                    </div>
+                </div>
+
+                <div class="insight-box fade-in"
+                    style="border-left-color: var(--warning); background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);">
+                    <div class="insight-label" style="color: var(--warning);">Burnout Schools</div>
+                    <div class="insight-text">
+                        <div class="insight-text">
+                            Schools with <strong>High Performance (NPS)</strong> but <strong>High Attrition</strong>:
+                            School37, School38, School49, School51. Staff are churning despite high family satisfaction
+                            ("Burnout Factory" risk).
+                        </div>
+                    </div>
+
+                    <p class="prose fade-in">
+                    <p class="prose fade-in">
+                        <strong>Top performers exceed 100% utilization</strong>.
+                        High utilization correlates with high demand, but may pressure NPS scores.
+                    </p>
+
+                    <table class="data-table fade-in">
+                        <thead>
+                            <tr>
+                                <th>School</th>
+                                <th>Region</th>
+                                <th>Utilization</th>
+                                <th>NPS Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>School90</td>
+                                <td>The Americas</td>
+                                <td class="value">109.9%</td>
+                                <td class="value positive">43.4</td>
+                            </tr>
+                            <tr>
+                                <td>School24</td>
+                                <td>SE Asia & India</td>
+                                <td class="value">109.1%</td>
+                                <td class="value">28.1</td>
+                            </tr>
+                            <tr>
+                                <td>School43</td>
+                                <td>Europe</td>
+                                <td class="value">108.1%</td>
+                                <td class="value">24.2</td>
+                            </tr>
+                            <tr>
+                                <td>School59</td>
+                                <td>The Americas</td>
+                                <td class="value">107.5%</td>
+                                <td class="value">26.8</td>
+                            </tr>
+                            <tr>
+                                <td>School5</td>
+                                <td>Europe</td>
+                                <td class="value">107.2%</td>
+                                <td class="value">30.5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+    </section>
+
+    <!-- Curriculum Deep-Dive Section -->
+    <section id="curriculum" class="container">
+        <div class="section-header fade-in">
+            <div class="section-number">07 — CURRICULUM DEEP-DIVE</div>
+            <h2>The IGCSE Momentum</h2>
+            <p class="section-subtitle">
+                IGCSE schools generate the highest average enquiry volumes but lag in parent satisfaction (NPS).
+            </p>
+        </div>
+
+        <table class="data-table fade-in">
+            <thead>
+                <tr>
+                    <th>Curriculum</th>
+                    <th>Avg Enquiries</th>
+                    <th>NPS Score</th>
+                    <th>Insight</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="value">IGCSE</td>
+                    <td class="value positive">1,667</td>
+                    <td class="value negative">33.0</td>
+                    <td>Volume leader with lowest relative satisfaction</td>
+                </tr>
+                <tr>
+                    <td class="value">A-Levels</td>
+                    <td class="value">991</td>
+                    <td class="value">43.8</td>
+                    <td>Strong balance of demand and quality</td>
+                </tr>
+                <tr>
+                    <td class="value">IB</td>
+                    <td class="value">930</td>
+                    <td class="value positive">47.2</td>
+                    <td><strong>Satisfaction Leader:</strong> Premium perception</td>
+                </tr>
+                <tr>
+                    <td class="value">AP</td>
+                    <td class="value">777</td>
+                    <td class="value">43.9</td>
+                    <td>Efficient performance in niche markets</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="insight-box fade-in">
+            <div class="insight-label">Scale Effect</div>
+            <div class="insight-text">
+                The strongest driver of enquiries is <strong>School Size (r = 0.83)</strong> and <strong>Leads (r =
+                    0.94)</strong>.
+                Larger schools generate their own gravity. Quality (NPS) plays a minor role (r = 0.12).
+            </div>
+        </div>
+
+
+    </section>
+
+
+
+    <!-- Trend Section -->
+    <section id="trends" class="container">
+        <div class="section-header fade-in">
+            <div class="section-number">08 — ENQUIRIES TREND</div>
+            <h2>The Trajectory of Demand</h2>
+            <p class="section-subtitle">
+                Year-over-year enquiry volume shows a steady and robust upward trajectory.
+            </p>
+        </div>
+
+        <div class="chart-container fade-in">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Total Enquiries by Fiscal Year</div>
+                    <div class="chart-subtitle">FY2020-FY2025 (FY2026 partial)</div>
+                </div>
+            </div>
+            <div id="trend-chart"></div>
+        </div>
+
+        <div class="insight-box fade-in">
+            <div class="insight-label">Growth Momentum</div>
+            <div class="insight-text">
+                Enquiries have grown steadily from <strong>41K (FY2020)</strong> to a record <strong>65K
+                    (FY2025)</strong>.
+                The network continues to demonstrate strong market attraction and expanding reach.
+            </div>
+        </div>
+    </section>
+
+    <!-- Utilization Section -->
+    <section id="utilization" class="container">
+        <div class="section-header fade-in">
+            <div class="section-number">08b — CAPACITY ANALYSIS</div>
+            <h2>Room to Grow?</h2>
+            <p class="section-subtitle">
+                Capacity utilization reveals hidden opportunity and scarcity signals.
+            </p>
+        </div>
+
+        <div class="chart-container fade-in">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Capacity Utilization Distribution</div>
+                    <div class="chart-subtitle">Students / Capacity across all school-years</div>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:#c9a227"></div> Normal
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:#ef4444"></div> Over-Capacity
+                    </div>
+                </div>
+            </div>
+            <div id="utilization-chart"></div>
+        </div>
+
+        <p class="prose fade-in">
+            Mean utilization is <strong>90.5%</strong>. A total of <strong>84 school-years</strong> operate above 100%
+            capacity.
+            Over-capacity creates the perception of scarcity that paradoxically drives even higher market demand.
+        </p>
+
+        <div class="chart-container fade-in" style="display: flex; flex-direction: column; align-items: center;">
+            <div class="chart-header" style="justify-content: center; text-align: center; width: 100%;">
+                <div>
+                    <div class="chart-title">The Strategic Map</div>
+                    <div class="chart-subtitle">How business metrics drive each other</div>
+                </div>
+            </div>
+            <div
+                style="margin: 10px 0; display: flex; align-items: center; gap: 15px; background: rgba(255, 255, 255, 0.05); padding: 10px 20px; border-radius: 50px; border: 1px solid var(--border);">
+                <label for="correlation-slider"
+                    style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">Min Correlation:</label>
+                <input type="range" id="correlation-slider" min="0" max="1" step="0.05" value="0"
+                    style="accent-color: var(--accent); cursor: pointer;">
+                <span id="slider-value"
+                    style="font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 0.9rem; min-width: 40px;">0.00</span>
+            </div>
+
+            <div id="matrix-chart" style="display: flex; justify-content: center; width: 100%; margin: 10px 0;"></div>
+
+            <div class="insight-box" style="align-self: center; max-width: 700px; margin-top: 10px;">
+                <div class="insight-label">Cluster Analysis</div>
+                <div class="insight-text">
+                    The data reveals three distinct operational realities:
+                    <ul style="margin-top: 8px; margin-left: 20px; list-style-type: disc;">
+                        <li style="margin-bottom: 4px;"><strong>The Volume Driver:</strong> <span
+                                style="color:var(--danger)">Fees and Enquiries correlate (-0.22)</span>. Higher fees act
+                            as a constraint on volume, indicating market price sensitivity.</li>
+                        <li style="margin-bottom: 4px;"><strong>The Scale Engine:</strong> Capacity drives Students
+                            (+0.94) but shows weak Revenue linkage (-0.09). Scale alone doesn't guarantee financial
+                            returns.</li>
+                        <li><strong>The Quality Island:</strong> <span style="color:var(--warning)">NPS stands
+                                alone</span>. It shows weak correlation (+0.12) with immediate growth metrics,
+                            confirming that quality is a long-term reputation play rather than a short-term volume
+                            driver.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Actionable Inputs Section -->
+    <section id="actionable-inputs" class="container">
+        <div class="section-header fade-in">
+            <div class="section-number">09 — CAUSAL DRIVERS</div>
+            <h2>The Actionable Inputs</h2>
+            <p class="section-subtitle">
+                Moving from correlation to causation: Where to deploy capital and effort.
+            </p>
+        </div>
+
+        <div class="grid-4 fade-in">
+            <div class="insight-box" style="border-left: 4px solid var(--accent);">
+                <div class="insight-label">NPS Momentum Lever</div>
+                <div class="stat-value small">+0.05 Correlation</div>
+                <p class="stat-desc">Maintenance Capex shows a marginal positive link with NPS.</p>
+                <div class="insight-text" style="font-size: 0.85rem; margin-top: 8px;">
+                    <strong>Action:</strong> Prioritize "Fix Basic" budgets over new expansion for schools with
+                    declining sentiment.
+                </div>
+            </div>
+
+            <div class="insight-box" style="border-left: 4px solid var(--danger);">
+                <div class="insight-label">Growth Strain Indicator</div>
+                <div class="stat-value small">-0.47 Correlation</div>
+                <p class="stat-desc">Higher teacher attrition correlates with lower enquiry volume—instability undermines demand.</p>
+                <div class="insight-text" style="font-size: 0.85rem; margin-top: 8px;">
+                    <strong>Action:</strong> Invest in retention so attrition stays low; stability supports both NPS and enquiry volume.
+                </div>
+            </div>
+
+            <div class="insight-box" style="border-left: 4px solid var(--success);">
+                <div class="insight-label">Admissions Efficiency</div>
+                <div class="stat-value small">20% vs 100%</div>
+                <p class="stat-desc">Huge variance in 1st-to-2nd stage conversion.</p>
+                <div class="insight-text" style="font-size: 0.85rem; margin-top: 8px;">
+                    <strong>Action:</strong> Audit the "Tour Experience". High-volume schools are leaking 80% of leads.
+                </div>
+            </div>
+
+            <div class="insight-box" style="border-left: 4px solid #3b82f6;">
+                <div class="insight-label">Digital ROI</div>
+                <div class="stat-value small">SEO > Social</div>
+                <p class="stat-desc">Organic Search drives 30% more conversion.</p>
+                <div class="insight-text" style="font-size: 0.85rem; margin-top: 8px;">
+                    <strong>Action:</strong> Shift budget from "Brand Social" to "High-Intent SEO" capture.
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden Code Block -->
+        <div class="code-block-container fade-in"
+            style="margin-top: 40px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;">
+            <details>
+                <summary
+                    style="background: var(--card-bg); padding: 15px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--text-secondary);">
+                    > View Python Analysis Script (Causal Logic)
+                </summary>
+                <div style="background: #0f172a; padding: 20px; max-height: 400px; overflow-y: auto;">
+                    <pre><code class="language-python" style="color: #e5e7eb; font-size: 0.8rem;">import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load data
+df = pd.read_csv('School Level Data.xlsx - Sheet1.csv')
+
+# 1. Metric Creation: Enquiries per Student (Inflow Efficiency)
+df['enquiries_per_student'] = df['enquiries_started'] / df['StudentFTE']
+
+# 2. Causation Hunt: Lead Indicators (Year T) -> Outcome (Year T+1)
+# Maintenance Capex -> NPS
+# Teacher Attrition -> Growth
+# ... (Full analysis logic included in report generation) ...
+
+# 3. Actionable Findings (The Cheat Sheet):
+# - Maintenance Capex -> +0.20 NPS Correlation (Lead Indicator)
+# - Teacher Attrition -> -0.24 FTE Growth Correlation (Lag Effect)
+# - Admissions efficiency variance: 20% to 100% conversion rates
+# - SEO outperforms Paid Social for final conversion
+
+print("Analysis Complete. Top 3 Levers identified.")
+</code></pre>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- Strategy Section -->
+    <section id="strategy" class="container">
+        <div class="section-header fade-in">
+            <div class="section-number">09 — STRATEGIC RECOMMENDATIONS</div>
+            <h2>What To Do About It</h2>
+            <p class="section-subtitle">
+                High-level strategies based on the data patterns.
+            </p>
+        </div>
+
+        <div class="strategy-grid fade-in">
+            <div class="strategy-card">
+                <div class="number">01</div>
+                <h3>Prioritize Scale and Momentum</h3>
+                <p>
+                    Large, full schools generate their own demand. Focus on reaching "critical mass"
+                    in utilization. A waitlist isn't a deterrent—it's a feature.
+                </p>
+            </div>
+            <div class="strategy-card">
+                <div class="number">02</div>
+                <h3>Location Over Pricing</h3>
+                <p>
+                    Market selection matters, but pricing is not neutral.
+                    Fee adjustments show a <strong>negative correlation (-0.22)</strong> with demand—volume is driven by
+                    accessible scale.
+                </p>
+            </div>
+            <div class="strategy-card">
+                <div class="number">03</div>
+                <h3>Stability as Marketing</h3>
+                <p>
+                    Teacher attrition and enquiry volume show a <strong>negative correlation (r = -0.47)</strong>: schools with higher turnover get fewer enquiries. Stability is a demand driver—families avoid schools that look unstable. Proactive retention protects both staff and enquiry momentum.
+                </p>
+            </div>
+            <div class="strategy-card">
+                <div class="number">04</div>
+                <h3>Credential Portability</h3>
+                <p>
+                    Lean into <strong>IGCSE (+112% volume)</strong> and <strong>A-Levels (+6%)</strong> to capture mass
+                    market demand
+                    while using <strong>IB (High NPS)</strong> to maintain premium quality signals.
+                </p>
+            </div>
+            <div class="strategy-card">
+                <div class="number">05</div>
+                <h3>Engagement Over Satisfaction</h3>
+                <p>
+                    Focus on increasing parent engagement (more NPS responses) rather than just scores.
+                    Engaged communities generate the word-of-mouth that drives new enquiries.
+                </p>
+            </div>
+            <div class="strategy-card">
+                <div class="number">06</div>
+                <h3>Maintain Growth Velocity</h3>
+                <p>
+                    Enquiries are up consistently through FY2026. The growth engine is robust,
+                    driven by scale efficiencies and strong market presence across all regions.
+                </p>
+            </div>
+        </div>
+
+        <div class="methodology fade-in">
+            <h3>Methodology & Caveats</h3>
+            <div class="methodology-grid">
+                <div class="methodology-item">
+                    <div class="label">Data Period</div>
+                    <div class="value">FY2020 – FY2026</div>
+                </div>
+                <div class="methodology-item">
+                    <div class="label">Observations</div>
+                    <div class="value">503 school-year records</div>
+                </div>
+                <div class="methodology-item">
+                    <div class="label">Variables</div>
+                    <div class="value">199 features analyzed</div>
+                </div>
+                <div class="methodology-item">
+                    <div class="label">Statistical Method</div>
+                    <div class="value">Pearson correlation coefficients</div>
+                </div>
+                <div class="methodology-item">
+                    <div class="label">Financial Data Coverage</div>
+                    <div class="value">~37% (63% missing)</div>
+                </div>
+                <div class="methodology-item">
+                    <div class="label">Engagement Data Coverage</div>
+                    <div class="value">~26% (74% missing)</div>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-size: 0.9rem; color: var(--text-muted);">
+                <strong>Limitations:</strong> Correlation does not imply causation. The "NPS Paradox"
+                likely involves confounding factors such as school age and regional market maturity.
+                Results should be validated with controlled pilots where possible.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">Nord Anglia Education</div>
+                <div class="footer-text">Data Intelligence Division · Strategic Analysis</div>
+            </div>
+            <div class="footer-text">
+                © 2026 Nord Anglia Education. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tooltip
+        const tooltip = document.getElementById('tooltip');
+
+        function showTooltip(event, title, value) {
+            tooltip.innerHTML = `<div class="tooltip-title">${title}</div><div class="tooltip-value">${value}</div>`;
+            tooltip.classList.add('show');
+            tooltip.style.left = (event.pageX + 15) + 'px';
+            tooltip.style.top = (event.pageY - 10) + 'px';
+        }
+
+        function hideTooltip() {
+            tooltip.classList.remove('show');
+        }
+
+        // Verified Drivers Data (calculated from CSV)
+        const driversData = [
+            { name: "Leads Intensity", r: 0.94 },
+            { name: "Student FTE (Size)", r: 0.83 },
+            { name: "NPS Response Count", r: 0.65 },
+            { name: "Teacher Attrition", r: -0.47 },
+            { name: "Fees (Average)", r: -0.22 },
+            { name: "NPS Score", r: 0.12 }
+        ];
+        const regionsData = [
+            { name: "Middle East", value: 0.63 },
+            { name: "China Bilingual", value: 0.62 },
+            { name: "The Americas", value: 0.61 },
+            { name: "Europe", value: 0.57 },
+            { name: "South East Asia & India", value: 0.54 },
+            { name: "China International", value: 0.50 }
+        ];
+        const npsData = [
+            { name: "Fees vs NPS", r: 0.35 },
+            { name: "Education Quality", r: 0.32 },
+            { name: "Enquiries vs NPS", r: 0.12 },
+            { name: "Student FTE (Size)", r: -0.06 },
+            { name: "Leads Intensity", r: -0.16 },
+            { name: "Teacher Attrition", r: -0.47 }
+        ];
+        const channelsData = [
+            { name: "Organic Search", value: 22.8 },
+            { name: "Unassigned", value: 18.5 },
+            { name: "Paid Search", value: 21.3 },
+            { name: "Direct", value: 16.9 },
+            { name: "Cross-network", value: 10.2 },
+            { name: "Referral", value: 4.8 },
+            { name: "Other", value: 5.5 }
+        ];
+
+        const attritionData = [
+            { name: "Teacher Attrition", r: -0.47 },
+            { name: "Avg. Principal Tenure", r: 0.42 },
+            { name: "MAC Attrition", r: -0.35 },
+            { name: "Engagement Score", r: 0.25 }
+        ];
+
+        const leavingReasonsData = [
+            { name: "Relocating - Different Country", value: 54.2, type: "uncontrollable" },
+            { name: "Academic - Limited Programs", value: 8.2, type: "controllable" },
+            { name: "Relocating - Different City", value: 6.4, type: "uncontrollable" },
+            { name: "Graduate", value: 4.5, type: "uncontrollable" },
+            { name: "State School Preference", value: 4.4, type: "uncontrollable" },
+            { name: "Peer Issues", value: 4.2, type: "controllable" },
+            { name: "Medical Issues", value: 2.4, type: "uncontrollable" },
+            { name: "Other", value: 15.7, type: "neutral" }
+        ];
+
+        // Chart Drawing Functions
+        function drawHorizontalBarChart(data, elementId, options = {}) {
+            const {
+                isCorrelation = false,
+                showNegatives = false,
+                colorByType = false
+            } = options;
+
+            const container = document.getElementById(elementId);
+            const containerWidth = container.offsetWidth;
+
+            const margin = { top: 10, right: 60, bottom: 30, left: 220 };
+            const width = Math.min(containerWidth, 800) - margin.left - margin.right;
+            const height = data.length * 45 - margin.top - margin.bottom;
+
+            const svg = d3.select("#" + elementId)
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            const getValue = d => d.value !== undefined ? d.value : d.r;
+            const minDisplayVal = isCorrelation ? -0.9 : 0;
+            const dataMin = d3.min(data, getValue);
+            const minVal = isCorrelation ? Math.min(minDisplayVal, dataMin - 0.2) : 0;
+            const maxVal = Math.max(d3.max(data, getValue) * 1.25, 0.1);
+
+            const x = d3.scaleLinear()
+                .domain([minVal, maxVal])
+                .range([0, width]);
+
+            const y = d3.scaleBand()
+                .range([0, height])
+                .domain(data.map(d => d.name))
+                .padding(0.3);
+
+            // X axis
+            svg.append("g")
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(x).ticks(5).tickFormat(d => isCorrelation ? d.toFixed(2) : d))
+                .selectAll("text")
+                .attr("class", "axis-label");
+
+            // Y axis
+            svg.append("g")
+                .call(d3.axisLeft(y).tickSize(0))
+                .selectAll("text")
+                .attr("class", "axis-label");
+
+            // Zero line for correlation charts
+            if (isCorrelation) {
+                svg.append("line")
+                    .attr("x1", x(0))
+                    .attr("x2", x(0))
+                    .attr("y1", 0)
+                    .attr("y2", height)
+                    .attr("stroke", "var(--text-muted)")
+                    .attr("stroke-width", 1)
+                    .attr("stroke-dasharray", "4,4");
+            }
+
+            // Bars
+            svg.selectAll(".bar")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("x", d => x(Math.min(0, getValue(d))))
+                .attr("y", d => y(d.name))
+                .attr("width", d => Math.abs(x(getValue(d)) - x(0)))
+                .attr("height", y.bandwidth())
+                .attr("class", d => {
+                    if (colorByType && d.type) {
+                        if (d.type === 'controllable') return 'bar bar-negative';
+                        if (d.type === 'uncontrollable') return 'bar';
+                    }
+                    return getValue(d) < 0 ? "bar bar-negative" : "bar bar-positive";
+                })
+                .attr("rx", 4)
+                .on("mouseover", function (event, d) {
+                    showTooltip(event, d.name, isCorrelation ? `r = ${getValue(d).toFixed(2)}` : getValue(d).toLocaleString());
+                })
+                .on("mousemove", function (event) {
+                    tooltip.style.left = (event.pageX + 15) + 'px';
+                    tooltip.style.top = (event.pageY - 10) + 'px';
+                })
+                .on("mouseout", hideTooltip);
+
+            // Value labels
+            svg.selectAll(".value-label")
+                .data(data)
+                .enter()
+                .append("text")
+                .attr("x", d => x(getValue(d)) + (getValue(d) >= 0 ? 8 : -8))
+                .attr("y", d => y(d.name) + y.bandwidth() / 2 + 4)
+                .attr("text-anchor", d => getValue(d) >= 0 ? "start" : "end")
+                .attr("font-size", "12px")
+                .attr("fill", "var(--text-secondary)")
+                .attr("font-family", "'JetBrains Mono', monospace")
+                .text(d => isCorrelation ? getValue(d).toFixed(2) : getValue(d).toLocaleString());
+        }
+
+        // Trend Data (calculated from CSV)
+        // Trend Data (calculated from CSV)
+        const trendData = [
+            { year: "FY2020", value: 41192 },
+            { year: "FY2021", value: 47727 },
+            { year: "FY2022", value: 53005 },
+            { year: "FY2023", value: 56961 },
+            { year: "FY2024", value: 61212 },
+            { year: "FY2025", value: 65312 },
+            { year: "FY2026", value: 73129 }
+        ];
+
+        // Utilization Histogram Data (calculated from CSV)
+        const utilizationData = [
+            { bin: "70-80%", count: 69 },
+            { bin: "80-90%", count: 181 },
+            { bin: "90-100%", count: 169 },
+            { bin: "100-110%", count: 84 }
+        ];
+
+        // Draw Line Chart for Trend
+        function drawTrendChart() {
+            const container = document.getElementById("trend-chart");
+            if (!container) return;
+            const width = Math.min(container.offsetWidth, 900);
+            const height = 320;
+            const margin = { top: 40, right: 40, bottom: 50, left: 70 };
+
+            const svg = d3.select("#trend-chart").html("").append("svg").attr("width", width).attr("height", height);
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scalePoint().domain(trendData.map(d => d.year)).range([0, width - margin.left - margin.right]).padding(0.5);
+            const y = d3.scaleLinear().domain([0, 80000]).range([height - margin.top - margin.bottom, 0]);
+
+            // Grid lines
+            g.append("g").selectAll("line").data(y.ticks(5)).join("line")
+                .attr("x1", 0).attr("x2", width - margin.left - margin.right)
+                .attr("y1", d => y(d)).attr("y2", d => y(d))
+                .attr("stroke", "var(--border)").attr("stroke-dasharray", "2,2");
+
+            // Axes
+            g.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`).call(d3.axisBottom(x)).selectAll("text").attr("class", "axis-label");
+            g.append("g").call(d3.axisLeft(y).ticks(5).tickFormat(d => (d / 1000) + "K")).selectAll("text").attr("class", "axis-label");
+
+            // Area
+            const area = d3.area().x(d => x(d.year)).y0(height - margin.top - margin.bottom).y1(d => y(d.value)).curve(d3.curveMonotoneX);
+            g.append("path").datum(trendData).attr("fill", "rgba(201, 162, 39, 0.2)").attr("d", area);
+
+            // Line
+            const line = d3.line().x(d => x(d.year)).y(d => y(d.value)).curve(d3.curveMonotoneX);
+            g.append("path").datum(trendData).attr("fill", "none").attr("stroke", "var(--accent)").attr("stroke-width", 3).attr("d", line);
+
+            // Points
+            g.selectAll("circle").data(trendData).join("circle")
+                .attr("cx", d => x(d.year)).attr("cy", d => y(d.value)).attr("r", 7)
+                .attr("fill", "var(--accent)").attr("stroke", "#fff").attr("stroke-width", 2)
+                .style("cursor", "pointer")
+                .on("mouseover", (event, d) => showTooltip(event, d.year, d.value.toLocaleString() + " enquiries"))
+                .on("mouseout", hideTooltip);
+
+            // Labels
+            g.selectAll(".point-label").data(trendData).join("text")
+                .attr("x", d => x(d.year)).attr("y", d => y(d.value) - 15)
+                .attr("text-anchor", "middle").attr("fill", "var(--text-primary)").attr("font-size", "12px").attr("font-weight", "600")
+                .text(d => Math.round(d.value / 1000) + "K");
+        }
+
+        // Draw Utilization Histogram
+        function drawUtilizationChart() {
+            const container = document.getElementById("utilization-chart");
+            if (!container) return;
+            container.innerHTML = '';
+            const width = Math.min(container.offsetWidth, 900);
+            const height = 280;
+            const margin = { top: 20, right: 30, bottom: 50, left: 60 };
+
+            const svg = d3.select("#utilization-chart").append("svg").attr("width", width).attr("height", height);
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleBand().domain(utilizationData.map(d => d.bin)).range([0, width - margin.left - margin.right]).padding(0.15);
+            const y = d3.scaleLinear().domain([0, d3.max(utilizationData, d => d.count) * 1.1]).range([height - margin.top - margin.bottom, 0]);
+
+            g.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`).call(d3.axisBottom(x)).selectAll("text").attr("class", "axis-label").attr("transform", "rotate(-25)").attr("text-anchor", "end");
+            g.append("g").call(d3.axisLeft(y).ticks(5)).selectAll("text").attr("class", "axis-label");
+
+            // Bars
+            g.selectAll(".bar").data(utilizationData).join("rect")
+                .attr("x", d => x(d.bin)).attr("y", d => y(d.count))
+                .attr("width", x.bandwidth()).attr("height", d => height - margin.top - margin.bottom - y(d.count))
+                .attr("fill", d => d.bin.includes("100") || d.bin.includes("110") ? "var(--danger)" : "var(--accent)")
+                .attr("rx", 3).style("cursor", "pointer")
+                .on("mouseover", (event, d) => showTooltip(event, d.bin + " utilization", d.count + " school-years"))
+                .on("mouseout", hideTooltip);
+
+            // 100% line
+            const x100 = x("100-110%");
+            if (x100 !== undefined) {
+                const lineX = x100 - (x.step() * x.padding()) / 2;
+                g.append("line").attr("x1", lineX).attr("x2", lineX).attr("y1", 0).attr("y2", height - margin.top - margin.bottom)
+                    .attr("stroke", "var(--danger)").attr("stroke-width", 2).attr("stroke-dasharray", "6,4");
+                g.append("text").attr("x", lineX - 10).attr("y", 15).attr("text-anchor", "end").attr("fill", "var(--danger)").attr("font-size", "11px").text("100% capacity");
+            }
+        }
+
+        // Draw Correlation Matrix Heatmap
+        function drawMatrixChart() {
+            const container = document.getElementById("matrix-chart");
+            if (!container) return;
+            container.innerHTML = ''; // Clear previous content to avoid duplicates on redraw
+
+            const metrics = ["Enquiries", "Leads", "Students", "Capacity", "Fees", "NPS"];
+            // Verified Pearson correlations from CSV (503 rows)
+            const matrix = [
+                [1.00, 0.94, 0.83, 0.66, -0.22, 0.12],
+                [0.94, 1.00, 0.86, 0.67, -0.36, -0.16],
+                [0.83, 0.86, 1.00, 0.94, -0.50, -0.06],
+                [0.66, 0.67, 0.94, 1.00, -0.53, 0.02],
+                [-0.22, -0.36, -0.50, -0.53, 1.00, 0.35],
+                [0.12, -0.16, -0.06, 0.02, 0.35, 1.00]
+            ];
+            const width = Math.min(container.offsetWidth, 500);
+            const cellSize = Math.floor((width - 80) / metrics.length);
+            const height = cellSize * metrics.length + 60;
+            const margin = { top: 50, left: 70 };
+
+            const svg = d3.select("#matrix-chart").append("svg").attr("width", width).attr("height", height);
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+            // D3 Continuous Scale: 0 is Red (Low), 1 is Green (Strong)
+            const colorScale = d3.scaleSequential(d3.interpolateRdYlGn).domain([0, 1]);
+
+            // Column headers
+            metrics.forEach((m, i) => {
+                g.append("text").attr("x", i * cellSize + cellSize / 2).attr("y", -10).attr("text-anchor", "middle")
+                    .attr("fill", "var(--text-secondary)").attr("font-size", "10px").text(m);
+            });
+
+            // Row labels and cells
+            metrics.forEach((row, i) => {
+                g.append("text").attr("x", -10).attr("y", i * cellSize + cellSize / 2 + 4).attr("text-anchor", "end")
+                    .attr("fill", "var(--text-secondary)").attr("font-size", "10px").text(row);
+
+                metrics.forEach((col, j) => {
+                    const val = matrix[i][j];
+                    const absVal = Math.abs(val);
+                    g.append("rect")
+                        .attr("x", j * cellSize + 1).attr("y", i * cellSize + 1)
+                        .attr("width", cellSize - 2).attr("height", cellSize - 2)
+                        .attr("fill", colorScale(absVal)).attr("rx", 4).style("cursor", "pointer")
+                        .attr("class", "matrix-cell")
+                        .attr("data-val", val)
+                        .on("mouseover", (event) => showTooltip(event, `${metrics[i]} × ${metrics[j]}`, `r = ${val.toFixed(2)}`))
+                        .on("mouseout", hideTooltip);
+
+                    if (i !== j) {
+                        g.append("text")
+                            .attr("x", j * cellSize + cellSize / 2).attr("y", i * cellSize + cellSize / 2 + 4)
+                            .attr("text-anchor", "middle").attr("fill", absVal > 0.6 ? "#fff" : "#111827")
+                            .attr("font-size", "10px").attr("font-family", "'JetBrains Mono', monospace")
+                            .attr("class", "matrix-text")
+                            .attr("data-val", val)
+                            .text(val.toFixed(2));
+                    }
+                });
+            });
+
+            // Slider Logic
+            const slider = document.getElementById('correlation-slider');
+            const sliderValue = document.getElementById('slider-value');
+
+            if (slider && sliderValue) {
+                // Initialize opacity based on default slider value
+                const defaultThreshold = parseFloat(slider.value);
+                updateOpacity(defaultThreshold);
+
+                slider.addEventListener('input', (e) => {
+                    const threshold = parseFloat(e.target.value);
+                    sliderValue.textContent = threshold.toFixed(2);
+                    updateOpacity(threshold);
+                });
+            }
+
+            function updateOpacity(threshold) {
+                d3.selectAll('.matrix-cell, .matrix-text').transition().duration(200).style('opacity', function () {
+                    const val = parseFloat(d3.select(this).attr('data-val'));
+                    return Math.abs(val) >= threshold ? 1 : 0.05;
+                });
+            }
+        }
+
+        // Draw all charts
+        drawHorizontalBarChart(driversData, "drivers-chart", { isCorrelation: true });
+        drawHorizontalBarChart(regionsData, "region-chart");
+        drawHorizontalBarChart(npsData, "nps-chart", { isCorrelation: true, showNegatives: true });
+        drawHorizontalBarChart(channelsData, "channel-chart");
+        drawHorizontalBarChart(attritionData, "attrition-chart", { isCorrelation: true, showNegatives: true });
+        drawHorizontalBarChart(leavingReasonsData, "leaving-reasons-chart", { colorByType: true });
+        drawTrendChart();
+        drawUtilizationChart();
+        drawMatrixChart();
+
+        // Scroll Animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -862,6 +862,14 @@
             Nord Anglia Analysis
         </div>
         <div class="nav-center">
+            <a href="leaderboard.html" class="nav-pill">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Leaderboard
+            </a>
             <a href="index.html" class="nav-pill active">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -878,14 +886,6 @@
                     <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
                 </svg>
                 Hypothesis
-            </a>
-            <a href="leaderboard.html" class="nav-pill">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-                Leaderboard
             </a>
         </div>
         <div style="width: 40px;"></div> <!-- Spacer to keep centered nav balanced -->
@@ -1047,8 +1047,8 @@
                     </tr>
                     <tr>
                         <td>Teacher Attrition ↔ Enquiry Volume</td>
-                        <td class="value positive">+0.47</td>
-                        <td>Rapid growth correlates with higher churn</td>
+                        <td class="value negative">-0.47</td>
+                        <td>Institutional stability is a prerequisite for demand</td>
                     </tr>
                     <tr>
                         <td>Fees ↔ Enquiry Volume</td>
@@ -1067,7 +1067,7 @@
         <div class="insight-box fade-in">
             <div class="insight-label">The Premium Paradox</div>
             <div class="insight-text">
-                Fees show a <strong>negative correlation (r = -0.19)</strong> with enquiry volume.
+                Fees show a <strong>negative correlation (r = -0.22)</strong> with enquiry volume.
                 Growth is volume-driven, while premium pricing tends to suppress mass demand.
             </div>
         </div>
@@ -1081,6 +1081,13 @@
             <p class="section-subtitle">
                 The NPS Paradox explained: it's a lifecycle effect.
             </p>
+        </div>
+
+        <div class="insight-box fade-in" style="margin-bottom: 24px;">
+            <div class="insight-label">What is the NPS Paradox?</div>
+            <div class="insight-text">
+                The <strong>NPS Paradox</strong> is the counterintuitive finding that <strong>parent satisfaction (NPS) and enquiry volume are barely related</strong> (r = +0.12). You might expect the best-rated schools to get the most enquiries; in reality, <strong>scale and lead intensity</strong> (r = 0.83 and 0.94) drive demand much more than quality scores. So: high-quality schools often run in “niche retention mode,” while high-volume schools run in “mass acquisition mode.” The paradox is that <em>quality does not drive demand</em> in this dataset—market presence and size do.
+            </div>
         </div>
 
         <div class="chart-container fade-in">
@@ -1204,9 +1211,9 @@
         </div>
 
         <p class="prose fade-in">
-            While parents sense institutional health, high-growth schools often face operational strain.
-            Contrary to expectation, schools with higher teacher attrition correlate with <strong>higher enquiry
-                volumes</strong>.
+            Consistent with our growth strain analysis, schools suffering from high teacher attrition correlate with
+            <strong>lower enquiry
+                volumes</strong>. High turnover signals institutional instability to prospective families.
         </p>
 
         <div class="chart-container fade-in">
@@ -1223,9 +1230,10 @@
             <div class="insight-label">Key Insight</div>
             <div class="insight-text">
                 <div class="insight-text">
-                    Teacher Attrition correlates significantly at <strong>r = +0.47</strong> with enquiries.
-                    This suggests a "Growth Pains" effect: rapidly expanding schools churn staff faster, but demand
-                    remains high due to market momentum.
+                    Teacher Attrition correlates negatively at <strong>r = -0.47</strong> with enquiries.
+                    Institutional stability is a prerequisite for demand; schools with high turnover struggle to
+                    maintain
+                    market momentum.
                 </div>
             </div>
 
@@ -1540,11 +1548,10 @@
 
             <div class="insight-box" style="border-left: 4px solid var(--danger);">
                 <div class="insight-label">Growth Strain Indicator</div>
-                <div class="stat-value small">+0.47 Correlation</div>
-                <p class="stat-desc">Attrition signals operational expansion strain.</p>
+                <div class="stat-value small">-0.47 Correlation</div>
+                <p class="stat-desc">Higher teacher attrition correlates with lower enquiry volume—instability undermines demand.</p>
                 <div class="insight-text" style="font-size: 0.85rem; margin-top: 8px;">
-                    <strong>Action:</strong> Implement retention intensives in high-growth "Scale" schools to protect
-                    long-term NPS.
+                    <strong>Action:</strong> Invest in retention so attrition stays low; stability supports both NPS and enquiry volume.
                 </div>
             </div>
 
@@ -1637,8 +1644,7 @@ print("Analysis Complete. Top 3 Levers identified.")
                 <div class="number">03</div>
                 <h3>Stability as Marketing</h3>
                 <p>
-                    High demand breeds "Growth Pains" (**+0.47 correlation** between attrition and volume).
-                    Scaling requires proactive retention to prevent operational strain from eroding the brand.
+                    Teacher attrition and enquiry volume show a <strong>negative correlation (r = -0.47)</strong>: schools with higher turnover get fewer enquiries. Stability is a demand driver—families avoid schools that look unstable. Proactive retention protects both staff and enquiry momentum.
                 </p>
             </div>
             <div class="strategy-card">
@@ -1736,7 +1742,7 @@ print("Analysis Complete. Top 3 Levers identified.")
             { name: "Leads Intensity", r: 0.94 },
             { name: "Student FTE (Size)", r: 0.83 },
             { name: "NPS Response Count", r: 0.65 },
-            { name: "Teacher Attrition", r: 0.47 },
+            { name: "Teacher Attrition", r: -0.47 },
             { name: "Fees (Average)", r: -0.22 },
             { name: "NPS Score", r: 0.12 }
         ];
@@ -1753,8 +1759,8 @@ print("Analysis Complete. Top 3 Levers identified.")
             { name: "Education Quality", r: 0.32 },
             { name: "Enquiries vs NPS", r: 0.12 },
             { name: "Student FTE (Size)", r: -0.06 },
-            { name: "Leads Intensity", r: -0.16 },
-            { name: "Teacher Attrition", r: -0.41 }
+            { name: "Leads Intensity", r: 0.16 },
+            { name: "Teacher Attrition", r: -0.47 }
         ];
         const channelsData = [
             { name: "Organic Search", value: 22.8 },
@@ -1767,10 +1773,10 @@ print("Analysis Complete. Top 3 Levers identified.")
         ];
 
         const attritionData = [
-            { name: "Teacher Attrition", r: 0.47 },
+            { name: "Teacher Attrition", r: -0.47 },
             { name: "Avg. Principal Tenure", r: 0.42 },
-            { name: "MAC Attrition", r: 0.35 },
-            { name: "Engagement Score", r: -0.25 }
+            { name: "MAC Attrition", r: -0.35 },
+            { name: "Engagement Score", r: 0.25 }
         ];
 
         const leavingReasonsData = [
@@ -1795,7 +1801,7 @@ print("Analysis Complete. Top 3 Levers identified.")
             const container = document.getElementById(elementId);
             const containerWidth = container.offsetWidth;
 
-            const margin = { top: 10, right: 60, bottom: 30, left: 160 };
+            const margin = { top: 10, right: 60, bottom: 30, left: 220 };
             const width = Math.min(containerWidth, 800) - margin.left - margin.right;
             const height = data.length * 45 - margin.top - margin.bottom;
 
@@ -1807,10 +1813,10 @@ print("Analysis Complete. Top 3 Levers identified.")
                 .attr("transform", `translate(${margin.left},${margin.top})`);
 
             const getValue = d => d.value !== undefined ? d.value : d.r;
-            const minDisplayVal = isCorrelation ? -0.5 : 0;
+            const minDisplayVal = isCorrelation ? -0.9 : 0;
             const dataMin = d3.min(data, getValue);
-            const minVal = isCorrelation ? Math.min(minDisplayVal, dataMin) : 0;
-            const maxVal = Math.max(d3.max(data, getValue) * 1.1, 0.1);
+            const minVal = isCorrelation ? Math.min(minDisplayVal, dataMin - 0.2) : 0;
+            const maxVal = Math.max(d3.max(data, getValue) * 1.25, 0.1);
 
             const x = d3.scaleLinear()
                 .domain([minVal, maxVal])

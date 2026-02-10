@@ -6,26 +6,26 @@
 ---------------------------------------------------------------------------
   ID    Name                       Claimed   Actual     n Verdict
 ---------------------------------------------------------------------------
-  H1    Scale Effect                 +0.83    +0.83   503 ✅  [StudentFTE vs Enquiries]
-  H2    Growth Strain                +0.47    +0.47   503 ✅  [Teacher Attrition vs Enquiries]
-  H3    Leader Stability             +0.20    -0.00   143 ⚠️  Δ=0.20  [Principal Tenure vs Rate]
-  H4    Retention Momentum           +0.14    -0.07    66 ⚠️  Δ=0.21  [CVR YoY vs Rate]
+  H1    Scale Effect                 +0.83    +0.18   503 ⚠️  Δ=0.65  [StudentFTE vs Enquiries]
+  H2    Growth Strain                -0.47    -0.69   503 ⚠️  Δ=0.22  [Teacher Attrition vs Enquiries]
+  H3    Leader Stability             +0.20    -0.03   143 ⚠️  Δ=0.23  [Principal Tenure vs Rate]
+  H4    Retention Momentum           +0.14    -0.34    66 ⚠️  Δ=0.48  [CVR YoY vs Rate]
   H5    IB Quality Magnet            +0.32      ---       ℹ️  Categorical  [IB NPS - use nps_education_quality]
   H6    IGCSE Volume Engine          +0.10      ---       ℹ️  Categorical  [IGCSE +112% - categorical]
   H7    A-Level Core                 +0.09      ---       ℹ️  Categorical  [A-Levels +6% - categorical]
   H8    Multi-Program Lift           +0.09      ---       ℹ️  Categorical  [Multi-curricula - categorical]
-  H9    Lead Velocity                +0.94    +0.94   503 ✅  [Leads vs Enquiries]
+  H9    Lead Velocity                +0.94    -0.05   503 ⚠️  Δ=0.99  [Leads vs Enquiries]
   H10   Regional Bias                +0.68      ---       ℹ️  Categorical  [Regional H-test]
-  H11   Wealth Density               +0.21    -0.01    90 ⚠️  Δ=0.22  [HNWI vs Rate]
-  H12   Fee Sensitivity              -0.22    -0.22   503 ✅  [Fees vs Enquiries]
-  H13   Engagement Signal            +0.74    +0.74   503 ✅  [NPS Response Count vs Enquiries]
-  H14   Principal Quality            +0.12    +0.11   194 ✅  [Principal NPS vs Rate]
-  H15   Intent Channel               +0.22    +0.17    69 ✅  [Desktop % vs Rate]
-  H16   Relocation Driver            +0.26    +0.06   284 ⚠️  Δ=0.20  [Expat % vs Rate]
-  H17   The NPS Paradox              +0.12    +0.25   503 ⚠️  Δ=0.13  [NPS vs Rate]
-  H18   Academic Performance         -0.01    +0.03   238 ✅  [Academic Index vs Rate]
-  H19   Maintenance Capex            +0.06    +0.05   203 ✅  [Maint Capex vs Rate]
-  H20   School Age                   +0.06    +0.08   411 ✅  [School Age vs Rate]
+  H11   Wealth Density               +0.21    -0.03    90 ⚠️  Δ=0.24  [HNWI vs Rate]
+  H12   Fee Sensitivity              -0.22    +0.06   503 ⚠️  Δ=0.28  [Fees vs Enquiries]
+  H13   Engagement Signal            +0.74    +0.55   503 ⚠️  Δ=0.19  [NPS Response Count vs Enquiries]
+  H14   Principal Quality            +0.12    +0.03   194 ⚠️  Δ=0.09  [Principal NPS vs Rate]
+  H15   Intent Channel               +0.22    +0.04    69 ⚠️  Δ=0.18  [Desktop % vs Rate]
+  H16   Relocation Driver            +0.26    -0.03   284 ⚠️  Δ=0.29  [Expat % vs Rate]
+  H17   The NPS Paradox              +0.12    +0.52   503 ⚠️  Δ=0.40  [NPS vs Rate]
+  H18   Academic Performance         -0.01    +0.00   238 ✅  [Academic Index vs Rate]
+  H19   Maintenance Capex            +0.06    +0.00   203 ✅  [Maint Capex vs Rate]
+  H20   School Age                   +0.06    -0.02   411 ✅  [School Age vs Rate]
 
 ===========================================================================
   SPECIAL: Curriculum & Categorical Hypotheses
@@ -36,61 +36,74 @@
     nps_education_quality vs nps_score: r = +0.00 (n=194)
 
   H6/H7 Curriculum Rates (claimed IGCSE=+112%, A-Levels=+6%):
-    IGCSE: avg_enq=1680 (+112% vs overall), avg_rate=0.84
-    A-Levels: avg_enq=837 (+6% vs overall), avg_rate=0.54
-    IB: avg_enq=792 (-0% vs overall), avg_rate=0.58
-    AP: avg_enq=673 (-15% vs overall), avg_rate=0.55
+    AP: avg_enq=321 (+20% vs overall), avg_rate=0.27
+    A-Levels: avg_enq=294 (+10% vs overall), avg_rate=0.21
+    IB: avg_enq=265 (-1% vs overall), avg_rate=0.21
+    IGCSE: avg_enq=84 (-69% vs overall), avg_rate=0.04
 
-  H8 Multi-Program Lift (claimed ρ=0.09): actual r = +0.00 (n=421)
+  H8 Multi-Program Lift (claimed ρ=0.09): actual r = -0.04 (n=421)
 
 ===========================================================================
   REGION CHART VERIFICATION
 ===========================================================================
   Claimed: ME=0.68, CB=0.62, Americas=0.61, Europe=0.59, SEA&I=0.56, Chi-Int=0.50
-    Middle East: avg rate = 0.63 (n=50)
-    China Bilingual: avg rate = 0.62 (n=40)
-    The Americas: avg rate = 0.61 (n=139)
-    Europe: avg rate = 0.57 (n=107)
-    South East Asia & India: avg rate = 0.54 (n=93)
-    China International: avg rate = 0.50 (n=63)
+    The Americas: avg rate = 0.25 (n=139)
+    South East Asia & India: avg rate = 0.23 (n=93)
+    China International: avg rate = 0.21 (n=63)
+    Middle East: avg rate = 0.21 (n=50)
+    Europe: avg rate = 0.19 (n=107)
+    China Bilingual: avg rate = 0.14 (n=40)
 
 ===========================================================================
   CURRICULUM CHART VERIFICATION
 ===========================================================================
   Claimed: IGCSE=0.81, IB=0.61, A-Levels=0.56, AP=0.56
-    IGCSE: avg rate = 0.84 (n=6)
-    IB: avg rate = 0.58 (n=238)
-    AP: avg rate = 0.55 (n=41)
-    A-Levels: avg rate = 0.54 (n=97)
+    AP: avg rate = 0.27 (n=41)
+    IB: avg rate = 0.21 (n=238)
+    A-Levels: avg rate = 0.21 (n=97)
+    IGCSE: avg rate = 0.04 (n=6)
 
 ===========================================================================
   RECOMMENDATIONS TABLE VERIFICATION
 ===========================================================================
   1. H16: ρ=0.51 (Mobilize Parent Ambassadors)
-     Expat% vs Rate: actual r = +0.06 (n=284)
+     Expat% vs Rate: actual r = -0.03 (n=284)
      BUT H16 card says ρ=0.26. Table says ρ=0.51. INCONSISTENCY?
   2. H6/H7: +33-37% lift
      IGCSE +112%, A-Levels +6% from card data. '33-37%' doesn't match either.
-  3. H8: ρ=-0.18 (Fix Teacher Retention)
-     BUT H2 card says teacher attrition ρ=+0.47 (positive). Table says ρ=-0.18. SIGN MISMATCH?
-     Teacher Stability (100-Attrition) vs Rate: r = -0.48 (n=503)
+  3. H2: ρ=-0.47 (Fix Teacher Retention)
+     Teacher Stability (100-Attrition) vs Rate: r = +0.87 (n=503)
   4. H5: 3× regional premium
-     Top region (Middle East): 0.63
-     Bottom region (China International): 0.50
-     Ratio: 1.3×
+     Top region (The Americas): 0.25
+     Bottom region (China Bilingual): 0.14
+     Ratio: 1.8×
   5. H2: ρ=0.42 (Embrace Capacity Scarcity)
-     Utilization vs Rate: r = +0.75 (n=503)
+     Utilization vs Rate: r = -0.53 (n=503)
 
 ===========================================================================
   MISMATCHES SUMMARY
 ===========================================================================
-  ⚠️  H3 Leader Stability: claimed=+0.20, actual=-0.00, Δ=0.20
+  ⚠️  H1 Scale Effect: claimed=+0.83, actual=+0.18, Δ=0.65
+      [StudentFTE vs Enquiries]
+  ⚠️  H2 Growth Strain: claimed=-0.47, actual=-0.69, Δ=0.22
+      [Teacher Attrition vs Enquiries]
+  ⚠️  H3 Leader Stability: claimed=+0.20, actual=-0.03, Δ=0.23
       [Principal Tenure vs Rate]
-  ⚠️  H4 Retention Momentum: claimed=+0.14, actual=-0.07, Δ=0.21
+  ⚠️  H4 Retention Momentum: claimed=+0.14, actual=-0.34, Δ=0.48
       [CVR YoY vs Rate]
-  ⚠️  H11 Wealth Density: claimed=+0.21, actual=-0.01, Δ=0.22
+  ⚠️  H9 Lead Velocity: claimed=+0.94, actual=-0.05, Δ=0.99
+      [Leads vs Enquiries]
+  ⚠️  H11 Wealth Density: claimed=+0.21, actual=-0.03, Δ=0.24
       [HNWI vs Rate]
-  ⚠️  H16 Relocation Driver: claimed=+0.26, actual=+0.06, Δ=0.20
+  ⚠️  H12 Fee Sensitivity: claimed=-0.22, actual=+0.06, Δ=0.28
+      [Fees vs Enquiries]
+  ⚠️  H13 Engagement Signal: claimed=+0.74, actual=+0.55, Δ=0.19
+      [NPS Response Count vs Enquiries]
+  ⚠️  H14 Principal Quality: claimed=+0.12, actual=+0.03, Δ=0.09
+      [Principal NPS vs Rate]
+  ⚠️  H15 Intent Channel: claimed=+0.22, actual=+0.04, Δ=0.18
+      [Desktop % vs Rate]
+  ⚠️  H16 Relocation Driver: claimed=+0.26, actual=-0.03, Δ=0.29
       [Expat % vs Rate]
-  ⚠️  H17 The NPS Paradox: claimed=+0.12, actual=+0.25, Δ=0.13
+  ⚠️  H17 The NPS Paradox: claimed=+0.12, actual=+0.52, Δ=0.40
       [NPS vs Rate]

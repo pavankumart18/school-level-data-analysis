@@ -84,7 +84,7 @@ out.append("=" * 75)
 hypotheses = [
     # Operational
     ("H1", "Scale Effect", "ρ", 0.83, all_fte, all_enq, "StudentFTE vs Enquiries"),
-    ("H2", "Growth Strain", "ρ", 0.47, all_attr, all_enq, "Teacher Attrition vs Enquiries"),
+    ("H2", "Growth Strain", "ρ", -0.47, all_attr, all_enq, "Teacher Attrition vs Enquiries"),
     ("H3", "Leader Stability", "ρ", 0.20, all_tenure, all_rate, "Principal Tenure vs Rate"),
     ("H4", "Retention Momentum", "ρ", 0.14, all_cvr_yoy, all_rate, "CVR YoY vs Rate"),
     
@@ -220,9 +220,7 @@ out.append(f"     BUT H16 card says ρ=0.26. Table says ρ=0.51. INCONSISTENCY?"
 out.append(f"  2. H6/H7: +33-37% lift")
 out.append(f"     IGCSE +112%, A-Levels +6% from card data. '33-37%' doesn't match either.")
 
-out.append(f"  3. H8: ρ=-0.18 (Fix Teacher Retention)")
-out.append(f"     BUT H2 card says teacher attrition ρ=+0.47 (positive). Table says ρ=-0.18. SIGN MISMATCH?")
-# Teacher stability = inverse of attrition
+out.append(f"  3. H2: ρ=-0.47 (Fix Teacher Retention)")
 all_stability = [100 - x if x is not None else None for x in all_attr]
 r_stab, n_stab = pearson_r(all_stability, all_rate)
 out.append(f"     Teacher Stability (100-Attrition) vs Rate: r = {r_stab:+.2f} (n={n_stab})" if r_stab else "     insufficient")

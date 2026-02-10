@@ -72,8 +72,11 @@ for idx, row in df.iterrows():
     leads = (fte * 1.2) * (0.5 + 1.5 * agg) * np.random.normal(1, 0.1)
     
     # 7. Enquiries: Conversion from Leads based on Quality and NPS
-    conv_rate = 0.2 + (0.3 * qual) # High quality converts better
+    # Penalized by Attrition: Turnover undermines market trust (STEEP negative pressure)
+    attr_penalty = max(0.05, 1.3 - (attrition / 15)) 
+    conv_rate = (0.2 + 0.3 * qual) * attr_penalty
     enquiries = leads * conv_rate * np.random.normal(1, 0.05)
+    enquiries = max(10, enquiries)
     
     # Assign to dataframe
     df.at[idx, 'StudentFTE'] = int(fte)

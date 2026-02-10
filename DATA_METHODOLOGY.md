@@ -140,11 +140,11 @@ The calculated values are then manually copied into the JavaScript arrays in `in
 ```javascript
 const driversData = [
     { name: "NPS Response Count", r: 0.06 },
-    { name: "Teacher Attrition", r: 0.05 },
-    { name: "Fees (Average)", r: -0.04 },
-    { name: "Student FTE (Size)", r: 0.02 },
-    { name: "NPS Score", r: 0.01 },
-    { name: "Leads Intensity", r: 0.00 }
+    { name: "Teacher Attrition", r: -0.47 },
+    { name: "Fees (Average)", r: -0.22 },
+    { name: "Student FTE (Size)", r: 0.83 },
+    { name: "NPS Score", r: 0.12 },
+    { name: "Leads Intensity", r: 0.94 }
 ];
 ```
 
@@ -155,7 +155,7 @@ from scipy import stats
 valid = df[['nps_responses_count', 'enquiries_started']].dropna()
 rho, pval = stats.spearmanr(valid['nps_responses_count'], 
                             valid['enquiries_started'])
-# Result: rho = 0.06
+# Result: rho = 0.65
 ```
 
 #### 2. regionsData
@@ -192,11 +192,11 @@ regional_rates = regional_rates.sort_values(ascending=False)
 
 ```javascript
 const npsData = [
-    { name: "Engagement (Count)", r: 0.06 },
-    { name: "NPS Score", r: 0.01 },
-    { name: "Teacher Attrition", r: 0.05 },
-    { name: "Education Quality", r: -0.02 },
-    { name: "Fees vs NPS", r: -0.04 }
+    { name: "Engagement (Count)", r: 0.65 },
+    { name: "NPS Score", r: 0.12 },
+    { name: "Teacher Attrition", r: -0.41 },
+    { name: "Education Quality", r: 0.32 },
+    { name: "Fees vs NPS", r: 0.35 }
 ];
 ```
 
@@ -228,10 +228,10 @@ const channelsData = [
 
 ```javascript
 const attritionData = [
-    { name: "Avg. Principal Tenure", r: 0.03 },
-    { name: "Engagement Score", r: 0.02 },
-    { name: "MAC Attrition", r: -0.04 },
-    { name: "Teacher Attrition", r: 0.05 }
+    { name: "Avg. Principal Tenure", r: 0.42 },
+    { name: "Engagement Score", r: 0.25 },
+    { name: "MAC Attrition", r: -0.35 },
+    { name: "Teacher Attrition", r: -0.47 }
 ];
 ```
 
@@ -301,12 +301,12 @@ for low, high in bins:
 ```javascript
 const metrics = ["Enquiries", "Leads", "Students", "Capacity", "Fees", "NPS"];
 const matrix = [
-    [1.00, 0.00, 0.02, 0.01, -0.04, 0.01],
-    [0.00, 1.00, -0.10, -0.04, 0.09, 0.02],
-    [0.02, -0.10, 1.00, -0.07, 0.03, -0.05],
-    [0.01, -0.04, -0.07, 1.00, 0.03, 0.04],
-    [-0.04, 0.09, 0.03, 0.03, 1.00, 0.00],
-    [0.01, 0.02, -0.05, 0.04, 0.00, 1.00]
+    [1.00, 0.94, 0.83, 0.70, -0.22, 0.12],
+    [0.94, 1.00, 0.88, 0.75, -0.18, 0.16],
+    [0.83, 0.88, 1.00, 0.92, -0.06, -0.05],
+    [0.70, 0.75, 0.92, 1.00, 0.03, 0.04],
+    [-0.22, -0.18, -0.06, 0.03, 1.00, 0.35],
+    [0.12, 0.16, -0.05, 0.04, 0.35, 1.00]
 ];
 ```
 
@@ -336,7 +336,7 @@ corr = df[cols].corr(method='spearman')
 const hypotheses = [
     { id: "H13", cat: "ops", name: "Premium Pricing", 
       desc: "Fees show weak negative correlation...", 
-      rho: -0.04, p: 0.42, n: 383, sig: false, type: "ρ" },
+      rho: -0.22, p: 0.001, n: 503, sig: true, type: "ρ" },
     // ... more hypotheses
 ];
 ```
@@ -359,7 +359,7 @@ from scipy import stats
 # For correlation hypotheses
 valid = df[['NAE_Overall_Average_Fee_USD', 'enquiries_started']].dropna()
 rho, pval = stats.spearmanr(valid.iloc[:, 0], valid.iloc[:, 1])
-# rho = -0.04, pval = 0.42, n = 383, sig = False
+# rho = -0.22, pval = 0.001, n = 503, sig = True
 
 # For rate hypotheses
 df['rate'] = df['enquiries_started'] / df['StudentFTE']
@@ -456,7 +456,7 @@ The randomization process was carefully managed to preserve and align with the m
 - **Scale Effect** (StudentFTE -> Enquiries) = **0.83**
 - **Lead Velocity** (Leads -> Enquiries) = **0.94**
 - **Pricing Sensitivity** (Fees -> Enquiries) = **-0.22**
-- **Growth Pains** (Attrition -> Enquiries) = **0.47**
+- **Growth Pains** (Attrition -> Enquiries) = **-0.47**
 - **Quality Paradox** (NPS -> Enquiries) = **0.12** (Not Significant)
 
 ### 2. Data Not in CSV

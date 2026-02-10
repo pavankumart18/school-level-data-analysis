@@ -854,6 +854,14 @@
             Nord Anglia Analysis
         </div>
         <div class="nav-center">
+            <a href="leaderboard.html" class="nav-pill active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Leaderboard
+            </a>
             <a href="index.html" class="nav-pill">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -870,14 +878,6 @@
                     <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
                 </svg>
                 Hypothesis
-            </a>
-            <a href="leaderboard.html" class="nav-pill active">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-                Leaderboard
             </a>
         </div>
         <div style="width: 40px;"></div>
@@ -997,22 +997,26 @@
                 <table id="leaderboardTable">
                     <thead>
                         <tr>
-                            <th data-key="rank" style="width:50px" title="Position in the current sorted view">Rank</th>
-                            <th data-key="name" title="Official name of the institution">School</th>
-                            <th data-key="city" title="City and regional cluster">Location</th>
+                            <th data-key="rank" style="width:50px" data-desc="Position in the current sorted view">Rank
+                            </th>
+                            <th data-key="name" data-desc="Official name of the institution">School</th>
+                            <th data-key="city" data-desc="City and regional cluster">Location</th>
                             <th data-key="score" class="metric"
-                                title="Weighted health index (Utility 30%, NPS 25%, Stability 25%, Growth 20%)">Overall
+                                data-desc="Weighted health index (Utility 30%, NPS 25%, Stability 25%, Growth 20%)">
+                                Overall
                                 Score</th>
                             <th data-key="fees" class="metric"
-                                title="Average annual fees across all grades (benmarked in USD)">Fees (USD)</th>
+                                data-desc="Average annual fees across all grades (benmarked in USD)">Fees (USD)</th>
                             <th data-key="utilization" class="metric"
-                                title="Current students as % of total physical capacity">Utilization %</th>
+                                data-desc="Current students as % of total physical capacity">Utilization %</th>
                             <th data-key="leadIntensity" class="metric"
-                                title="Volume of new enquiries relative to school capacity (Demand index)">Lead
+                                data-desc="Volume of new enquiries relative to school capacity (Demand index)">Lead
                                 Intensity</th>
-                            <th data-key="nps" class="metric" title="Net Promoter Score from latest community surveys">
+                            <th data-key="nps" class="metric"
+                                data-desc="Net Promoter Score from latest community surveys">
                                 NPS</th>
-                            <th data-key="stability" class="metric" title="Teacher retention rate (100% - Attrition)">
+                            <th data-key="stability" class="metric"
+                                data-desc="Teacher retention rate (100% - Attrition)">
                                 Teacher Stability %</th>
                         </tr>
                     </thead>
@@ -1157,6 +1161,21 @@
         let HOVERED_ID = null;
         let CURRENT_SORT = { key: 'score', asc: false };
         const RANKS = {};
+        const COLUMN_AVERAGES = {};
+
+        // Format helper (accessible globally)
+        const formatValue = (key, val) => {
+            if (val === null || val === undefined) return '-';
+            switch (key) {
+                case 'score': return val.toFixed(1);
+                case 'fees': return '$' + d3.format(',')(Math.round(val));
+                case 'utilization': return val.toFixed(1) + '%';
+                case 'leadIntensity': return val.toFixed(2);
+                case 'nps': return val.toFixed(0);
+                case 'stability': return val.toFixed(1) + '%';
+                default: return val;
+            }
+        };
 
         // ============================================
         // DATA LOADING
@@ -1283,6 +1302,7 @@
             // CALCULATE RANKS FOR ALL METRICS
             // ============================================
             calculateAllRanks();
+            calculateColumnAverages();
 
             // ============================================
             // RENDER UI
@@ -1316,6 +1336,18 @@
             });
         }
 
+        function calculateColumnAverages() {
+            const metricKeys = ['score', 'fees', 'utilization', 'leadIntensity', 'nps', 'stability'];
+            metricKeys.forEach(key => {
+                const vals = APP_DATA
+                    .map(d => d[key])
+                    .filter(v => v !== null && v !== undefined);
+                if (vals.length > 0) {
+                    COLUMN_AVERAGES[key] = vals.reduce((a, b) => a + b, 0) / vals.length;
+                }
+            });
+        }
+
         // ============================================
         // TABLE RENDERING
         // ============================================
@@ -1340,19 +1372,6 @@
                 // Luminance check
                 const lum = 0.299 * c.r + 0.587 * c.g + 0.114 * c.b;
                 return lum > 160 ? '#000' : '#fff';
-            };
-
-            const formatValue = (key, val) => {
-                if (val === null || val === undefined) return '-';
-                switch (key) {
-                    case 'score': return val.toFixed(1);
-                    case 'fees': return '$' + d3.format(',')(Math.round(val));
-                    case 'utilization': return val.toFixed(1) + '%';
-                    case 'leadIntensity': return val.toFixed(2);
-                    case 'nps': return val.toFixed(0);
-                    case 'stability': return val.toFixed(1) + '%';
-                    default: return val;
-                }
             };
 
             data.forEach((d, idx) => {
@@ -1743,32 +1762,59 @@
                 `;
             }
 
-            // Position using client coordinates (viewport-relative) since tooltip is position:fixed
-            let left = e.clientX + 15;
-            let top = e.clientY - 10;
+            positionTooltip(e, tip);
+            tip.classList.add('visible');
+        }
 
-            // Show tooltip first to get its dimensions
+        function showHeaderTooltip(e, key, label, desc) {
+            const tip = document.getElementById('tooltip');
+            if (!tip) return;
+
+            const avg = COLUMN_AVERAGES[key];
+            const formattedAvg = avg !== undefined ? formatValue(key, avg) : null;
+
+            let html = `
+                <div style="text-align:center; min-width:180px;">
+                    <div style="font-size:0.85rem; font-weight:700; color:#fff; margin-bottom:8px;">${label}</div>
+            `;
+
+            if (desc) {
+                html += `<div style="font-size:0.75rem; color:var(--text-secondary); line-height:1.4; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">${desc}</div>`;
+            }
+
+            if (formattedAvg) {
+                html += `
+                    <div style="font-size:0.65rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Network Average</div>
+                    <div style="font-size:1.1rem; font-weight:700; color:var(--accent); font-family:'JetBrains Mono', monospace;">${formattedAvg}</div>
+                `;
+            }
+
+            html += `</div>`;
+            tip.innerHTML = html;
+
+            positionTooltip(e, tip);
+            tip.classList.add('visible');
+        }
+
+        function positionTooltip(e, tip) {
+            const rect = tip.getBoundingClientRect();
+            // Default: Centered above cursor
+            let left = e.clientX - rect.width / 2;
+            let top = e.clientY - rect.height - 25;
+
+            // Horizontal bounds check
+            if (left < 10) left = 10;
+            if (left + rect.width > window.innerWidth - 10) {
+                left = window.innerWidth - rect.width - 10;
+            }
+
+            // Vertical bounds check: If too high, flip to below cursor
+            if (top < 10) {
+                top = e.clientY + 25;
+            }
+
             tip.style.left = left + 'px';
             tip.style.top = top + 'px';
-            tip.classList.add('visible');
-
-            // Adjust if tooltip goes off-screen
-            const rect = tip.getBoundingClientRect();
-
-            // If goes off right edge, show to the left of cursor
-            if (rect.right > window.innerWidth - 10) {
-                tip.style.left = (e.clientX - rect.width - 15) + 'px';
-            }
-
-            // If goes off bottom edge, show above cursor
-            if (rect.bottom > window.innerHeight - 10) {
-                tip.style.top = (e.clientY - rect.height - 15) + 'px';
-            }
-
-            // If goes off top edge, show below cursor
-            if (rect.top < 10) {
-                tip.style.top = (e.clientY + 20) + 'px';
-            }
         }
 
         function hideTooltip() {
@@ -1801,10 +1847,11 @@
                 updateVisualsState();
             });
 
-            // Column sorting
+            // Column sorting & Hover for averages + descriptions
             document.querySelectorAll('th[data-key]').forEach(th => {
+                const key = th.dataset.key;
+
                 th.addEventListener('click', () => {
-                    const key = th.dataset.key;
                     if (key === 'rank') return; // Don't sort by rank column
 
                     const asc = CURRENT_SORT.key === key ? !CURRENT_SORT.asc : false;
@@ -1818,6 +1865,13 @@
 
                     renderTable(FILTERED_DATA);
                 });
+
+                // Custom Hover Tooltip
+                th.addEventListener('mouseenter', (e) => {
+                    const desc = th.getAttribute('data-desc');
+                    showHeaderTooltip(e, key, th.textContent.trim(), desc);
+                });
+                th.addEventListener('mouseleave', hideTooltip);
             });
 
             // Click outside to clear all pinned schools

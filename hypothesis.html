@@ -595,6 +595,14 @@
             Nord Anglia Analysis
         </div>
         <div class="nav-center">
+            <a href="leaderboard.html" class="nav-pill">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Leaderboard
+            </a>
             <a href="index.html" class="nav-pill">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -611,14 +619,6 @@
                     <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
                 </svg>
                 Hypothesis
-            </a>
-            <a href="leaderboard.html" class="nav-pill">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-                Leaderboard
             </a>
         </div>
         <div style="width: 40px;"></div>
@@ -886,8 +886,8 @@
                         <tr>
                             <td class="rank">5</td>
                             <td><strong>Manage Growth Strain</strong></td>
-                            <td>H2: ρ = 0.47</td>
-                            <td>Attrition tracks with volume</td>
+                            <td>H2: ρ = -0.47</td>
+                            <td>Attrition suppresses demand</td>
                         </tr>
                     </tbody>
                 </table>
@@ -926,7 +926,7 @@
         const hypotheses = [
             // Operational (ops)
             { id: "H1", cat: "ops", name: "Scale Effect", desc: "Larger schools (Size) generate significantly more enquiries due to market presence.", rho: 0.83, p: 0.001, n: 503, sig: true, type: "ρ" },
-            { id: "H2", cat: "ops", name: "Growth Strain", desc: "High teacher attrition correlates with demand (r=0.47), likely due to aggressive scaling.", rho: 0.47, p: 0.001, n: 503, sig: true, type: "ρ" },
+            { id: "H2", cat: "ops", name: "Growth Strain", desc: "High teacher attrition correlates negatively with demand (r=-0.47), as turnover undermines market trust.", rho: -0.47, p: 0.001, n: 503, sig: true, type: "ρ" },
             { id: "H3", cat: "ops", name: "Leader Stability", desc: "Principal tenure shows no meaningful correlation with enquiry rate (n=143, sparse data).", rho: 0.00, p: 0.98, n: 143, sig: false, type: "ρ" },
             { id: "H4", cat: "ops", name: "Retention Momentum", desc: "Year-on-year conversion rate growth shows no significant link to volume (n=66, sparse data).", rho: -0.07, p: 0.58, n: 66, sig: false, type: "ρ" },
 
@@ -988,12 +988,12 @@
             const container = document.getElementById("effect-chart");
             const data = hypotheses.filter(h => h.type === 'ρ').sort((a, b) => b.rho - a.rho);
             const width = Math.min(container.offsetWidth, 900), height = data.length * 32 + 40;
-            const margin = { top: 10, right: 60, bottom: 30, left: 160 };
+            const margin = { top: 10, right: 60, bottom: 30, left: 220 };
 
             const svg = d3.select("#effect-chart").append("svg").attr("width", width).attr("height", height);
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-            const x = d3.scaleLinear().domain([-0.4, 1.0]).range([0, width - margin.left - margin.right]);
+            const x = d3.scaleLinear().domain([-0.8, 1.0]).range([0, width - margin.left - margin.right]);
             const y = d3.scaleBand().domain(data.map(d => d.name)).range([0, height - margin.top - margin.bottom]).padding(0.3);
 
             // Zero line

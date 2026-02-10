@@ -11,7 +11,7 @@ This project analyzes data from **503 school-year records** to identify the prim
 *   **[hypothesis.html](hypothesis.html)**: A "New York Times" style immersive analysis using scrollytelling to test 20 different hypotheses against real institutional data.
 *   **[leaderboard.html](leaderboard.html)**: Institutional performance rankings across key metrics (Enquiries, NPS, Conversion).
 
-## 🚀 Key Strategic Findings
+## Key Strategic Findings
 
 The analysis reveals three distinct operational realities:
 

@@ -39,41 +39,78 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 16px;
             padding: 12px 24px;
             background: rgba(17, 24, 39, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
         .navbar-custom .nav-brand {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
-
-        .nav-links {
             display: flex;
-            gap: 10px;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f3f4f6;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
         }
 
-        .nav-pill {
+        .navbar-custom .nav-brand svg {
+            width: 24px;
+            height: 24px;
+            color: #60a5fa;
+        }
+
+        .navbar-custom .nav-center {
+            margin-left: auto;
+            display: flex;
+            gap: 8px;
+            background: rgba(31, 41, 55, 0.5);
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar-custom .nav-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             padding: 8px 16px;
             border-radius: 6px;
-            color: var(--text-secondary);
-            text-decoration: none;
             font-size: 0.9rem;
-            transition: all 0.2s;
+            font-weight: 500;
+            color: #9ca3af;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
         }
 
-        .nav-pill:hover,
-        .nav-pill.active {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
+        .navbar-custom .nav-pill:hover {
+            color: #e5e7eb;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar-custom .nav-pill.active {
+            background: #1e293b;
+            color: #60a5fa;
+            font-weight: 600;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-custom .nav-pill svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-custom .nav-center {
+                display: none;
+            }
         }
 
         .container {
@@ -380,7 +417,7 @@
             font-size: 0.85rem;
             pointer-events: none;
             z-index: 99999;
-            max-width: 550px;
+            max-width: 95vw;
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6), 0 0 20px rgba(201, 162, 39, 0.2);
             backdrop-filter: blur(12px);
             color: #fff;
@@ -450,22 +487,374 @@
             fill: rgba(255, 255, 255, 0.03);
             rx: 12;
         }
+
+        /* ===== DATA STORY STYLES ===== */
+
+        /* Hero Narrative */
+        .story-hero {
+            position: relative;
+            padding: 50px 0 40px;
+            margin-bottom: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .story-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .story-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .story-tag::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .story-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            max-width: 700px;
+        }
+
+        .story-headline em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .story-lede {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin-bottom: 32px;
+        }
+
+        /* KPI Cards */
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(201, 162, 39, 0.3);
+        }
+
+        .kpi-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .kpi-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .kpi-sub {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Narrative Callouts Between Sections */
+        .story-callout {
+            position: relative;
+            margin: 40px 0;
+            padding: 28px 32px;
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.06), rgba(17, 24, 39, 0.95));
+            border: 1px solid rgba(201, 162, 39, 0.15);
+            border-radius: 12px;
+            font-family: 'Georgia', serif;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #d1d5db;
+        }
+
+        .story-callout::before {
+            content: '"';
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--accent);
+            opacity: 0.3;
+            position: absolute;
+            top: -10px;
+            left: 18px;
+            line-height: 1;
+        }
+
+        .story-callout strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .story-callout .callout-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+            font-style: normal;
+        }
+
+        /* Section Separator */
+        .section-divider {
+            text-align: center;
+            margin: 50px 0 30px;
+            position: relative;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .section-divider span {
+            position: relative;
+            background: var(--bg-primary);
+            padding: 0 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Insights Grid */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .insight-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 22px;
+            border-left: 3px solid var(--accent);
+            transition: all 0.2s;
+        }
+
+        .insight-card:hover {
+            border-color: rgba(201, 162, 39, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .insight-card .insight-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .insight-card h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .insight-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Methodology Footer */
+        .methodology-footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 24px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 60px;
+        }
+
+        .methodology-footer .method-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 800px;
+            margin: 20px auto 0;
+        }
+
+        .methodology-footer .method-item {
+            text-align: center;
+        }
+
+        .methodology-footer .method-item .label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .methodology-footer .method-item .value {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar-custom">
-        <a href="index.html" class="nav-brand">Nord Anglia Analysis</a>
-        <div class="nav-links">
-            <a href="index.html" class="nav-pill">EDA</a>
-            <a href="hypothesis.html" class="nav-pill">Hypothesis</a>
-            <a href="leaderboard.html" class="nav-pill active">Leaderboard</a>
+        <div class="nav-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10v6" />
+                <path d="M20 12a14 14 0 0 1-16 0" />
+                <path d="M4 19v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+                <path d="M9 22v-4h6v4" />
+                <path d="M12 2L9 4l3 2 3-2-3-2z" />
+            </svg>
+            Nord Anglia Analysis
         </div>
+        <div class="nav-center">
+            <a href="index.html" class="nav-pill">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                </svg>
+                EDA
+            </a>
+            <a href="hypothesis.html" class="nav-pill">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 11l3 3L22 4" />
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                </svg>
+                Hypothesis
+            </a>
+            <a href="leaderboard.html" class="nav-pill active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Leaderboard
+            </a>
+        </div>
+        <div style="width: 40px;"></div>
     </nav>
 
     <div class="container">
-        <h1>Strategic Leaderboard</h1>
-        <p class="subtitle">Interactive performance benchmarking across key growth vectors</p>
+        <!-- ===== HERO DATA STORY ===== -->
+        <div class="story-hero">
+            <div class="story-tag">Data Story — Performance Intelligence</div>
+            <h1 class="story-headline">Who's <em>actually</em> winning—and why?</h1>
+            <p class="story-lede">
+                This leaderboard cuts through averages to reveal the individual school performance fingerprints
+                across the Nord Anglia network. Each row is a composite of utilization efficiency, demand intensity,
+                community satisfaction, and operational stability—the four vectors that separate thriving schools
+                from the rest.
+            </p>
+        </div>
+
+        <!-- ===== KPI STRIP (Populated by JS) ===== -->
+        <div class="kpi-strip" id="kpiStrip">
+            <div class="kpi-card">
+                <div class="kpi-label">Schools Ranked</div>
+                <div class="kpi-value" id="kpiSchools">—</div>
+                <div class="kpi-sub">Active schools with sufficient data</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Top Score</div>
+                <div class="kpi-value" id="kpiTopScore">—</div>
+                <div class="kpi-sub" id="kpiTopSchool">—</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Median Score</div>
+                <div class="kpi-value" id="kpiMedian">—</div>
+                <div class="kpi-sub">Network midpoint performance</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Over-Capacity</div>
+                <div class="kpi-value" id="kpiOverCap">—</div>
+                <div class="kpi-sub">Schools running above 100% utilization</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Avg NPS</div>
+                <div class="kpi-value" id="kpiAvgNps">—</div>
+                <div class="kpi-sub">Network-wide parent satisfaction</div>
+            </div>
+        </div>
+
+        <!-- ===== DATA STORY CALLOUT (Top) ===== -->
+        <div class="story-callout" id="storyCallout1">
+            <span class="callout-tag">Reading the Table</span>
+            Each cell is <strong>heat-mapped</strong> from red (low) to green (high) relative to the network.
+            The small <strong>#rank</strong> badge inside each cell shows where that school stands for that specific
+            metric—so you can instantly
+            spot a school that ranks #3 in lead intensity but #45 in NPS. <strong>These gaps are the strategic
+                opportunity.</strong>
+        </div>
 
         <div class="controls">
             <div class="search-box">
@@ -504,6 +893,11 @@
             </div>
         </div>
 
+        <!-- ===== SECTION DIVIDER ===== -->
+        <div class="section-divider">
+            <span>Performance Map</span>
+        </div>
+
         <!-- 2. JITTER PLOT / PERFORMANCE MAP -->
         <div class="map-section" id="perfMap">
             <div class="map-header">
@@ -514,7 +908,52 @@
             </div>
             <div id="mapContainer"></div>
         </div>
+
+        <!-- ===== POST-MAP NARRATIVE ===== -->
+        <div class="story-callout" id="storyCallout2">
+            <span class="callout-tag">What the Map Reveals</span>
+            The scatter pattern above exposes the <strong>network's hidden topology</strong>.
+            Schools cluster into distinct operational archetypes: <strong>high-fee / low-volume</strong> premium
+            operators vs.
+            <strong>high-utilization / high-demand</strong> scale engines.
+            The profile lines connecting a single school's dots across all metrics reveal whether a school is
+            <strong>balanced</strong> (flat line) or has <strong>exploitable gaps</strong> (dramatic swings
+            left-to-right).
+        </div>
     </div>
+
+    <!-- ===== METHODOLOGY FOOTER ===== -->
+    <footer class="methodology-footer">
+        <p
+            style="color:var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 12px;">
+            METHODOLOGY</p>
+        <p style="max-width: 600px; margin: 0 auto 20px; line-height: 1.6;">
+            The Overall Score is a weighted composite of four normalized metrics:
+            Utilization (30%), Lead Intensity (20%), NPS (25%), and Teacher Stability (25%).
+            Each metric is min-max normalized before weighting.
+        </p>
+        <div class="method-grid">
+            <div class="method-item">
+                <div class="label">Data Period</div>
+                <div class="value" id="methYear">—</div>
+            </div>
+            <div class="method-item">
+                <div class="label">Schools Ranked</div>
+                <div class="value" id="methSchools">—</div>
+            </div>
+            <div class="method-item">
+                <div class="label">Metrics Used</div>
+                <div class="value">6 (composite + 5 raw)</div>
+            </div>
+            <div class="method-item">
+                <div class="label">Score Range</div>
+                <div class="value">0–100</div>
+            </div>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.75rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            © 2026 Nord Anglia Education · Data Intelligence Division
+        </p>
+    </footer>
 
     <!-- DETAILS MODAL -->
     <div class="modal-overlay" id="schoolModal" onclick="closeModal(event)">
@@ -560,6 +999,7 @@
             "Middle East": "#f59e0b",
             "The Americas": "#10b981",
             "Americas": "#10b981",
+            "South East Asia & India": "#8b5cf6",
             "SEA & India": "#8b5cf6",
             "UK": "#6366f1",
             "Other": "#9ca3af"
@@ -569,9 +1009,9 @@
             { key: 'score', label: 'Overall Score', min: 0, max: 100, format: '.1f' },
             { key: 'fees', label: 'Fees (USD)', min: 5000, max: 50000, format: '$,.0f' },
             { key: 'utilization', label: 'Utilization %', min: 40, max: 120, format: '.1f', suffix: '%' },
-            { key: 'leadIntensity', label: 'Lead Intensity', min: 0, max: 1.5, format: '.2f' },
+            { key: 'leadIntensity', label: 'Lead Intensity', min: 0, max: 3.0, format: '.2f' },
             { key: 'nps', label: 'NPS Score', min: 0, max: 80, format: '.0f' },
-            { key: 'stability', label: 'Teacher Stability %', min: 70, max: 100, format: '.1f', suffix: '%' }
+            { key: 'stability', label: 'Teacher Stability %', min: 65, max: 100, format: '.1f', suffix: '%' }
         ];
 
         // ============================================
@@ -580,6 +1020,7 @@
         let APP_DATA = [];
         let FILTERED_DATA = [];
         let PINNED_IDS = new Set();
+        let SEARCH_IDS = new Set();
         let HOVERED_ID = null;
         let CURRENT_SORT = { key: 'score', asc: false };
         const RANKS = {};
@@ -641,7 +1082,7 @@
                     // Derived metrics
                     const utilization = capacity > 0 ? (fte / capacity) * 100 : null;
                     const leadIntensity = capacity > 0 ? leads / capacity : null;
-                    const stability = (1 - attrition) * 100;
+                    const stability = 100 - attrition;
 
                     return {
                         id: d.School,
@@ -682,10 +1123,10 @@
             };
 
             APP_DATA.forEach(d => {
-                const s_util = normalize(d.utilization, 50, 110);
-                const s_lead = normalize(d.leadIntensity, 0, 1.0);
-                const s_nps = d.nps !== null ? normalize(d.nps, 20, 70) : 0.5;
-                const s_stab = normalize(d.stability, 75, 95);
+                const s_util = normalize(d.utilization, 70, 110);
+                const s_lead = normalize(d.leadIntensity, 0.5, 2.5);
+                const s_nps = d.nps !== null ? normalize(d.nps, 10, 75) : 0.5;
+                const s_stab = normalize(d.stability, 70, 95);
 
                 // Weighted composite (Util 30%, Lead 20%, NPS 25%, Stability 25%)
                 d.score = (s_util * 0.30 + s_lead * 0.20 + s_nps * 0.25 + s_stab * 0.25) * 100;
@@ -708,6 +1149,7 @@
             renderTable(FILTERED_DATA);
             renderMap(APP_DATA);
             setupEventListeners();
+            populateDataStory(APP_DATA, bestYear);
 
         }).catch(err => {
             console.error(err);
@@ -954,19 +1396,26 @@
         }
 
         function updateVisualsState() {
-            const activeIds = new Set([...PINNED_IDS]);
-            if (HOVERED_ID) activeIds.add(HOVERED_ID);
+            const highlightIds = new Set([...PINNED_IDS, ...SEARCH_IDS]);
+            if (HOVERED_ID) highlightIds.add(HOVERED_ID);
 
-            const hasActive = activeIds.size > 0;
+            const lineIds = new Set([...PINNED_IDS]);
+            if (HOVERED_ID) lineIds.add(HOVERED_ID);
+            // Show lines for search results ONLY if there's exactly one result
+            if (SEARCH_IDS.size === 1) {
+                SEARCH_IDS.forEach(id => lineIds.add(id));
+            }
+
+            const hasActive = highlightIds.size > 0;
 
             // Update dots
             d3.selectAll('.school-dot')
-                .classed('dimmed', d => hasActive && !activeIds.has(d.id))
-                .classed('active', d => activeIds.has(d.id))
+                .classed('dimmed', d => hasActive && !highlightIds.has(d.id))
+                .classed('active', d => highlightIds.has(d.id))
                 .classed('pinned', d => PINNED_IDS.has(d.id));
 
             // Draw profile lines
-            drawProfileLines(activeIds);
+            drawProfileLines(lineIds);
         }
 
         function drawProfileLines(ids) {
@@ -1106,10 +1555,12 @@
                     <div style="margin-bottom:10px; text-align:center;">
                         <span style="font-size:0.7rem; color:var(--accent); text-transform:uppercase; letter-spacing:1px;">📊 Comparison Mode</span>
                     </div>
-                    <table style="border-collapse:collapse; width:100%;">
-                        <thead><tr>${headerRow}</tr></thead>
-                        <tbody>${dataRows}</tbody>
-                    </table>
+                    <div style="overflow-x: auto; max-width: 100%; border-radius: 8px;">
+                        <table style="border-collapse:collapse; width:100%;">
+                            <thead><tr>${headerRow}</tr></thead>
+                            <tbody>${dataRows}</tbody>
+                        </table>
+                    </div>
                     <div style="margin-top:10px; font-size:0.65rem; color:var(--text-secondary); text-align:center;">
                         <span style="color:#4ade80">●</span> Best  <span style="color:#f87171; margin-left:10px">●</span> Needs Improvement
                     </div>
@@ -1191,23 +1642,20 @@
 
                 if (!term) {
                     FILTERED_DATA = [...APP_DATA];
+                    SEARCH_IDS.clear();
                 } else {
                     FILTERED_DATA = APP_DATA.filter(d =>
                         d.name.toLowerCase().includes(term) ||
                         d.city.toLowerCase().includes(term) ||
                         d.region.toLowerCase().includes(term)
                     );
+                    SEARCH_IDS = new Set(FILTERED_DATA.map(d => d.id));
                 }
 
                 // Re-sort
                 sortData(CURRENT_SORT.key, false);
                 renderTable(FILTERED_DATA);
-
-                // Update map highlighting
-                const visibleIds = new Set(FILTERED_DATA.map(d => d.id));
-                d3.selectAll('.school-dot')
-                    .classed('dimmed', d => term && !visibleIds.has(d.id))
-                    .style('pointer-events', d => term && !visibleIds.has(d.id) ? 'none' : 'all');
+                updateVisualsState();
             });
 
             // Column sorting
@@ -1271,6 +1719,29 @@
                     return asc ? av - bv : bv - av;
                 });
             }
+        }
+
+        // ============================================
+        // DATA STORY POPULATION
+        // ============================================
+        function populateDataStory(data, year) {
+            // KPI Strip
+            const sorted = [...data].sort((a, b) => b.score - a.score);
+            const top = sorted[0];
+            const scores = sorted.map(d => d.score);
+            const median = scores[Math.floor(scores.length / 2)];
+            const overCap = data.filter(d => d.utilization !== null && d.utilization > 100).length;
+            const npsVals = data.filter(d => d.nps !== null).map(d => d.nps);
+            const avgNps = npsVals.length ? (npsVals.reduce((a, b) => a + b, 0) / npsVals.length) : 0;
+
+            document.getElementById('kpiSchools').textContent = data.length;
+            document.getElementById('kpiTopScore').textContent = top.score.toFixed(1);
+            document.getElementById('kpiTopSchool').textContent = top.name;
+            document.getElementById('kpiMedian').textContent = median.toFixed(1);
+            document.getElementById('kpiOverCap').textContent = overCap;
+            document.getElementById('kpiAvgNps').textContent = avgNps.toFixed(0);
+            document.getElementById('methYear').textContent = 'FY' + year;
+            document.getElementById('methSchools').textContent = data.length;
         }
     </script>
 </body>

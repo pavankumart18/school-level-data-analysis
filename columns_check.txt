@@ -1,0 +1,217 @@
+=== COLUMNS MATCHING REVENUE/ENQUIRY/LEAD/RATE ===
+  Revenue: 203 non-empty, samples=['5579.052835705137', '9285.420020187248', '15507.3454946905']
+  leads_submitted: 503 non-empty, samples=['3289.0', '3855.0', '3922.0']
+  enquiries_started: 503 non-empty, samples=['1243.0', '1469.0', '1521.0']
+  tv_leads_t_plus1: 390 non-empty, samples=['1913.632427463831', '1108.0563836604306', '289.870839003638']
+  tv_enquiries_t_plus1: 396 non-empty, samples=['912.986979483338', '502.9439374914897', '2184.392909338237']
+  tv_leads_t_plus2: 329 non-empty, samples=['684.3411170459683', '1684.6738593868886', '242.24066683731087']
+  tv_enquiries_t_plus2: 329 non-empty, samples=['1278.3437085620958', '385.9141194045338', '425.3605008842466']
+  tv_lead_growth_1yr: 352 non-empty, samples=['7.134256157861191', '27.40835775996369', '10.40047822260026']
+  tv_enquiry_growth_1yr: 388 non-empty, samples=['-4.492007468071149', '7.906748161320351', '-5.354688890704665']
+  tv_lead_growth_2yr: 283 non-empty, samples=['3.946720436922437', '21.303390276600982', '-2.3456937192760385']
+  tv_enquiry_growth_2yr: 319 non-empty, samples=['-4.840394855495408', '0.9632329823181482', '10.940593667336785']
+  Prevailing_Curriculum: 382 non-empty, samples=['IB', 'IB', 'IB']
+  Enquiries YoY: 66 non-empty, samples=['0.632577838999032', '-1.5413728446563113', '-0.4075565465276302']
+  Enquiries - Enrolled CVR YoY: 66 non-empty, samples=['-0.4426961095039792', '-0.0443881963459389', '-0.7250629843465007']
+  Enquiries - Application CVR YoY: 66 non-empty, samples=['-0.94007257108881', '-1.8183060734055287', '0.2863456147600575']
+
+=== ALL COLUMN NAMES ===
+  [0] School
+  [1] FiscalYear
+  [2] NAE_Overall_Average_Fee_USD
+  [3] NAE_Secondary_Average_Fee_USD
+  [4] NAE_Sixth_Form_Average_Fee_USD
+  [5] NAE_Primary_Average_Fee_USD
+  [6] NAE_EY_Average_Fee_USD
+  [7] Overall_Gap_Median
+  [8] Secondary_Gap_Median
+  [9] Sixth_Form_Gap_Median
+  [10] Overall_Pct_vs_Median
+  [11] Secondary_Pct_vs_Median
+  [12] Mainentance_Capex_sum
+  [13] Expansion_Capex_sum
+  [14] CPT_Capex_sum
+  [15] Mainentance_Capex_std
+  [16] Expansion_Capex_std
+  [17] CPT_Capex_std
+  [18] Revenue
+  [19] Capex_annual_sum
+  [20] RegionCode
+  [21] SubRegionCode
+  [22] Region
+  [23] Subregion
+  [24] City
+  [25] Country
+  [26] StudentFTE
+  [27] CapacityFTE
+  [28] leads_submitted
+  [29] enquiries_started
+  [30] tv_leads_t_plus1
+  [31] tv_enquiries_t_plus1
+  [32] tv_fte_t_plus1
+  [33] tv_leads_t_plus2
+  [34] tv_enquiries_t_plus2
+  [35] tv_fte_t_plus2
+  [36] tv_lead_growth_1yr
+  [37] tv_enquiry_growth_1yr
+  [38] tv_fte_growth_1yr
+  [39] tv_lead_growth_2yr
+  [40] tv_enquiry_growth_2yr
+  [41] tv_fte_growth_2yr
+  [42] EmployeeHeadCountCurrent
+  [43] EmployeeFTECurrent
+  [44] DirectContractorHeadCount
+  [45] Prevailing_Curriculum
+  [46] Curricula_Offered
+  [47] Employee_Engagement_Score
+  [48] MAC_Attrition_Pct
+  [49] Teachers_Attrition_Pct
+  [50] Student_Expat_Pct
+  [51] Student_Local_Pct
+  [52] Average_Principal_Tenure
+  [53] Curricula_Offered_IB
+  [54] Curricula_Offered_IGCSE
+  [55] Curricula_Offered_A-Levels
+  [56] Curricula_Offered_MYP
+  [57] Curricula_Offered_AP
+  [58] Curricula_Offered_count
+  [59] school_opened_year
+  [60] school_age
+  [61] is_school_mature
+  [62] nps_score
+  [63] nps_responses_count
+  [64] nps_teacher_quality_score
+  [65] nps_teacher_quality_response_count
+  [66] nps_education_quality_score
+  [67] nps_education_quality_response_count
+  [68] nps_principal_quality_score
+  [69] nps_principal_quality_response_count
+  [70] iso2
+  [71] year
+  [72] total_enrolment
+  [73] total_public_enrolment
+  [74] tv_total_private_enrolment_t_plus1
+  [75] gdp_growth_pct
+  [76] gdp_per_capita_growth_pct
+  [77] market_cap
+  [78] gross_savings_pct_gdp
+  [79] total_population
+  [80] population_0_14_pct_total
+  [81] urban_population_pct_total
+  [82] net_migration
+  [83] inflation_pct
+  [84] govt_expenditure_on_education_pct_gdp
+  [85] foreign_dir_investment_net_inflows_pct_gdp
+  [86] govt_expenditure_on_education_per_student_pct_gdp
+  [87] household_final_consumption_expenditure
+  [88] millionaires
+  [89] eyp_private_enrolment
+  [90] hnwi_billionaires
+  [91] hnwi_centi_millionaires
+  [92] hnwi_millionaire_growth_2014_to_2024
+  [93] hnwi_number_of_millionaires
+  [94] Academic_Performance_Index
+  [95] ReportNameOneStream
+  [96] iso2_code
+  [97] country_name
+  [98] nationality_1
+  [99] nationality_2
+  [100] Sum_Years
+  [101] App
+  [102] Total Lost/Denied
+  [103] Percentage
+  [104] vs Regional AVG
+  [105] 1st Stage
+  [106] 2nd Stage
+  [107] CvR %
+  [108] Region Avg
+  [109] vs Region Avg
+  [110] CvR % PY
+  [111] CvR % YoY
+  [112] Category
+  [113] Action
+  [114] Target
+  [115] Plan to achieve Target
+  [116] Target Date
+  [117] Status
+  [118] Forecast FTE vs Budget %
+  [119] Forecast FTE vs LY W5 %
+  [120] Forecast FTE YoY
+  [121] New Enrolment YoY
+  [122] Enquiries YoY
+  [123] Enquiries - Enrolled CVR YoY
+  [124] Enquiries - Application CVR YoY
+  [125] Velocity
+  [126] ReEnroll % Variance
+  [127] Capacity Utilisation % Current
+  [128] Capacity Utilisation % Forecast
+  [129] Employee Engagement Score
+  [130] MAC Attrition %
+  [131] Teacher Attrition %
+  [132] Principal Tenure avg.
+  [133] Channel_Cross-network
+  [134] Channel_Direct
+  [135] Channel_Display
+  [136] Channel_Email
+  [137] Channel_Organic Search
+  [138] Channel_Organic Social
+  [139] Channel_Paid Other
+  [140] Channel_Paid Search
+  [141] Channel_Paid Social
+  [142] Channel_Referral
+  [143] Channel_Unassigned
+  [144] Device_desktop
+  [145] Device_mobile
+  [146] Device_tablet
+  [147] Years Spent_before_leaving_0
+  [148] Years Spent_before_leaving_1-2
+  [149] Years Spent_before_leaving_3-5
+  [150] Years Spent_before_leaving_6-8
+  [151] Years Spent_before_leaving_9-10
+  [152] Years Spent_before_leaving_11&above
+  [153] reason_for_leaving_Academic - Class Size
+  [154] reason_for_leaving_Academic - Concerns with Academic Progress
+  [155] reason_for_leaving_Academic - I Want a Single-Sex School for My Child
+  [156] reason_for_leaving_Academic - Lack of Support for SEND
+  [157] reason_for_leaving_Academic - Limited Program Offerings
+  [158] reason_for_leaving_Academic - Not Suitable for Desired University Choice
+  [159] reason_for_leaving_Academic - Quality of Teaching
+  [160] reason_for_leaving_Early Entry to Higher Education
+  [161] reason_for_leaving_Financial - Can No Longer Afford Tuition Costs
+  [162] reason_for_leaving_Financial - Do Not Feel That I Am Getting Value for Money
+  [163] reason_for_leaving_Graduate
+  [164] reason_for_leaving_Lack of Facilities - Inadequate Facilities for SEND
+  [165] reason_for_leaving_Lack of Facilities - Inadequate Sport/Recreational Facilities
+  [166] reason_for_leaving_Lack of Facilities - Poor General Maintenance
+  [167] reason_for_leaving_Moving to State School - Preference for State School
+  [168] reason_for_leaving_Moving to State School - Proximity of State School
+  [169] reason_for_leaving_Moving to State School - State School Reputation
+  [170] reason_for_leaving_Relocating - Different City
+  [171] reason_for_leaving_Relocating - Different Country
+  [172] reason_for_leaving_School Decision - Academic Standards Not Achieved
+  [173] reason_for_leaving_School Decision - Behavioural Issues for Child
+  [174] reason_for_leaving_School Decision - Non-Payment of Fees
+  [175] reason_for_leaving_School Decision - Sanctioned List
+  [176] reason_for_leaving_Social/Personal Issue for Child - Lack of Diversity
+  [177] reason_for_leaving_Social/Personal Issue for Child - Medical Issues
+  [178] reason_for_leaving_Social/Personal Issue for Child - Peer Issues
+  [179] reason_for_leaving_Social/Personal Issue for Child - Teacher/Staff Issues
+  [180] reason_for_leaving_Temporary Leaver - Medical Leave
+  [181] reason_for_leaving_Temporary Leaver - Temporary Enrolment in Another School
+  [182] LeavingStandardisedGrade_Year 0
+  [183] LeavingStandardisedGrade_Year 1
+  [184] LeavingStandardisedGrade_Year -1
+  [185] LeavingStandardisedGrade_Year 10
+  [186] LeavingStandardisedGrade_Year 11
+  [187] LeavingStandardisedGrade_Year 12
+  [188] LeavingStandardisedGrade_Year 13
+  [189] LeavingStandardisedGrade_Year 2
+  [190] LeavingStandardisedGrade_Year -2
+  [191] LeavingStandardisedGrade_Year 3
+  [192] LeavingStandardisedGrade_Year -3
+  [193] LeavingStandardisedGrade_Year 4
+  [194] LeavingStandardisedGrade_Year 5
+  [195] LeavingStandardisedGrade_Year 6
+  [196] LeavingStandardisedGrade_Year 7
+  [197] LeavingStandardisedGrade_Year 8
+  [198] LeavingStandardisedGrade_Year 9

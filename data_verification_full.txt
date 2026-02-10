@@ -1,0 +1,117 @@
+=================================================================
+  HERO STATS VERIFICATION (index.html lines 905-922)
+=================================================================
+
+  CLAIM: 80 Schools
+  ACTUAL: 80 unique schools
+  >> ✅ CORRECT
+
+  CLAIM: 503 observations, 199 variables
+  ACTUAL: 503 rows, 199 columns
+  >> ✅ CORRECT
+
+  CLAIM: 110K Students (FY25)
+  ACTUAL: 110,260 students (110K)
+  >> ✅ APPROXIMATELY CORRECT
+
+  CLAIM: $3.39B Revenue (FY25)
+  ACTUAL: 66 schools with revenue data
+  ACTUAL total: $1,998,222
+
+  CLAIM: 65.3K Enquiries
+  ACTUAL FY2025: 65,312 enquiries (65.3K)
+  >> ✅ APPROXIMATELY CORRECT
+  FY2026.0: 73,129 enquiries (73.1K)
+  FY2024.0: 61,212 enquiries (61.2K)
+
+=================================================================
+  UTILIZATION VERIFICATION (index.html line 1475)
+=================================================================
+
+  CLAIM: Mean utilization = 90.5%
+  ACTUAL: 90.5%
+  >> ✅ CORRECT
+
+  CLAIM: 84 school-years above 100%
+  ACTUAL: 84
+  >> ✅ CORRECT
+
+=================================================================
+  CORRELATION VERIFICATION (index.html lines 1038-1063)
+=================================================================
+
+  CLAIM: Lead Intensity <-> Enquiry Volume: r = +0.94
+  ACTUAL: r = +0.94
+  >> ✅ CORRECT
+
+  CLAIM: Size (FTE) <-> Enquiry Volume: r = +0.83
+  ACTUAL: r = +0.83
+  >> ✅ CORRECT
+
+  CLAIM: Teacher Attrition <-> Enquiry Volume: r = +0.47
+  ACTUAL: r = +0.47
+  >> ✅ CORRECT
+
+  CLAIM: Fees <-> Enquiry Volume: r = -0.22
+  ACTUAL: r = -0.22
+  >> ✅ CORRECT
+
+  CLAIM: NPS <-> Enquiry Volume: r = +0.12
+  ACTUAL: r = +0.12
+  >> ✅ CORRECT
+
+  CLAIM: Capacity <-> Students: r = +0.94
+  ACTUAL: r = +0.94
+  >> ✅ CORRECT
+
+  CLAIM (line 1105): Fees <-> NPS: r = +0.35
+  ACTUAL: r = +0.35
+  >> ✅ CORRECT
+
+  CLAIM (line 1508): Capacity <-> Revenue: r = +0.48
+  ACTUAL: r = -0.09
+
+  CLAIM (line 1107): Lead Intensity <-> NPS: r = -0.16
+  ACTUAL: r = -0.23
+  >> ✅ CORRECT
+
+=================================================================
+  REGION ENQUIRY RATE VERIFICATION (lines 1009-1012)
+=================================================================
+  CLAIM: Middle East=0.63, China Bilingual=0.62, Americas=0.61
+  Middle East: avg enquiry rate = 0.63 (n=50)
+  China Bilingual: avg enquiry rate = 0.62 (n=40)
+  The Americas: avg enquiry rate = 0.61 (n=139)
+  Europe: avg enquiry rate = 0.57 (n=107)
+  South East Asia & India: avg enquiry rate = 0.54 (n=93)
+  China International: avg enquiry rate = 0.50 (n=63)
+
+=================================================================
+  CHECKING JS-DRIVEN CHARTS DATA SOURCES
+=================================================================
+
+  Correlations with Enquiries per Student (enquiry intensity):
+    Lead Intensity vs enquiry rate: r = +0.82
+    StudentFTE (Size) vs enquiry rate: r = +0.36
+    Teacher Attrition vs enquiry rate: r = +0.48
+    Fees vs enquiry rate: r = +0.16
+    NPS vs enquiry rate: r = +0.25
+    Revenue vs enquiry rate: r = -0.10
+    Capacity vs enquiry rate: r = +0.13
+
+=================================================================
+  PREMIUM PARADOX (line 1070)
+=================================================================
+  CLAIM: Fees <-> Enquiry Volume: r = -0.19
+  ACTUAL (raw volume): r = -0.22
+  ACTUAL (rate): r = +0.16
+
+=================================================================
+  ACTIONABLE INPUTS VERIFICATION (lines 1530-1570)
+=================================================================
+
+  CLAIM: Maintenance Capex <-> NPS: r = +0.20
+  ACTUAL: r = +0.05
+
+  CLAIM: Attrition <-> Enquiry Volume: r = +0.47
+  ACTUAL: r = +0.47

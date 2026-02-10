@@ -1,0 +1,34 @@
+=================================================================
+  CLUSTER ANALYSIS TEXT — CLAIM-BY-CLAIM VERIFICATION
+=================================================================
+
+  CLAIM 1: Fees and Enquiries correlate (-0.22)
+  ACTUAL: r = -0.22 (n=503)
+  >> ✅ CORRECT
+
+  CLAIM 2a: Capacity drives Students (+0.94)
+  ACTUAL: r = +0.94 (n=503)
+  >> ✅ CORRECT
+
+  CLAIM 2b: Capacity shows weak Revenue linkage (-0.09)
+  ACTUAL: r = -0.09 (n=203)
+  >> ✅ CORRECT
+  Revenue column: 203/503 rows (40%) have data
+  Revenue range: -14,497 to 84,400
+  Revenue mean: 30,252
+  Revenue sample: [5579.052835705137, 9285.420020187248, 15507.3454946905, 41139.36948601764, 22561.443760697846]
+
+  EXTRA: Students <-> Revenue: r = -0.15 (n=203)
+  EXTRA: Enquiries <-> Revenue: r = -0.15
+
+  CLAIM 3: NPS shows weak correlation (+0.12) with growth
+  ACTUAL (NPS vs Enquiries): r = +0.12 (n=503)
+  >> ✅ CORRECT
+
+=================================================================
+  SUMMARY
+=================================================================
+  1. Fees <-> Enquiries = -0.22   ✅ VERIFIED
+  2a. Capacity <-> Students = +0.94  ✅ VERIFIED
+  2b. Capacity <-> Revenue = -0.09   ✅ VERIFIED (but only 203/503 rows have Revenue)
+  3. NPS <-> Enquiries = +0.12     ✅ VERIFIED

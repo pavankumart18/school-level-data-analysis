@@ -1,0 +1,41 @@
+=================================================================
+  CREDENTIAL PORTABILITY — CURRICULUM VERIFICATION
+=================================================================
+
+  === Average Enquiries by Prevailing Curriculum ===
+    IGCSE: avg enquiries = 1680 (n=6)
+    A-Levels: avg enquiries = 837 (n=97)
+    IB: avg enquiries = 792 (n=238)
+    AP: avg enquiries = 673 (n=41)
+    OVERALL average = 793
+
+  === % Difference vs Overall Average ===
+    IGCSE: +112% vs overall (avg=1680)
+    A-Levels: +6% vs overall (avg=837)
+    IB: -0% vs overall (avg=792)
+    AP: -15% vs overall (avg=673)
+
+  === % Difference vs Lowest (AP = 673) ===
+    IGCSE: +150% vs AP
+    A-Levels: +24% vs AP
+    IB: +18% vs AP
+    AP: +0% vs AP
+
+  === IGCSE vs all others ===
+    IGCSE avg: 1680
+    Non-IGCSE avg: 791
+    IGCSE premium: +112%
+
+  === Average NPS by Prevailing Curriculum ===
+    IB: avg NPS = 47.0 (n=238)
+    A-Levels: avg NPS = 44.7 (n=97)
+    AP: avg NPS = 44.3 (n=41)
+    IGCSE: avg NPS = 39.5 (n=6)
+
+  === Curricula_Offered columns: correlation with enquiries ===
+    Curricula_Offered_IB vs enquiries: r = +0.05 (n=421)
+    Curricula_Offered_IGCSE vs enquiries: r = +0.09 (n=421)
+    Curricula_Offered_A-Levels vs enquiries: r = +0.09 (n=421)
+    Curricula_Offered_MYP vs enquiries: r = +0.02 (n=421)
+    Curricula_Offered_AP vs enquiries: r = +0.01 (n=421)
+    Curricula_Offered_count vs enquiries: r = +0.01 (n=421)

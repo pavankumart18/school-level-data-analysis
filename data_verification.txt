@@ -1,0 +1,70 @@
+Total rows: 503
+
+=== FISCAL YEAR DISTRIBUTION ===
+  FY : 4 rows
+  FY 2020.0: 60 rows
+  FY 2021.0: 66 rows
+  FY 2022.0: 72 rows
+  FY 2023.0: 73 rows
+  FY 2024.0: 73 rows
+  FY 2025.0: 76 rows
+  FY 2026.0: 79 rows
+
+=== REGION DISTRIBUTION (all years) ===
+  The Americas: 139 rows
+  Europe: 107 rows
+  South East Asia & India: 93 rows
+  China International: 63 rows
+  Middle East: 50 rows
+  China Bilingual: 40 rows
+  : 11 rows
+
+Unique schools: 80
+Unique cities: 61
+
+=== ANALYSIS FOR FY 2026.0 ===
+Rows in FY2026.0: 79
+Unique schools in FY2026.0: 79
+Unique cities in FY2026.0: 61
+Regions in FY2026.0: {'Middle East': 8, 'Europe': 16, 'The Americas': 22, 'China International': 9, 'South East Asia & India': 14, 'China Bilingual': 6, '': 4}
+
+=== KEY METRICS (FY2026.0) ===
+StudentFTE: n=79, mean=1516.8, median=1379.0, min=926, max=2660, total=119830
+CapacityFTE: n=79, mean=1673.2, median=1532.0, total=132181
+Utilization: n=79, mean=90.4%, median=89.2%, over-100%=13
+Fees(USD): n=79, mean=$31,586, median=$31,738, min=$18,404, max=$47,477
+NPS: n=79, mean=46.2, median=48.5, min=9, max=66
+Teacher Attrition: n=79, mean=14.7%, median=14.3%
+Teacher Stability: mean=85.3%, median=85.7%
+Leads Submitted: n=79, mean=2450, total=193515
+
+=== REGION BREAKDOWN (FY2026.0) ===
+  The Americas: 22 schools, total FTE=29607, avg=1346
+  Europe: 16 schools, total FTE=18829, avg=1177
+  South East Asia & India: 14 schools, total FTE=23017, avg=1644
+  China International: 9 schools, total FTE=12847, avg=1427
+  Middle East: 8 schools, total FTE=18755, avg=2344
+  China Bilingual: 6 schools, total FTE=12236, avg=2039
+  : 4 schools, total FTE=4539, avg=1135
+
+=== FEE TIERS (FY2026.0) ===
+  <$10k: 0 schools
+  $10k-$20k: 2 schools
+  $20k-$30k: 33 schools
+  $30k-$40k: 32 schools
+  $40k+: 12 schools
+
+=== NPS DISTRIBUTION (FY2026.0) ===
+  Negative (<0): 0 schools
+  Low (0-30): 8 schools
+  Mid (30-50): 36 schools
+  Good (50-70): 35 schools
+  Excellent (70+): 0 schools
+
+
+===========================
+=== ALL-YEARS ANALYSIS ===
+===========================
+
+All-years StudentFTE: n=503, total=667970
+All-years Utilization: n=503, mean=90.5%, over-100%=84

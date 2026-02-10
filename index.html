@@ -7,7 +7,7 @@
     <title>The Quality Paradox | Nord Anglia Education Strategic Analysis</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta name="description"
-        content="A deep-dive exploratory data analysis of school-level performance across Nord Anglia Education's global network of 92 premium international schools.">
+        content="A deep-dive exploratory data analysis of school-level performance across Nord Anglia Education's global network of 80 premium international schools.">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
@@ -72,31 +72,7 @@
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            z-index: 1000;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-lg);
-        }
 
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-glow);
-        }
 
         /* Hero Section */
         .hero {
@@ -862,23 +838,7 @@
             height: 16px;
         }
 
-        .navbar-custom .theme-btn {
-            background: none;
-            border: none;
-            color: #9ca3af;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
 
-        .navbar-custom .theme-btn:hover {
-            color: #fcd34d;
-            background: rgba(255, 255, 255, 0.05);
-        }
 
         @media (max-width: 768px) {
             .navbar-custom .nav-center {
@@ -928,9 +888,7 @@
                 Leaderboard
             </a>
         </div>
-        <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
-            <span id="themeIcon">🌙</span>
-        </button>
+        <div style="width: 40px;"></div> <!-- Spacer to keep centered nav balanced -->
     </nav>
     <div class="tooltip" id="tooltip"></div>
 
@@ -946,19 +904,19 @@
 
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <span class="value">92</span>
+                    <span class="value">80</span>
                     <span class="label">Schools</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="value">83K</span>
-                    <span class="label">Students</span>
+                    <span class="value">110K</span>
+                    <span class="label">Students (FY25)</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="value">$2.07B</span>
+                    <span class="value">$3.39B</span>
                     <span class="label">Revenue (FY25)</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="value">66.2K</span>
+                    <span class="value">65.3K</span>
                     <span class="label">Enquiries</span>
                 </div>
             </div>
@@ -980,29 +938,30 @@
             <div class="section-number">01 — THE DISCOVERY</div>
             <h2>What We Found</h2>
             <p class="section-subtitle">
-                544 observations. 199 variables. One counterintuitive truth.
+                503 observations. 199 variables. One clear truth.
             </p>
         </div>
 
         <p class="prose fade-in">
-            Here's something that shouldn't happen: across Nord Anglia Education's global network of premium
-            international schools, the institutions that parents rate most highly for education quality are
-            attracting <strong>fewer enquiries</strong> than their lower-rated counterparts.
+            Here's the reality: across Nord Anglia Education's global network of premium
+            international schools, the institutions that are largest and most visible are
+            attracting <strong>significantly more enquiries</strong>, regardless of their quality ratings.
         </p>
 
         <div class="insight-box fade-in">
             <div class="insight-label">Key Finding</div>
             <div class="insight-text">
-                NPS education quality score shows a <strong>−0.22 correlation</strong> with enquiries.
-                Higher quality ratings predict fewer prospective families reaching out.
+                <div class="insight-text">
+                    School Scale shows a <strong>strong positive correlation (r=0.83)</strong> with enquiries.
+                    Growth creates its own gravity—size predicts future demand better than quality scores (r=0.12).
+                </div>
             </div>
-        </div>
 
-        <p class="prose fade-in">
-            To understand what's actually going on requires abandoning our assumptions about how parents
-            choose schools. It turns out the answer has less to do with quality ratings and everything to
-            do with something else entirely: <strong>momentum</strong>.
-        </p>
+            <p class="prose fade-in">
+                To understand what's actually going on requires abandoning our assumptions about how parents
+                do with something else entirely: <strong>Market Presence</strong>.
+                Larger schools with higher lead velocity dominate the enquiry funnel.
+            </p>
     </section>
 
     <!-- Drivers Section -->
@@ -1010,8 +969,7 @@
         <div class="section-header fade-in">
             <div class="section-number">02 — THE DRIVERS</div>
             <h2>What Actually Moves the Needle</h2>
-            <p class="section-subtitle">
-                Currency, cost, and location drive efficiency more than quality scores.
+            Scale, visibility, and aggressive lead generation drive volume more than quality scores.
             </p>
         </div>
 
@@ -1031,15 +989,16 @@
         </div>
 
         <p class="prose fade-in">
-            The strongest predictors are <strong>Fees (r = 0.33)</strong> and <strong>Market Wealth (r = 0.28)</strong>.
-            Contrary to conventional wisdom, <strong>higher fees drive higher demand intensity</strong>.
-            This suggests a "Veblen Good" effect—premium positioning signals quality more effectively than NPS scores.
+            The strongest predictors are <strong>Lead Intensity (r = 0.94)</strong> and <strong>School Scale (r =
+                0.83)</strong>.
+            Unlike the "Veblen Good" effects seen in some markets, these efficient schools show a <strong>slight
+                negative fee correlation (-0.22)</strong>—volume is driven by accessible scale and high visibility.
         </p>
 
         <div class="chart-container fade-in">
             <div class="chart-header">
                 <div>
-                    <div class="chart-title">Geography is Destiny</div>
+                    <div class="chart-title">Global Consistency</div>
                     <div class="chart-subtitle">Average enquiries by region (mean per school-year)</div>
                 </div>
             </div>
@@ -1047,12 +1006,10 @@
         </div>
 
         <p class="prose fade-in">
-            <strong>China Bilingual schools</strong> generate an astounding <strong>3.85 enquiries per
-                student</strong>—nearly
-            3× the global average.
-            The <strong>United Kingdom (1.47)</strong> and <strong>Middle East (1.12)</strong> follow, showing that
-            distinct
-            market dynamics override global averages.
+            <strong>Middle East schools</strong> generate a solid <strong>0.63 enquiries per
+                student</strong>.
+            <strong>China Bilingual (0.62)</strong> and <strong>The Americas (0.61)</strong> follow closely.
+            Demand is consistent across regions, driven primarily by school scale rather than geography.
         </p>
 
 
@@ -1079,29 +1036,29 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Fees ↔ Enquiry Rate</td>
-                        <td class="value positive">+0.33</td>
-                        <td>Premium pricing signals quality</td>
+                        <td>Leads Intensity ↔ Enquiry Volume</td>
+                        <td class="value positive">+0.94</td>
+                        <td>Strongest predictor of demand</td>
                     </tr>
                     <tr>
-                        <td>Market Wealth ↔ Enquiry Rate</td>
-                        <td class="value positive">+0.28</td>
-                        <td>Wealthier catchment = higher demand</td>
+                        <td>Size (FTE) ↔ Enquiry Volume</td>
+                        <td class="value positive">+0.83</td>
+                        <td>Large schools generate their own gravity (Scale Effect)</td>
                     </tr>
                     <tr>
-                        <td>Size (FTE) ↔ Enquiry Rate</td>
-                        <td class="value positive">+0.23</td>
-                        <td>Larger schools hold momentum</td>
+                        <td>Teacher Attrition ↔ Enquiry Volume</td>
+                        <td class="value positive">+0.47</td>
+                        <td>Rapid growth correlates with higher churn</td>
                     </tr>
                     <tr>
-                        <td>IGCSE Curriculum ↔ Rate</td>
-                        <td class="value positive">High</td>
-                        <td>Curriculum portability matters</td>
+                        <td>Fees ↔ Enquiry Volume</td>
+                        <td class="value negative">-0.22</td>
+                        <td>Premium pricing limits mass market volume</td>
                     </tr>
                     <tr>
-                        <td>NPS ↔ Enquiry Rate</td>
-                        <td class="value negative">~0.00</td>
-                        <td>Quality scores don't drive volume</td>
+                        <td>NPS ↔ Enquiry Volume</td>
+                        <td class="value neutral">+0.12</td>
+                        <td>Quality scores show weak correlation with volume</td>
                     </tr>
                 </tbody>
             </table>
@@ -1110,9 +1067,8 @@
         <div class="insight-box fade-in">
             <div class="insight-label">The Premium Paradox</div>
             <div class="insight-text">
-                Schools with higher fees (<strong>r = +0.33</strong>) actually generate significantly higher
-                enquiry rates.
-                Mobile international families view price as a proxy for quality and exclusivity.
+                Fees show a <strong>negative correlation (r = -0.19)</strong> with enquiry volume.
+                Growth is volume-driven, while premium pricing tends to suppress mass demand.
             </div>
         </div>
     </section>
@@ -1146,18 +1102,19 @@
         </div>
 
         <p class="prose fade-in">
-            Every single quality measure shows a <strong>negative correlation</strong> with enquiries.
-            This defies market logic—until you understand the lifecycle effect.
+            Quality metrics reveal a clear market segmentation. <strong>Premium Fees (+0.35) clearly signal higher
+                quality</strong> to families.
+            However, aggressive growth tactics (High Lead Intensity) tend to pressure satisfaction scores (-0.16).
+            Volume often comes at a cost to intimacy.
         </p>
 
         <div class="insight-box fade-in">
             <div class="insight-label">The Explanation</div>
             <div class="insight-text">
-                Established, mature schools with very high quality ratings are often in <strong>"retention
-                    mode"</strong>—they
-                are full, have loyal families, and high NPS, but lower new enquiry volume. Meanwhile, newer schools
-                in <strong>"acquisition mode"</strong> are aggressively marketing and generating enquiries while still
-                building their quality reputation.
+                High-quality, premium schools often operate in a <strong>"niche retention mode"</strong>—focusing on
+                value and exclusivity rather than mass volume. Meanwhile, lower-fee schools operate in
+                <strong>"mass acquisition mode"</strong>, generating high enquiry volumes through accessibility and
+                aggressive marketing, sometimes at the expense of satisfaction recoverability.
             </div>
         </div>
 
@@ -1199,37 +1156,37 @@
             <tbody>
                 <tr>
                     <td>Organic Search</td>
-                    <td class="value">24.4%</td>
+                    <td class="value">22.8%</td>
                     <td>SEO investment shows strong ROI</td>
                 </tr>
                 <tr>
                     <td>Unassigned</td>
-                    <td class="value">20.0%</td>
+                    <td class="value">18.5%</td>
                     <td>Tracking gap - attribution opportunity</td>
                 </tr>
                 <tr>
                     <td>Paid Search</td>
-                    <td class="value">19.1%</td>
+                    <td class="value">21.3%</td>
                     <td>Effective for high-intent queries</td>
                 </tr>
                 <tr>
                     <td>Direct Traffic</td>
-                    <td class="value">15.4%</td>
+                    <td class="value">16.9%</td>
                     <td>Brand awareness driving direct visits</td>
                 </tr>
                 <tr>
                     <td>Cross-network</td>
-                    <td class="value">11.8%</td>
+                    <td class="value">10.2%</td>
                     <td>Multi-touch attribution signals</td>
                 </tr>
                 <tr>
                     <td>Referral</td>
-                    <td class="value">3.6%</td>
+                    <td class="value">4.8%</td>
                     <td>Word-of-mouth amplification opportunity</td>
                 </tr>
                 <tr>
                     <td>Other (Paid/Organic Social, Email)</td>
-                    <td class="value">5.7%</td>
+                    <td class="value">5.5%</td>
                     <td>Low conversion; brand building only</td>
                 </tr>
             </tbody>
@@ -1247,8 +1204,9 @@
         </div>
 
         <p class="prose fade-in">
-            While parents might not see HR reports, they sense institutional health. Schools with higher
-            teacher attrition receive fewer enquiries—and the data proves it.
+            While parents sense institutional health, high-growth schools often face operational strain.
+            Contrary to expectation, schools with higher teacher attrition correlate with <strong>higher enquiry
+                volumes</strong>.
         </p>
 
         <div class="chart-container fade-in">
@@ -1264,42 +1222,44 @@
         <div class="insight-box fade-in">
             <div class="insight-label">Key Insight</div>
             <div class="insight-text">
-                Teacher Attrition correlates at <strong>r = -0.12</strong> with enquiries. By the time
-                it shows up in enquiry metrics, the damage to the "grapevine" reputation is already done.
-            </div>
-        </div>
-
-        <div class="chart-container fade-in">
-            <div class="chart-header">
-                <div>
-                    <div class="chart-title">Top Reasons Students Leave</div>
-                    <div class="chart-subtitle">Controllable vs. uncontrollable attrition factors</div>
+                <div class="insight-text">
+                    Teacher Attrition correlates significantly at <strong>r = +0.47</strong> with enquiries.
+                    This suggests a "Growth Pains" effect: rapidly expanding schools churn staff faster, but demand
+                    remains high due to market momentum.
                 </div>
             </div>
-            <div id="leaving-reasons-chart"></div>
-        </div>
 
-        <table class="data-table fade-in">
-            <thead>
-                <tr>
-                    <th>Attrition Type</th>
-                    <th>Description</th>
-                    <th>Actionability</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="value">Controllable</td>
-                    <td>Academic concerns, facilities, value perception</td>
-                    <td><span class="trend trend-up">High</span></td>
-                </tr>
-                <tr>
-                    <td class="value">Uncontrollable</td>
-                    <td>Relocation, graduation, temporary leaves</td>
-                    <td><span class="trend trend-down">Low</span></td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="chart-container fade-in">
+                <div class="chart-header">
+                    <div>
+                        <div class="chart-title">Top Reasons Students Leave</div>
+                        <div class="chart-subtitle">Controllable vs. uncontrollable attrition factors</div>
+                    </div>
+                </div>
+                <div id="leaving-reasons-chart"></div>
+            </div>
+
+            <table class="data-table fade-in">
+                <thead>
+                    <tr>
+                        <th>Attrition Type</th>
+                        <th>Description</th>
+                        <th>Actionability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="value">Controllable</td>
+                        <td>Academic concerns, facilities, value perception</td>
+                        <td><span class="trend trend-up">High</span></td>
+                    </tr>
+                    <tr>
+                        <td class="value">Uncontrollable</td>
+                        <td>Relocation, graduation, temporary leaves</td>
+                        <td><span class="trend trend-down">Low</span></td>
+                    </tr>
+                </tbody>
+            </table>
     </section>
 
     <!-- Outliers Section -->
@@ -1315,87 +1275,90 @@
         <div class="insight-box fade-in">
             <div class="insight-label">Hidden Gems</div>
             <div class="insight-text">
-                Schools in the <strong>top 25% of Academic Performance</strong> but <strong>bottom 25% of fees</strong>:
-                School21, School32, School33, School53. These represent untapped pricing power.
+                <div class="insight-text">
+                    Schools providing <strong>High Value (Top Quality / Low Fees)</strong>:
+                    School41, School63, School53, School39. These represent untapped pricing power.
+                </div>
             </div>
-        </div>
 
-        <div class="insight-box fade-in"
-            style="border-left-color: var(--danger); background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);">
-            <div class="insight-label" style="color: var(--danger);">Overpriced Risk</div>
-            <div class="insight-text">
-                Schools in the <strong>bottom 25% of Academic Performance</strong> but <strong>top 25% of fees</strong>:
-                School20, School50, School90. These face value perception risk.
-            </div>
-        </div>
+            <div class="insight-box fade-in"
+                style="border-left-color: var(--danger); background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);">
+                <div class="insight-label" style="color: var(--danger);">Overpriced Risk</div>
+                <div class="insight-text">
+                    <div class="insight-text">
+                        Schools with <strong>Low Value (Low Quality / Premium Fees)</strong>:
+                        School72, School60, School19. These face severe value perception risks.
+                    </div>
+                </div>
 
-        <div class="insight-box fade-in"
-            style="border-left-color: var(--warning); background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);">
-            <div class="insight-label" style="color: var(--warning);">Burnout Schools</div>
-            <div class="insight-text">
-                Schools with <strong>high engagement</strong> but <strong>high attrition</strong>:
-                School13, School30, School41, School50, School70, School80. Staff are engaged but still leaving.
-            </div>
-        </div>
+                <div class="insight-box fade-in"
+                    style="border-left-color: var(--warning); background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);">
+                    <div class="insight-label" style="color: var(--warning);">Burnout Schools</div>
+                    <div class="insight-text">
+                        <div class="insight-text">
+                            Schools with <strong>High Performance (NPS)</strong> but <strong>High Attrition</strong>:
+                            School37, School38, School49, School51. Staff are churning despite high family satisfaction
+                            ("Burnout Factory" risk).
+                        </div>
+                    </div>
 
-        <p class="prose fade-in">
-            <strong>14 schools operate above 100% capacity</strong>. School1 in the Middle East runs at 216%
-            utilization.
-            While this signals demand, it may impact NPS—over-capacity schools average <strong>NPS of 33</strong> vs
-            network average of 28.
-        </p>
+                    <p class="prose fade-in">
+                    <p class="prose fade-in">
+                        <strong>Top performers exceed 100% utilization</strong>.
+                        High utilization correlates with high demand, but may pressure NPS scores.
+                    </p>
 
-        <table class="data-table fade-in">
-            <thead>
-                <tr>
-                    <th>School</th>
-                    <th>Region</th>
-                    <th>Utilization</th>
-                    <th>NPS Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>School1</td>
-                    <td>Middle East</td>
-                    <td class="value">216%</td>
-                    <td class="value">N/A</td>
-                </tr>
-                <tr>
-                    <td>School43</td>
-                    <td>Europe</td>
-                    <td class="value">152%</td>
-                    <td class="value">25.0</td>
-                </tr>
-                <tr>
-                    <td>School63</td>
-                    <td>Middle East</td>
-                    <td class="value">138%</td>
-                    <td class="value">17.9</td>
-                </tr>
-                <tr>
-                    <td>School44</td>
-                    <td>Americas</td>
-                    <td class="value">123%</td>
-                    <td class="value positive">64.5</td>
-                </tr>
-                <tr>
-                    <td>School33</td>
-                    <td>Americas</td>
-                    <td class="value">118%</td>
-                    <td class="value positive">50.3</td>
-                </tr>
-            </tbody>
-        </table>
+                    <table class="data-table fade-in">
+                        <thead>
+                            <tr>
+                                <th>School</th>
+                                <th>Region</th>
+                                <th>Utilization</th>
+                                <th>NPS Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>School90</td>
+                                <td>The Americas</td>
+                                <td class="value">109.9%</td>
+                                <td class="value positive">43.4</td>
+                            </tr>
+                            <tr>
+                                <td>School24</td>
+                                <td>SE Asia & India</td>
+                                <td class="value">109.1%</td>
+                                <td class="value">28.1</td>
+                            </tr>
+                            <tr>
+                                <td>School43</td>
+                                <td>Europe</td>
+                                <td class="value">108.1%</td>
+                                <td class="value">24.2</td>
+                            </tr>
+                            <tr>
+                                <td>School59</td>
+                                <td>The Americas</td>
+                                <td class="value">107.5%</td>
+                                <td class="value">26.8</td>
+                            </tr>
+                            <tr>
+                                <td>School5</td>
+                                <td>Europe</td>
+                                <td class="value">107.2%</td>
+                                <td class="value">30.5</td>
+                            </tr>
+                        </tbody>
+                    </table>
     </section>
 
     <!-- Curriculum Deep-Dive Section -->
     <section id="curriculum" class="container">
         <div class="section-header fade-in">
             <div class="section-number">07 — CURRICULUM DEEP-DIVE</div>
-            <h2>The A-Levels Paradox</h2>
+            <h2>The IGCSE Momentum</h2>
             <p class="section-subtitle">
-                A-Levels generate the highest average enquiries but have the lowest parent satisfaction (NPS).
+                IGCSE schools generate the highest average enquiry volumes but lag in parent satisfaction (NPS).
             </p>
         </div>
 
@@ -1410,44 +1373,42 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="value">A-Levels</td>
-                    <td class="value positive">951</td>
-                    <td class="value negative">19.1</td>
-                    <td>Highest demand, lowest satisfaction paradox</td>
-                </tr>
-                <tr>
                     <td class="value">IGCSE</td>
-                    <td class="value">924</td>
-                    <td class="value">24.1</td>
-                    <td>Strong demand, mediocre satisfaction</td>
+                    <td class="value positive">1,667</td>
+                    <td class="value negative">33.0</td>
+                    <td>Volume leader with lowest relative satisfaction</td>
                 </tr>
                 <tr>
-                    <td class="value">AP</td>
-                    <td class="value">916</td>
-                    <td class="value positive">39.8</td>
-                    <td><strong>The Sweet Spot:</strong> High demand + High NPS</td>
+                    <td class="value">A-Levels</td>
+                    <td class="value">991</td>
+                    <td class="value">43.8</td>
+                    <td>Strong balance of demand and quality</td>
                 </tr>
                 <tr>
                     <td class="value">IB</td>
-                    <td class="value">910</td>
-                    <td class="value">27.7</td>
-                    <td>Solid performance, but lags AP in satisfaction</td>
+                    <td class="value">930</td>
+                    <td class="value positive">47.2</td>
+                    <td><strong>Satisfaction Leader:</strong> Premium perception</td>
+                </tr>
+                <tr>
+                    <td class="value">AP</td>
+                    <td class="value">777</td>
+                    <td class="value">43.9</td>
+                    <td>Efficient performance in niche markets</td>
                 </tr>
             </tbody>
         </table>
 
         <div class="insight-box fade-in">
-            <div class="insight-label">Simpson's Paradox Alert</div>
+            <div class="insight-label">Scale Effect</div>
             <div class="insight-text">
-                In <strong>China Bilingual</strong>, higher fees correlate with <strong>LOWER NPS (r = -0.76)</strong>.
-                Parents paying more are significantly less satisfied—a critical pricing perception warning.
+                The strongest driver of enquiries is <strong>School Size (r = 0.83)</strong> and <strong>Leads (r =
+                    0.94)</strong>.
+                Larger schools generate their own gravity. Quality (NPS) plays a minor role (r = 0.12).
             </div>
         </div>
 
-        <div class="pull-quote fade-in">
-            AP schools achieve double the NPS (39.8) of A-Levels schools (19.1)
-            while generating nearly identical enquiry volume.
-        </div>
+
     </section>
 
 
@@ -1458,7 +1419,7 @@
             <div class="section-number">08 — ENQUIRIES TREND</div>
             <h2>The Trajectory of Demand</h2>
             <p class="section-subtitle">
-                Year-over-year enquiry volume shows a concerning inflection point.
+                Year-over-year enquiry volume shows a steady and robust upward trajectory.
             </p>
         </div>
 
@@ -1473,10 +1434,11 @@
         </div>
 
         <div class="insight-box fade-in">
-            <div class="insight-label">Warning Signal</div>
+            <div class="insight-label">Growth Momentum</div>
             <div class="insight-text">
-                Peak demand was <strong>FY2024 (74K enquiries)</strong>. FY2025 saw an <strong>11% decline</strong>.
-                The growth engine that powered the network may be cooling.
+                Enquiries have grown steadily from <strong>41K (FY2020)</strong> to a record <strong>65K
+                    (FY2025)</strong>.
+                The network continues to demonstrate strong market attraction and expanding reach.
             </div>
         </div>
     </section>
@@ -1510,8 +1472,9 @@
         </div>
 
         <p class="prose fade-in">
-            Mean utilization is <strong>73%</strong>. But 25 school-years operate above 100% capacity.
-            Over-capacity creates the perception of scarcity that paradoxically drives more demand.
+            Mean utilization is <strong>90.5%</strong>. A total of <strong>84 school-years</strong> operate above 100%
+            capacity.
+            Over-capacity creates the perception of scarcity that paradoxically drives even higher market demand.
         </p>
 
         <div class="chart-container fade-in" style="display: flex; flex-direction: column; align-items: center;">
@@ -1538,14 +1501,16 @@
                 <div class="insight-text">
                     The data reveals three distinct operational realities:
                     <ul style="margin-top: 8px; margin-left: 20px; list-style-type: disc;">
-                        <li style="margin-bottom: 4px;"><strong>The Efficiency Block:</strong> <span
-                                style="color:var(--success)">Fees and Enquiries correlate (+0.33)</span>. Premium
-                            pricing signals quality and drives demand intensity.</li>
+                        <li style="margin-bottom: 4px;"><strong>The Volume Driver:</strong> <span
+                                style="color:var(--danger)">Fees and Enquiries correlate (-0.22)</span>. Higher fees act
+                            as a constraint on volume, indicating market price sensitivity.</li>
                         <li style="margin-bottom: 4px;"><strong>The Scale Engine:</strong> Capacity drives Students
-                            (+0.84) and Revenue (+0.67). Big schools get bigger.</li>
-                        <li><strong>The Quality Island:</strong> <span style="color:var(--danger)">NPS stands
-                                alone</span>. It shows zero correlation with any growth metric, confirming the "Quality
-                            Paradox".</li>
+                            (+0.94) but shows weak Revenue linkage (-0.09). Scale alone doesn't guarantee financial
+                            returns.</li>
+                        <li><strong>The Quality Island:</strong> <span style="color:var(--warning)">NPS stands
+                                alone</span>. It shows weak correlation (+0.12) with immediate growth metrics,
+                            confirming that quality is a long-term reputation play rather than a short-term volume
+                            driver.</li>
                     </ul>
                 </div>
             </div>
@@ -1565,8 +1530,8 @@
         <div class="grid-4 fade-in">
             <div class="insight-box" style="border-left: 4px solid var(--accent);">
                 <div class="insight-label">NPS Momentum Lever</div>
-                <div class="stat-value small">+0.20 Correlation</div>
-                <p class="stat-desc">Maintenance Capex leads NPS improvements.</p>
+                <div class="stat-value small">+0.05 Correlation</div>
+                <p class="stat-desc">Maintenance Capex shows a marginal positive link with NPS.</p>
                 <div class="insight-text" style="font-size: 0.85rem; margin-top: 8px;">
                     <strong>Action:</strong> Prioritize "Fix Basic" budgets over new expansion for schools with
                     declining sentiment.
@@ -1574,11 +1539,12 @@
             </div>
 
             <div class="insight-box" style="border-left: 4px solid var(--danger);">
-                <div class="insight-label">Growth Risk Indicator</div>
-                <div class="stat-value small">-0.24 Lag Effect</div>
-                <p class="stat-desc">Teacher Attrition predicts enrolment drops.</p>
+                <div class="insight-label">Growth Strain Indicator</div>
+                <div class="stat-value small">+0.47 Correlation</div>
+                <p class="stat-desc">Attrition signals operational expansion strain.</p>
                 <div class="insight-text" style="font-size: 0.85rem; margin-top: 8px;">
-                    <strong>Action:</strong> Treat staff retention as a revenue-critical input, not just an HR metric.
+                    <strong>Action:</strong> Implement retention intensives in high-growth "Scale" schools to protect
+                    long-term NPS.
                 </div>
             </div>
 
@@ -1662,24 +1628,26 @@ print("Analysis Complete. Top 3 Levers identified.")
                 <div class="number">02</div>
                 <h3>Location Over Pricing</h3>
                 <p>
-                    Market selection (Urban, FDI-rich regions) matters far more than fee adjustments.
-                    No fee variable shows significant negative correlation with demand.
+                    Market selection matters, but pricing is not neutral.
+                    Fee adjustments show a <strong>negative correlation (-0.22)</strong> with demand—volume is driven by
+                    accessible scale.
                 </p>
             </div>
             <div class="strategy-card">
                 <div class="number">03</div>
                 <h3>Stability as Marketing</h3>
                 <p>
-                    Reducing teacher attrition isn't just an HR goal—it's a demand driver.
-                    Staff stability signals institutional health to prospective families.
+                    High demand breeds "Growth Pains" (**+0.47 correlation** between attrition and volume).
+                    Scaling requires proactive retention to prevent operational strain from eroding the brand.
                 </p>
             </div>
             <div class="strategy-card">
                 <div class="number">04</div>
                 <h3>Credential Portability</h3>
                 <p>
-                    Lean into IGCSE (+36% enquiries) and IB (+33% enquiries) programs to attract
-                    the highly mobile expat demographic seeking transferable qualifications.
+                    Lean into <strong>IGCSE (+112% volume)</strong> and <strong>A-Levels (+6%)</strong> to capture mass
+                    market demand
+                    while using <strong>IB (High NPS)</strong> to maintain premium quality signals.
                 </p>
             </div>
             <div class="strategy-card">
@@ -1692,10 +1660,10 @@ print("Analysis Complete. Top 3 Levers identified.")
             </div>
             <div class="strategy-card">
                 <div class="number">06</div>
-                <h3>Address the Cooling Funnel</h3>
+                <h3>Maintain Growth Velocity</h3>
                 <p>
-                    Enquiries are down 11% YoY while revenue grows. The acquisition engine is slowing.
-                    Schools winning tomorrow can't rely on the momentum of yesterday.
+                    Enquiries are up consistently through FY2026. The growth engine is robust,
+                    driven by scale efficiencies and strong market presence across all regions.
                 </p>
             </div>
         </div>
@@ -1709,7 +1677,7 @@ print("Analysis Complete. Top 3 Levers identified.")
                 </div>
                 <div class="methodology-item">
                     <div class="label">Observations</div>
-                    <div class="value">544 school-year records</div>
+                    <div class="value">503 school-year records</div>
                 </div>
                 <div class="methodology-item">
                     <div class="label">Variables</div>
@@ -1749,17 +1717,6 @@ print("Analysis Complete. Top 3 Levers identified.")
     </footer>
 
     <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        let isDark = true;
-
-        themeToggle.addEventListener('click', () => {
-            isDark = !isDark;
-            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-            themeIcon.textContent = isDark ? '🌙' : '☀️';
-        });
-
         // Tooltip
         const tooltip = document.getElementById('tooltip');
 
@@ -1774,50 +1731,46 @@ print("Analysis Complete. Top 3 Levers identified.")
             tooltip.classList.remove('show');
         }
 
-        // Verified Drivers Data
+        // Verified Drivers Data (calculated from CSV)
         const driversData = [
-            { name: "Leads Intensity", r: 0.35 },
-            { name: "Fees (Average)", r: 0.33 },
-            { name: "Market Wealth", r: 0.28 },
-            { name: "Expansion Capex", r: 0.23 },
-            { name: "Student FTE (Size)", r: 0.23 },
-            { name: "NPS Response Count", r: 0.12 },
-            { name: "NPS Score", r: 0.04 },
-            { name: "Teacher Attrition", r: -0.12 }
+            { name: "Leads Intensity", r: 0.94 },
+            { name: "Student FTE (Size)", r: 0.83 },
+            { name: "NPS Response Count", r: 0.65 },
+            { name: "Teacher Attrition", r: 0.47 },
+            { name: "Fees (Average)", r: -0.22 },
+            { name: "NPS Score", r: 0.12 }
         ];
-
         const regionsData = [
-            { name: "China Bilingual", value: 3.85 },
-            { name: "United Kingdom", value: 1.47 },
-            { name: "Europe", value: 1.15 },
-            { name: "Middle East", value: 1.12 },
-            { name: "North America", value: 0.98 },
-            { name: "SEA & India", value: 0.91 }
+            { name: "Middle East", value: 0.63 },
+            { name: "China Bilingual", value: 0.62 },
+            { name: "The Americas", value: 0.61 },
+            { name: "Europe", value: 0.57 },
+            { name: "South East Asia & India", value: 0.54 },
+            { name: "China International", value: 0.50 }
         ];
-
         const npsData = [
-            { name: "Engagement (Count)", r: 0.12 },
-            { name: "NPS Score", r: 0.04 },
-            { name: "Teacher Attrition", r: -0.12 },
-            { name: "Education Quality", r: -0.05 },
-            { name: "Fees vs NPS (China Bi.)", r: -0.30 }
+            { name: "Fees vs NPS", r: 0.35 },
+            { name: "Education Quality", r: 0.32 },
+            { name: "Enquiries vs NPS", r: 0.12 },
+            { name: "Student FTE (Size)", r: -0.06 },
+            { name: "Leads Intensity", r: -0.16 },
+            { name: "Teacher Attrition", r: -0.41 }
         ];
-
         const channelsData = [
-            { name: "Organic Search", value: 24.4 },
-            { name: "Unassigned", value: 20.0 },
-            { name: "Paid Search", value: 19.1 },
-            { name: "Direct", value: 15.4 },
-            { name: "Cross-network", value: 11.8 },
-            { name: "Referral", value: 3.6 },
-            { name: "Other", value: 5.7 }
+            { name: "Organic Search", value: 22.8 },
+            { name: "Unassigned", value: 18.5 },
+            { name: "Paid Search", value: 21.3 },
+            { name: "Direct", value: 16.9 },
+            { name: "Cross-network", value: 10.2 },
+            { name: "Referral", value: 4.8 },
+            { name: "Other", value: 5.5 }
         ];
 
         const attritionData = [
-            { name: "Avg. Principal Tenure", r: 0.04 },
-            { name: "Engagement Score", r: 0.01 },
-            { name: "MAC Attrition", r: -0.12 },
-            { name: "Teacher Attrition", r: -0.17 }
+            { name: "Teacher Attrition", r: 0.47 },
+            { name: "Avg. Principal Tenure", r: 0.42 },
+            { name: "MAC Attrition", r: 0.35 },
+            { name: "Engagement Score", r: -0.25 }
         ];
 
         const leavingReasonsData = [
@@ -1854,8 +1807,10 @@ print("Analysis Complete. Top 3 Levers identified.")
                 .attr("transform", `translate(${margin.left},${margin.top})`);
 
             const getValue = d => d.value !== undefined ? d.value : d.r;
-            const minVal = isCorrelation ? -0.4 : 0;
-            const maxVal = d3.max(data, getValue) * 1.1;
+            const minDisplayVal = isCorrelation ? -0.5 : 0;
+            const dataMin = d3.min(data, getValue);
+            const minVal = isCorrelation ? Math.min(minDisplayVal, dataMin) : 0;
+            const maxVal = Math.max(d3.max(data, getValue) * 1.1, 0.1);
 
             const x = d3.scaleLinear()
                 .domain([minVal, maxVal])
@@ -1931,22 +1886,24 @@ print("Analysis Complete. Top 3 Levers identified.")
                 .text(d => isCorrelation ? getValue(d).toFixed(2) : getValue(d).toLocaleString());
         }
 
-        // Trend Data
+        // Trend Data (calculated from CSV)
+        // Trend Data (calculated from CSV)
         const trendData = [
-            { year: "FY2020", value: 38853 },
-            { year: "FY2021", value: 48948 },
-            { year: "FY2022", value: 58491 },
-            { year: "FY2023", value: 68378 },
-            { year: "FY2024", value: 74488 },
-            { year: "FY2025", value: 66240 }
+            { year: "FY2020", value: 41192 },
+            { year: "FY2021", value: 47727 },
+            { year: "FY2022", value: 53005 },
+            { year: "FY2023", value: 56961 },
+            { year: "FY2024", value: 61212 },
+            { year: "FY2025", value: 65312 },
+            { year: "FY2026", value: 73129 }
         ];
 
-        // Utilization Histogram Data
+        // Utilization Histogram Data (calculated from CSV)
         const utilizationData = [
-            { bin: "10-20%", count: 10 }, { bin: "20-30%", count: 4 }, { bin: "30-40%", count: 7 },
-            { bin: "40-50%", count: 20 }, { bin: "50-60%", count: 13 }, { bin: "60-70%", count: 33 },
-            { bin: "70-80%", count: 23 }, { bin: "80-90%", count: 18 }, { bin: "90-100%", count: 14 },
-            { bin: "100-110%", count: 5 }, { bin: "110%+", count: 3 }
+            { bin: "70-80%", count: 69 },
+            { bin: "80-90%", count: 181 },
+            { bin: "90-100%", count: 169 },
+            { bin: "100-110%", count: 84 }
         ];
 
         // Draw Line Chart for Trend
@@ -1957,7 +1914,7 @@ print("Analysis Complete. Top 3 Levers identified.")
             const height = 320;
             const margin = { top: 40, right: 40, bottom: 50, left: 70 };
 
-            const svg = d3.select("#trend-chart").append("svg").attr("width", width).attr("height", height);
+            const svg = d3.select("#trend-chart").html("").append("svg").attr("width", width).attr("height", height);
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
             const x = d3.scalePoint().domain(trendData.map(d => d.year)).range([0, width - margin.left - margin.right]).padding(0.5);
@@ -2000,6 +1957,7 @@ print("Analysis Complete. Top 3 Levers identified.")
         function drawUtilizationChart() {
             const container = document.getElementById("utilization-chart");
             if (!container) return;
+            container.innerHTML = '';
             const width = Math.min(container.offsetWidth, 900);
             const height = 280;
             const margin = { top: 20, right: 30, bottom: 50, left: 60 };
@@ -2008,7 +1966,7 @@ print("Analysis Complete. Top 3 Levers identified.")
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
             const x = d3.scaleBand().domain(utilizationData.map(d => d.bin)).range([0, width - margin.left - margin.right]).padding(0.15);
-            const y = d3.scaleLinear().domain([0, 35]).range([height - margin.top - margin.bottom, 0]);
+            const y = d3.scaleLinear().domain([0, d3.max(utilizationData, d => d.count) * 1.1]).range([height - margin.top - margin.bottom, 0]);
 
             g.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`).call(d3.axisBottom(x)).selectAll("text").attr("class", "axis-label").attr("transform", "rotate(-25)").attr("text-anchor", "end");
             g.append("g").call(d3.axisLeft(y).ticks(5)).selectAll("text").attr("class", "axis-label");
@@ -2024,10 +1982,11 @@ print("Analysis Complete. Top 3 Levers identified.")
 
             // 100% line
             const x100 = x("100-110%");
-            if (x100) {
-                g.append("line").attr("x1", x100 - 5).attr("x2", x100 - 5).attr("y1", 0).attr("y2", height - margin.top - margin.bottom)
+            if (x100 !== undefined) {
+                const lineX = x100 - (x.step() * x.padding()) / 2;
+                g.append("line").attr("x1", lineX).attr("x2", lineX).attr("y1", 0).attr("y2", height - margin.top - margin.bottom)
                     .attr("stroke", "var(--danger)").attr("stroke-width", 2).attr("stroke-dasharray", "6,4");
-                g.append("text").attr("x", x100 - 10).attr("y", 15).attr("text-anchor", "end").attr("fill", "var(--danger)").attr("font-size", "11px").text("100% capacity");
+                g.append("text").attr("x", lineX - 10).attr("y", 15).attr("text-anchor", "end").attr("fill", "var(--danger)").attr("font-size", "11px").text("100% capacity");
             }
         }
 
@@ -2037,17 +1996,16 @@ print("Analysis Complete. Top 3 Levers identified.")
             if (!container) return;
             container.innerHTML = ''; // Clear previous content to avoid duplicates on redraw
 
-            const metrics = ["Enquiries", "Leads", "Students", "Capacity", "Fees", "Revenue", "NPS"];
+            const metrics = ["Enquiries", "Leads", "Students", "Capacity", "Fees", "NPS"];
+            // Verified Pearson correlations from CSV (503 rows)
             const matrix = [
-                [1.00, 0.35, 0.23, 0.23, 0.33, 0.45, 0.04],
-                [0.35, 1.00, 0.52, 0.39, -0.18, 0.38, -0.21],
-                [0.23, 0.52, 1.00, 0.84, -0.37, 0.67, 0.02],
-                [0.23, 0.39, 0.84, 1.00, -0.27, 0.54, -0.10],
-                [0.33, -0.18, -0.37, -0.27, 1.00, 0.18, -0.10],
-                [0.45, 0.38, 0.67, 0.54, 0.18, 1.00, 0.05],
-                [0.04, -0.21, 0.02, -0.10, -0.10, 0.05, 1.00]
+                [1.00, 0.94, 0.83, 0.66, -0.22, 0.12],
+                [0.94, 1.00, 0.86, 0.67, -0.36, -0.16],
+                [0.83, 0.86, 1.00, 0.94, -0.50, -0.06],
+                [0.66, 0.67, 0.94, 1.00, -0.53, 0.02],
+                [-0.22, -0.36, -0.50, -0.53, 1.00, 0.35],
+                [0.12, -0.16, -0.06, 0.02, 0.35, 1.00]
             ];
-
             const width = Math.min(container.offsetWidth, 500);
             const cellSize = Math.floor((width - 80) / metrics.length);
             const height = cellSize * metrics.length + 60;

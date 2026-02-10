@@ -1,0 +1,49 @@
+===========================================================================
+  SPEARMAN vs PEARSON CORRELATION MATRIX COMPARISON
+===========================================================================
+
+  === SPEARMAN RANK CORRELATIONS (what the chart claims to use) ===
+                 Enquiries       Leads    Students    Capacity        Fees         NPS
+  ------------------------------------------------------------------------------------
+     Enquiries        1.00      +0.95      +0.81      +0.56      -0.19      +0.10
+         Leads      +0.95        1.00      +0.85      +0.58      -0.32      -0.16
+      Students      +0.81      +0.85        1.00      +0.90      -0.48      -0.08
+      Capacity      +0.56      +0.58      +0.90        1.00      -0.53      +0.00
+          Fees      -0.19      -0.32      -0.48      -0.53        1.00      +0.36
+           NPS      +0.10      -0.16      -0.08      +0.00      +0.36        1.00
+
+  === PEARSON LINEAR CORRELATIONS ===
+                 Enquiries       Leads    Students    Capacity        Fees         NPS
+  ------------------------------------------------------------------------------------
+     Enquiries        1.00      +0.94      +0.83      +0.66      -0.22      +0.12
+         Leads      +0.94        1.00      +0.86      +0.67      -0.36      -0.16
+      Students      +0.83      +0.86        1.00      +0.94      -0.50      -0.06
+      Capacity      +0.66      +0.67      +0.94        1.00      -0.53      +0.02
+          Fees      -0.22      -0.36      -0.50      -0.53        1.00      +0.35
+           NPS      +0.12      -0.16      -0.06      +0.02      +0.35        1.00
+
+  === SHOWN IN CHART (claimed 'Spearman') ===
+                 Enquiries       Leads    Students    Capacity        Fees         NPS
+  ------------------------------------------------------------------------------------
+     Enquiries      +1.00      +0.95      +0.81      +0.56      -0.19      +0.10
+         Leads      +0.95      +1.00      +0.85      +0.58      -0.16      -0.16
+      Students      +0.81      +0.85      +1.00      +0.65      -0.08      -0.08
+      Capacity      +0.56      +0.58      +0.65      +1.00      +0.03      +0.04
+          Fees      -0.19      -0.16      -0.08      +0.03      +1.00      +0.36
+           NPS      +0.10      -0.16      -0.08      +0.04      +0.36      +1.00
+
+  === MISMATCH ANALYSIS (Spearman actual vs shown) ===
+  5 mismatches (delta > 0.03):
+    Capacity <-> Fees: shown=+0.03, spearman=-0.53, pearson=-0.53, delta=0.56
+    Students <-> Fees: shown=-0.08, spearman=-0.48, pearson=-0.50, delta=0.40
+    Students <-> Capacity: shown=+0.65, spearman=+0.90, pearson=+0.94, delta=0.25
+    Leads <-> Fees: shown=-0.16, spearman=-0.32, pearson=-0.36, delta=0.16
+    Capacity <-> NPS: shown=+0.04, spearman=+0.00, pearson=+0.02, delta=0.04
+
+  === RECOMMENDED CORRECT PEARSON MATRIX ===
+    [1.00, 0.94, 0.83, 0.66, -0.22, 0.12],
+    [0.94, 1.00, 0.86, 0.67, -0.36, -0.16],
+    [0.83, 0.86, 1.00, 0.94, -0.50, -0.06],
+    [0.66, 0.67, 0.94, 1.00, -0.53, 0.02],
+    [-0.22, -0.36, -0.50, -0.53, 1.00, 0.35],
+    [0.12, -0.16, -0.06, 0.02, 0.35, 1.00],

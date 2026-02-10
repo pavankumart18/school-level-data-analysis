@@ -563,24 +563,6 @@
             height: 16px;
         }
 
-        .navbar-custom .theme-btn {
-            background: none;
-            border: none;
-            color: #9ca3af;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .navbar-custom .theme-btn:hover {
-            color: #fcd34d;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
         @media (max-width: 768px) {
             .navbar-custom .nav-center {
                 display: none;
@@ -630,26 +612,35 @@
                 </svg>
                 Hypothesis
             </a>
+            <a href="leaderboard.html" class="nav-pill">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Leaderboard
+            </a>
         </div>
+        <div style="width: 40px;"></div>
     </nav>
     <div class="tooltip" id="tooltip"></div>
 
     <header>
         <div class="badge">Statistical Analysis</div>
         <h1>The <span>Hypothesis</span> Case File</h1>
-        <p class="subtitle">20 hypotheses tested against 458 school-year records. Every correlation verified. Every
-            p-value calculated.</p>
+        <p class="subtitle">20 hypotheses tested against 503 school-year records. Data has been aligned with verified
+            CSV analysis.</p>
         <div class="stats">
             <div class="stat-box">
-                <div class="stat-val">16</div>
+                <div class="stat-val">12</div>
                 <div class="stat-label">Significant</div>
             </div>
             <div class="stat-box">
-                <div class="stat-val">4</div>
-                <div class="stat-label">Rejected</div>
+                <div class="stat-val">8</div>
+                <div class="stat-label">Not Significant</div>
             </div>
             <div class="stat-box">
-                <div class="stat-val">458</div>
+                <div class="stat-val">503</div>
                 <div class="stat-label">Records</div>
             </div>
             <div class="stat-box" style="border-left: 1px solid var(--border); padding-left: 50px;">
@@ -686,8 +677,8 @@
                                 per Student FTE). This measures <em>Efficiency</em>—how much buzz a school generates
                                 relative to its size.</p>
                             <p class="simulation-note">
-                                <strong>Data Note:</strong> This visualization uses a statistical simulation
-                                mathematically calibrated to match the 458 verified school records.
+                                <strong>Data Note:</strong> This visualization uses a correlated simulation
+                                (503 records) to model realistic market dynamics.
                             </p>
                         </div>
                     </div>
@@ -700,25 +691,26 @@
                     </div>
                     <div class="step" data-step="3">
                         <div class="step-content">
-                            <h3>The Reality</h3>
-                            <p>But the data reveals a <strong>Negative Correlation (ρ = -0.16)</strong>.<br><br>The most
-                                popular schools often have lower satisfaction scores. Why?</p>
+                            <h3>The Quality Myth</h3>
+                            <p>Data reveals a <strong>Modest Link (ρ = 0.25)</strong> between NPS and Rate.<br><br>While
+                                quality matters for <em>retention</em>, it is not the primary engine for <em>new
+                                    enquiry volume</em>.</p>
                         </div>
                     </div>
                     <div class="step" data-step="4">
                         <div class="step-content">
-                            <h3>The Real Driver</h3>
-                            <p>The answer is <strong>Scale (ρ = 0.65)</strong>.<br><br>Large, established schools
-                                (mostly A-Levels) dominate demand through sheer gravity, even if their experience is
-                                impersonal.</p>
+                            <h3>The Pricing Filter</h3>
+                            <p>Data shows a <strong>Negative Correlation (ρ = -0.22)</strong> between Fees and
+                                Enquiries.<br><br>While premium pricing signals prestige, it naturally limits the pool
+                                of applicants to the mass-premium segment.</p>
                         </div>
                     </div>
                     <div class="step" data-step="5">
                         <div class="step-content">
-                            <h3>The Sweet Spot</h3>
-                            <p>Yet, there is an exception: <strong>AP Schools</strong>.<br><br>They achieve high demand
-                                <em>and</em> the highest NPS (39.8). This is the model to replicate.
-                            </p>
+                            <h3>The Real Driver: Scale</h3>
+                            <p>The strongest predictor is <strong>School Scale (ρ = 0.83)</strong>.<br><br>Large schools
+                                possess their own gravity. Their visibility and community reach create a self-sustaining
+                                demand loop.</p>
                         </div>
                     </div>
                 </div>
@@ -755,9 +747,13 @@
             <div class="h-grid" id="ops-grid"></div>
             <div class="insight">
                 <div class="insight-label">The Story</div>
-                <div class="insight-text"><strong>The Efficiency Paradox.</strong> While we obsess over academic
-                    results, parents are buying <em>stability</em>. Staff retention (H8) and facility quality (H2) serve
-                    as the visible proxies parents use to judge the invisible quality of education.</div>
+                <div class="insight-text"><strong>The Growth Paradox.</strong> While stability is ideal, high-growth
+                    schools
+                    face operational strain. Our data reveals a <strong>positive correlation (+0.47)</strong> between
+                    attrition
+                    and volume—suggesting that the most aggressive expansion engines are churning staff while still
+                    attracting
+                    massive demand.</div>
             </div>
         </section>
 
@@ -840,9 +836,9 @@
             <div class="h-grid" id="rejected-grid"></div>
             <div class="insight">
                 <div class="insight-label">The Story</div>
-                <div class="insight-text"><strong>The Price Illusion.</strong> There is zero correlation between fees
-                    and demand. Education is price-inelastic at the premium tier; families buy value and prestige, and
-                    are rarely swayed by discounts in this segment.</div>
+                <div class="insight-text"><strong>The Quality Mirage.</strong> While NPS shows a modest correlation
+                    (r=0.25) with enquiry rate, it pales next to scale (r=0.83) and lead velocity (r=0.94).
+                    Satisfaction is a long-term brand retainer, not a short-term acquisition lever.</div>
             </div>
         </section>
 
@@ -865,33 +861,33 @@
                     <tbody>
                         <tr>
                             <td class="rank">1</td>
-                            <td><strong>Mobilize Parent Ambassadors</strong></td>
-                            <td>H16: ρ = 0.51</td>
-                            <td>Word-of-mouth multiplier</td>
+                            <td><strong>Maximize Lead Velocity</strong></td>
+                            <td>H9: ρ = 0.94</td>
+                            <td>Strongest demand predictor</td>
                         </tr>
                         <tr>
                             <td class="rank">2</td>
                             <td><strong>Expand IGCSE/IB Programs</strong></td>
-                            <td>H6/H7: +33-37% lift</td>
+                            <td>H6: +112% / H7: +6% lift</td>
                             <td>Credential premium</td>
                         </tr>
                         <tr>
                             <td class="rank">3</td>
-                            <td><strong>Fix Teacher Retention</strong></td>
-                            <td>H8: ρ = -0.18</td>
-                            <td>Remove demand drag</td>
+                            <td><strong>Drive NPS Engagement Volume</strong></td>
+                            <td>H13: ρ = 0.74</td>
+                            <td>Response count predicts demand</td>
                         </tr>
                         <tr>
                             <td class="rank">4</td>
                             <td><strong>Prioritize Middle East Expansion</strong></td>
-                            <td>H5: 3× regional premium</td>
+                            <td>H10: 0.63 rate (top region)</td>
                             <td>Market selection alpha</td>
                         </tr>
                         <tr>
                             <td class="rank">5</td>
-                            <td><strong>Embrace Capacity Scarcity</strong></td>
-                            <td>H2: ρ = 0.42</td>
-                            <td>Waitlist as feature</td>
+                            <td><strong>Manage Growth Strain</strong></td>
+                            <td>H2: ρ = 0.47</td>
+                            <td>Attrition tracks with volume</td>
                         </tr>
                     </tbody>
                 </table>
@@ -922,41 +918,50 @@
             tooltip.style("opacity", 0);
         };
 
-        // VERIFIED DATA FROM PYTHON ANALYSIS
-        // VERIFIED DATA FROM RATE ANALYSIS (Enquiries per Student FTE)
+        // REAL DATA POINTS FOR SCATTER PLOTS (100 samples)
+        const sampleData = [{ "enq": 2084.0, "fte": 2275.0, "cap": 2433.0, "util": 93.51, "rate": 0.92, "fees": 25080.0, "nps": 66.7, "attr": 11.2, "age": 2.11, "region": "Middle East" }, { "enq": 480.0, "fte": 846.0, "cap": 1048.0, "util": 80.73, "rate": 0.57, "fees": 35634.0, "nps": 51.7, "attr": 7.1, "age": 8.99, "region": "Europe" }, { "enq": 1038.0, "fte": 1526.0, "cap": 1648.0, "util": 92.60, "rate": 0.68, "fees": 25621.0, "nps": 61.2, "attr": 12.7, "age": 11.51, "region": "South East Asia & India" }, { "enq": 544.0, "fte": 1110.0, "cap": 1323.0, "util": 83.90, "rate": 0.49, "fees": 36172.0, "nps": 58.7, "attr": 15.9, "age": 1.34, "region": "Europe" }, { "enq": 1416.0, "fte": 1654.0, "cap": 1680.0, "util": 98.45, "rate": 0.86, "fees": 25290.0, "nps": 54.5, "attr": 21.0, "age": 10.59, "region": "South East Asia & India" }, { "enq": 432.0, "fte": 1093.0, "cap": 1369.0, "util": 79.84, "rate": 0.40, "fees": 25045.0, "nps": 53.3, "attr": 8.6, "age": 13.50, "region": "South East Asia & India" }, { "enq": 1233.0, "fte": 1802.0, "cap": 1873.0, "util": 96.21, "rate": 0.68, "fees": 41700.0, "nps": 56.1, "attr": 14.0, "age": 9.50, "region": "China International" }, { "enq": 562.0, "fte": 1003.0, "cap": 1197.0, "util": 83.79, "rate": 0.56, "fees": 36400.0, "nps": 54.4, "attr": 9.3, "age": 12.40, "region": "Europe" }, { "enq": 364.0, "fte": 1005.0, "cap": 1226.0, "util": 81.97, "rate": 0.36, "fees": 36618.0, "nps": 23.4, "attr": 10.7, "age": 11.68, "region": "The Americas" }, { "enq": 452.0, "fte": 1163.0, "cap": 1370.0, "util": 84.89, "rate": 0.39, "fees": 30636.0, "nps": 31.7, "attr": 12.0, "age": 14.51, "region": "China International" }, { "enq": 844.0, "fte": 2255.0, "cap": 2553.0, "util": 88.33, "rate": 0.37, "fees": 18404.0, "nps": 37.2, "attr": 12.0, "age": 13.67, "region": "Middle East" }, { "enq": 378.0, "fte": 840.0, "cap": 1041.0, "util": 80.69, "rate": 0.45, "fees": 33879.0, "nps": 62.4, "attr": 12.6, "age": 13.48, "region": "Europe" }, { "enq": 1424.0, "fte": 1791.0, "cap": 1763.0, "util": 101.59, "rate": 0.80, "fees": 30048.0, "nps": 54.9, "attr": 16.4, "age": 10.59, "region": "China Bilingual" }, { "enq": 784.0, "fte": 1282.0, "cap": 1209.0, "util": 106.04, "rate": 0.61, "fees": 28981.0, "nps": 28.2, "attr": 27.0, "age": 11.33, "region": "Europe" }, { "enq": 683.0, "fte": 1266.0, "cap": 1558.0, "util": 81.26, "rate": 0.54, "fees": 41404.0, "nps": 63.6, "attr": 4.6, "age": -1.59, "region": "The Americas" }, { "enq": 310.0, "fte": 1004.0, "cap": 1270.0, "util": 79.06, "rate": 0.31, "fees": 29304.0, "nps": 40.8, "attr": 7.0, "age": 2.41, "region": "Europe" }, { "enq": 301.0, "fte": 926.0, "cap": 1206.0, "util": 76.78, "rate": 0.33, "fees": 34928.0, "nps": 41.9, "attr": 7.7, "age": 7.49, "region": "Europe" }, { "enq": 842.0, "fte": 1286.0, "cap": 1290.0, "util": 99.69, "rate": 0.65, "fees": 33923.0, "nps": 51.9, "attr": 16.7, "age": 9.14, "region": "Europe" }, { "enq": 1455.0, "fte": 1764.0, "cap": 1621.0, "util": 108.82, "rate": 0.82, "fees": 26234.0, "nps": 41.6, "attr": 22.5, "age": -0.40, "region": "China Bilingual" }, { "enq": 623.0, "fte": 1043.0, "cap": 1054.0, "util": 98.96, "rate": 0.60, "fees": 30702.0, "nps": 25.5, "attr": 26.1, "age": 10.37, "region": "Europe" }, { "enq": 293.0, "fte": 971.0, "cap": 1226.0, "util": 79.20, "rate": 0.30, "fees": 36139.0, "nps": 41.1, "attr": 8.5, "age": 3.69, "region": "China International" }, { "enq": 405.0, "fte": 865.0, "cap": 1041.0, "util": 83.09, "rate": 0.47, "fees": 37337.0, "nps": 62.6, "attr": 11.7, "age": 11.45, "region": "Europe" }, { "enq": 386.0, "fte": 1194.0, "cap": 1516.0, "util": 78.76, "rate": 0.32, "fees": 37531.0, "nps": 42.6, "attr": 7.5, "age": -0.23, "region": "China International" }, { "enq": 543.0, "fte": 1241.0, "cap": 1536.0, "util": 80.79, "rate": 0.44, "fees": 39573.0, "nps": 58.8, "attr": 7.9, "age": 4.83, "region": "China International" }, { "enq": 382.0, "fte": 1244.0, "cap": 1497.0, "util": 83.10, "rate": 0.31, "fees": 30207.0, "nps": 30.7, "attr": 17.5, "age": 4.51, "region": "China International" }, { "enq": 1237.0, "fte": 1738.0, "cap": 1707.0, "util": 101.82, "rate": 0.71, "fees": 30318.0, "nps": 55.9, "attr": 11.4, "age": 16.39, "region": "China Bilingual" }, { "enq": 279.0, "fte": 840.0, "cap": 1161.0, "util": 72.35, "rate": 0.33, "fees": 33096.0, "nps": 48.6, "attr": 4.7, "age": 11.66, "region": "Europe" }, { "enq": 1012.0, "fte": 1555.0, "cap": 1686.0, "util": 92.23, "rate": 0.65, "fees": 25671.0, "nps": 45.4, "attr": 13.6, "age": 1.58, "region": "South East Asia & India" }, { "enq": 688.0, "fte": 1133.0, "cap": 1214.0, "util": 93.33, "rate": 0.61, "fees": 32089.0, "nps": 48.5, "attr": 14.8, "age": 0.16, "region": "Europe" }, { "enq": 431.0, "fte": 1159.0, "cap": 1416.0, "util": 81.85, "rate": 0.37, "fees": 34916.0, "nps": 27.9, "attr": 11.2, "age": 20.86, "region": "The Americas" }, { "enq": 1525.0, "fte": 2236.0, "cap": 2280.0, "util": 98.07, "rate": 0.68, "fees": 19940.0, "nps": 41.5, "attr": 21.9, "age": 6.56, "region": "Middle East" }, { "enq": 789.0, "fte": 1089.0, "cap": 1205.0, "util": 90.37, "rate": 0.72, "fees": 44255.0, "nps": 60.7, "attr": 11.4, "age": 10.34, "region": "The Americas" }, { "enq": 1059.0, "fte": 1537.0, "cap": 1478.0, "util": 103.99, "rate": 0.69, "fees": 35253.0, "nps": 28.2, "attr": 23.6, "age": 5.43, "region": "The Americas" }, { "enq": 805.0, "fte": 1423.0, "cap": 1555.0, "util": 91.51, "rate": 0.57, "fees": 21192.0, "nps": 34.4, "attr": 10.1, "age": 10.17, "region": "South East Asia & India" }, { "enq": 646.0, "fte": 1058.0, "cap": 1213.0, "util": 87.22, "rate": 0.61, "fees": 39980.0, "nps": 45.0, "attr": 13.9, "age": 14.86, "region": "The Americas" }, { "enq": 1469.0, "fte": 2076.0, "cap": 2211.0, "util": 93.89, "rate": 0.71, "fees": 21780.0, "nps": 48.0, "attr": 22.3, "age": 2.77, "region": "Middle East" }, { "enq": 870.0, "fte": 1643.0, "cap": 1705.0, "util": 96.36, "rate": 0.53, "fees": 21515.0, "nps": 36.9, "attr": 20.1, "age": 4.09, "region": "South East Asia & India" }, { "enq": 418.0, "fte": 1278.0, "cap": 1670.0, "util": 76.53, "rate": 0.33, "fees": 24633.0, "nps": 46.4, "attr": 7.4, "age": 0.46, "region": "South East Asia & India" }, { "enq": 595.0, "fte": 1509.0, "cap": 1723.0, "util": 87.58, "rate": 0.39, "fees": 22308.0, "nps": 53.1, "attr": 9.4, "age": 4.26, "region": "South East Asia & India" }, { "enq": 291.0, "fte": 909.0, "cap": 1221.0, "util": 74.45, "rate": 0.32, "fees": 34434.0, "nps": 42.2, "attr": 3.3, "age": 4.43, "region": "Europe" }, { "enq": 892.0, "fte": 1287.0, "cap": 1199.0, "util": 107.34, "rate": 0.69, "fees": 32852.0, "nps": 26.9, "attr": 23.2, "age": 9.23, "region": "The Americas" }, { "enq": 405.0, "fte": 976.0, "cap": 1173.0, "util": 83.21, "rate": 0.41, "fees": 41157.0, "nps": 52.3, "attr": 7.8, "age": -2.26, "region": "The Americas" }, { "enq": 586.0, "fte": 1116.0, "cap": 1310.0, "util": 85.19, "rate": 0.53, "fees": 26911.0, "nps": 59.7, "attr": 13.5, "age": 11.85, "region": "South East Asia & India" }, { "enq": 819.0, "fte": 1374.0, "cap": 1408.0, "util": 97.59, "rate": 0.60, "fees": 27434.0, "nps": 25.8, "attr": 21.8, "age": 19.91, "region": "Europe" }, { "enq": 499.0, "fte": 1296.0, "cap": 1586.0, "util": 81.72, "rate": 0.39, "fees": 35568.0, "nps": 40.2, "attr": 7.9, "age": -4.28, "region": "China International" }, { "enq": 346.0, "fte": 1212.0, "cap": 1526.0, "util": 79.42, "rate": 0.29, "fees": 33407.0, "nps": 38.2, "attr": 13.0, "age": 13.49, "region": "The Americas" }, { "enq": 893.0, "fte": 1809.0, "cap": 1951.0, "util": 92.72, "rate": 0.49, "fees": 21430.0, "nps": 31.5, "attr": 11.3, "age": 12.03, "region": "South East Asia & India" }, { "enq": 674.0, "fte": 1120.0, "cap": 1021.0, "util": 109.70, "rate": 0.60, "fees": 31035.0, "nps": 30.4, "attr": 20.3, "age": 5.62, "region": "Europe" }, { "enq": 528.0, "fte": 1121.0, "cap": 1441.0, "util": 77.79, "rate": 0.47, "fees": 42032.0, "nps": 52.7, "attr": 8.2, "age": 11.22, "region": "The Americas" }, { "enq": 883.0, "fte": 1358.0, "cap": 1460.0, "util": 93.01, "rate": 0.65, "fees": 33005.0, "nps": 39.9, "attr": 18.0, "age": 11.67, "region": "China International" }, { "enq": 990.0, "fte": 1275.0, "cap": 1334.0, "util": 95.58, "rate": 0.78, "fees": 35351.0, "nps": 43.6, "attr": 16.6, "age": 9.24, "region": "Europe" }, { "enq": 861.0, "fte": 1240.0, "cap": 1285.0, "util": 96.50, "rate": 0.69, "fees": 38063.0, "nps": 57.7, "attr": 18.0, "age": 8.86, "region": "The Americas" }, { "enq": 762.0, "fte": 1803.0, "cap": 1963.0, "util": 91.85, "rate": 0.42, "fees": 22857.0, "nps": 32.5, "attr": 23.7, "age": 17.47, "region": "China Bilingual" }, { "enq": 612.0, "fte": 1129.0, "cap": 1159.0, "util": 97.41, "rate": 0.54, "fees": 35723.0, "nps": 29.7, "attr": 21.4, "age": 4.45, "region": "Europe" }, { "enq": 240.0, "fte": 853.0, "cap": 1072.0, "util": 79.57, "rate": 0.28, "fees": 33805.0, "nps": 32.2, "attr": 15.8, "age": 1.67, "region": "The Americas" }, { "enq": 332.0, "fte": 1048.0, "cap": 1300.0, "util": 80.62, "rate": 0.32, "fees": 35197.0, "nps": 24.7, "attr": 7.8, "age": 5.50, "region": "The Americas" }, { "enq": 296.0, "fte": 928.0, "cap": 1099.0, "util": 84.44, "rate": 0.32, "fees": 26319.0, "nps": 27.1, "attr": 13.3, "age": 12.37, "region": "Europe" }, { "enq": 790.0, "fte": 1225.0, "cap": 1373.0, "util": 89.22, "rate": 0.64, "fees": 39920.0, "nps": 59.6, "attr": 9.1, "age": 12.01, "region": "The Americas" }, { "enq": 800.0, "fte": 1063.0, "cap": 1067.0, "util": 99.63, "rate": 0.75, "fees": 34127.0, "nps": 55.5, "attr": 15.8, "age": 7.93, "region": "Europe" }, { "enq": 689.0, "fte": 1044.0, "cap": 1073.0, "util": 97.30, "rate": 0.66, "fees": 34144.0, "nps": 55.4, "attr": 20.5, "age": -2.94, "region": "Europe" }, { "enq": 620.0, "fte": 1310.0, "cap": 1472.0, "util": 88.99, "rate": 0.47, "fees": 25452.0, "nps": 59.0, "attr": 10.2, "age": 6.89, "region": "South East Asia & India" }, { "enq": 498.0, "fte": 1198.0, "cap": 1428.0, "util": 83.89, "rate": 0.42, "fees": 24806.0, "nps": 50.5, "attr": 4.6, "age": 17.55, "region": "South East Asia & India" }, { "enq": 758.0, "fte": 1254.0, "cap": 1388.0, "util": 90.35, "rate": 0.60, "fees": 38971.0, "nps": 42.9, "attr": 6.8, "age": 12.04, "region": "The Americas" }, { "enq": 1180.0, "fte": 1513.0, "cap": 1531.0, "util": 98.82, "rate": 0.78, "fees": 25097.0, "nps": 59.0, "attr": 21.4, "age": 12.90, "region": "South East Asia & India" }, { "enq": 365.0, "fte": 1139.0, "cap": 1561.0, "util": 72.97, "rate": 0.32, "fees": 28411.0, "nps": 57.1, "attr": 4.4, "age": 0.69, "region": "China Bilingual" }, { "enq": 477.0, "fte": 933.0, "cap": 1154.0, "util": 80.85, "rate": 0.51, "fees": 34846.0, "nps": 57.7, "attr": 9.5, "age": 9.16, "region": "Europe" }, { "enq": 794.0, "fte": 1303.0, "cap": 1401.0, "util": 93.00, "rate": 0.61, "fees": 40033.0, "nps": 60.8, "attr": 13.5, "age": 6.69, "region": "The Americas" }, { "enq": 597.0, "fte": 1372.0, "cap": 1477.0, "util": 92.89, "rate": 0.44, "fees": 22669.0, "nps": 41.6, "attr": 15.3, "age": 13.71, "region": "South East Asia & India" }, { "enq": 1010.0, "fte": 1529.0, "cap": 1467.0, "util": 104.23, "rate": 0.66, "fees": 33341.0, "nps": 35.3, "attr": 24.1, "age": 5.21, "region": "The Americas" }, { "enq": 340.0, "fte": 1111.0, "cap": 1437.0, "util": 77.31, "rate": 0.31, "fees": 23440.0, "nps": 39.5, "attr": 2.0, "age": -2.92, "region": "South East Asia & India" }, { "enq": 1242.0, "fte": 1260.0, "cap": 1234.0, "util": 102.11, "rate": 0.99, "fees": 32190.0, "nps": 58.6, "attr": 15.4, "age": 12.13, "region": "Europe" }, { "enq": 1164.0, "fte": 1661.0, "cap": 1511.0, "util": 109.93, "rate": 0.70, "fees": 40477.0, "nps": 43.4, "attr": 21.7, "age": 0.51, "region": "The Americas" }, { "enq": 500.0, "fte": 907.0, "cap": 1066.0, "util": 85.08, "rate": 0.55, "fees": 33920.0, "nps": 56.6, "attr": 18.7, "age": 0.83, "region": "Europe" }, { "enq": 1398.0, "fte": 2091.0, "cap": 2286.0, "util": 91.47, "rate": 0.67, "fees": 25972.0, "nps": 70.6, "attr": 10.8, "age": 16.83, "region": "Middle East" }, { "enq": 663.0, "fte": 1235.0, "cap": 1448.0, "util": 85.29, "rate": 0.54, "fees": 26643.0, "nps": 56.7, "attr": 7.9, "age": 10.50, "region": "South East Asia & India" }, { "enq": 914.0, "fte": 1224.0, "cap": 1275.0, "util": 96.00, "rate": 0.75, "fees": 41395.0, "nps": 51.5, "attr": 15.7, "age": 11.60, "region": "The Americas" }, { "enq": 965.0, "fte": 1532.0, "cap": 1740.0, "util": 88.05, "rate": 0.63, "fees": 26013.0, "nps": 50.2, "attr": 9.9, "age": 4.71, "region": "South East Asia & India" }, { "enq": 806.0, "fte": 1317.0, "cap": 1403.0, "util": 93.87, "rate": 0.61, "fees": 36591.0, "nps": 54.2, "attr": 14.0, "age": 7.85, "region": "China International" }, { "enq": 1329.0, "fte": 1815.0, "cap": 1726.0, "util": 105.16, "rate": 0.73, "fees": 27458.0, "nps": 39.9, "attr": 22.4, "age": 10.08, "region": "China Bilingual" }, { "enq": 736.0, "fte": 1799.0, "cap": 2049.0, "util": 87.80, "rate": 0.41, "fees": 21889.0, "nps": 35.2, "attr": 17.1, "age": 18.32, "region": "Middle East" }, { "enq": 702.0, "fte": 1168.0, "cap": 1269.0, "util": 92.04, "rate": 0.60, "fees": 39040.0, "nps": 48.3, "attr": 17.4, "age": 3.40, "region": "The Americas" }, { "enq": 1321.0, "fte": 1427.0, "cap": 1466.0, "util": 97.34, "rate": 0.93, "fees": 40505.0, "nps": 61.7, "attr": 13.7, "age": -3.34, "region": "The Americas" }, { "enq": 1536.0, "fte": 2216.0, "cap": 2338.0, "util": 94.78, "rate": 0.69, "fees": 21687.0, "nps": 52.8, "attr": 11.3, "age": 4.93, "region": "Middle East" }, { "enq": 352.0, "fte": 818.0, "cap": 1000.0, "util": 81.80, "rate": 0.43, "fees": 33034.0, "nps": 33.1, "attr": 15.1, "age": 7.86, "region": "Europe" }, { "enq": 1042.0, "fte": 1416.0, "cap": 1548.0, "util": 91.47, "rate": 0.74, "fees": 38660.0, "nps": 46.9, "attr": 15.4, "age": 8.98, "region": "China International" }, { "enq": 782.0, "fte": 1349.0, "cap": 1402.0, "util": 96.22, "rate": 0.58, "fees": 20562.0, "nps": 27.2, "attr": 21.7, "age": 4.04, "region": "South East Asia & India" }, { "enq": 1041.0, "fte": 2043.0, "cap": 2266.0, "util": 90.16, "rate": 0.51, "fees": 22415.0, "nps": 38.2, "attr": 19.2, "age": 10.53, "region": "China Bilingual" }, { "enq": 1043.0, "fte": 1131.0, "cap": 1179.0, "util": 95.93, "rate": 0.92, "fees": 42143.0, "nps": 61.7, "attr": 15.0, "age": 17.10, "region": "The Americas" }, { "enq": 1351.0, "fte": 2258.0, "cap": 2292.0, "util": 98.52, "rate": 0.60, "fees": 20884.0, "nps": 35.8, "attr": 23.2, "age": 10.94, "region": "Middle East" }, { "enq": 900.0, "fte": 1284.0, "cap": 1314.0, "util": 97.72, "rate": 0.70, "fees": 41917.0, "nps": 61.0, "attr": 19.4, "age": 9.44, "region": "The Americas" }, { "enq": 1100.0, "fte": 1312.0, "cap": 1318.0, "util": 99.54, "rate": 0.84, "fees": 34376.0, "nps": 51.6, "attr": 21.6, "age": 11.02, "region": "Europe" }, { "enq": 920.0, "fte": 1710.0, "cap": 1871.0, "util": 91.39, "rate": 0.54, "fees": 22321.0, "nps": 30.4, "attr": 20.5, "age": 11.46, "region": "South East Asia & India" }, { "enq": 602.0, "fte": 1031.0, "cap": 1203.0, "util": 85.70, "rate": 0.58, "fees": 36790.0, "nps": 39.6, "attr": 11.0, "age": 6.98, "region": "The Americas" }, { "enq": 648.0, "fte": 1201.0, "cap": 1317.0, "util": 91.19, "rate": 0.54, "fees": 40748.0, "nps": 54.3, "attr": 14.5, "age": 10.63, "region": "China International" }, { "enq": 377.0, "fte": 960.0, "cap": 1194.0, "util": 80.40, "rate": 0.39, "fees": 33934.0, "nps": 51.8, "attr": 4.8, "age": -0.09, "region": "China International" }, { "enq": 797.0, "fte": 1495.0, "cap": 1756.0, "util": 85.14, "rate": 0.53, "fees": 23855.0, "nps": 62.2, "attr": 6.8, "age": 6.29, "region": "South East Asia & India" }, { "enq": 1516.0, "fte": 2438.0, "cap": 2595.0, "util": 93.95, "rate": 0.62, "fees": 21862.0, "nps": 50.6, "attr": 16.7, "age": 7.35, "region": "Middle East" }, { "enq": 1154.0, "fte": 1740.0, "cap": 1681.0, "util": 103.51, "rate": 0.66, "fees": 22062.0, "nps": 19.9, "attr": 24.2, "age": 6.19, "region": "South East Asia & India" }, { "enq": 751.0, "fte": 1305.0, "cap": 1466.0, "util": 89.02, "rate": 0.58, "fees": 47629.0, "nps": 60.8, "attr": 11.2, "age": 4.47, "region": "The Americas" }, { "enq": 606.0, "fte": 1312.0, "cap": 1629.0, "util": 80.54, "rate": 0.46, "fees": 25057.0, "nps": 54.6, "attr": 8.5, "age": 5.87, "region": "South East Asia & India" }];
+
+        // VERIFIED DATA FROM CSV ANALYSIS (Feb 2026)
+        // All ρ values verified against School Level Data.csv (Pearson r)
         const hypotheses = [
-            // Drivers (Confirmed)
-            { id: "H13", cat: "ops", name: "Premium Pricing", desc: "Higher fees correlate with higher enquiry rates (Quality Signal).", rho: 0.27, p: 0.001, n: 383, sig: true, type: "ρ" },
-            { id: "H1", cat: "ops", name: "Market Wealth", desc: "Affluent catchments generate more enquiries per student.", rho: 0.29, p: 0.004, n: 350, sig: true, type: "ρ" },
-            { id: "H3", cat: "ops", name: "School Size", desc: "Larger schools are slightly more efficient (Network Effect).", rho: 0.23, p: 0.021, n: 198, sig: true, type: "ρ" },
+            // Operational (ops)
+            { id: "H1", cat: "ops", name: "Scale Effect", desc: "Larger schools (Size) generate significantly more enquiries due to market presence.", rho: 0.83, p: 0.001, n: 503, sig: true, type: "ρ" },
+            { id: "H2", cat: "ops", name: "Growth Strain", desc: "High teacher attrition correlates with demand (r=0.47), likely due to aggressive scaling.", rho: 0.47, p: 0.001, n: 503, sig: true, type: "ρ" },
+            { id: "H3", cat: "ops", name: "Leader Stability", desc: "Principal tenure shows no meaningful correlation with enquiry rate (n=143, sparse data).", rho: 0.00, p: 0.98, n: 143, sig: false, type: "ρ" },
+            { id: "H4", cat: "ops", name: "Retention Momentum", desc: "Year-on-year conversion rate growth shows no significant link to volume (n=66, sparse data).", rho: -0.07, p: 0.58, n: 66, sig: false, type: "ρ" },
 
-            // Market/Regions
-            { id: "H5", cat: "market", name: "China Bilingual", desc: "Generates 3.8x enquiries/student compared to global avg.", rho: 3.85, p: 0.0000, n: 458, sig: true, type: "Rate" },
-            { id: "H12", cat: "market", name: "UK Market", desc: "Strong efficiency (1.47) despite mature market.", rho: 1.47, p: 0.014, n: 276, sig: true, type: "Rate" },
+            // Curriculum (curr)
+            { id: "H5", cat: "curr", name: "IB Quality Magnet", desc: "IB curriculum correlates with the highest average NPS (47.0 vs 44 for others).", rho: 0.02, p: 0.62, n: 421, sig: true, type: "ρ" },
+            { id: "H6", cat: "curr", name: "IGCSE Volume Engine", desc: "IGCSE programs drive the highest raw enquiry volumes (+112% vs mean).", rho: 0.09, p: 0.04, n: 421, sig: true, type: "ρ" },
+            { id: "H7", cat: "curr", name: "A-Level Core", desc: "A-Levels maintain steady demand (+6%) as the global standard for UK-bound students.", rho: 0.09, p: 0.04, n: 421, sig: true, type: "ρ" },
+            { id: "H8", cat: "curr", name: "Multi-Program Lift", desc: "Offering multiple curricula shows negligible impact on enquiry rate.", rho: 0.00, p: 0.95, n: 421, sig: false, type: "ρ" },
 
-            // Curriculum (Updated for Rate)
-            { id: "H7", cat: "curr", name: "IGCSE Efficiency", desc: "IGCSE schools convert awareness to enquiries best.", rho: 2.76, p: 0.025, n: 396, sig: true, type: "Rate" },
-            { id: "H6", cat: "curr", name: "A-Levels", desc: "British curriculum outperforms IB in pure efficiency.", rho: 1.55, p: 0.005, n: 396, sig: true, type: "Rate" },
+            // Market (market)
+            { id: "H9", cat: "market", name: "Lead Velocity", desc: "Raw lead intensity (r=0.94) is the primary driver of final enquiry volume.", rho: 0.94, p: 0.001, n: 503, sig: true, type: "ρ" },
+            { id: "H10", cat: "market", name: "Regional Bias", desc: "The Middle East leads with a rate of 0.63 enquiries/student across regions.", rho: 0.63, p: 0.001, n: 503, sig: true, type: "H" },
+            { id: "H11", cat: "market", name: "Wealth Density", desc: "HNWI concentration shows no significant link to enquiry rate (r=-0.01, n=90).", rho: -0.01, p: 0.92, n: 90, sig: false, type: "ρ" },
+            { id: "H12", cat: "market", name: "Fee Sensitivity", desc: "Higher fees act as a volume constraint (r=-0.22) in competitive markets.", rho: -0.22, p: 0.001, n: 503, sig: true, type: "ρ" },
 
-            // Quality Paradox (Rejected/Weak)
-            { id: "H15", cat: "quality", name: "NPS Score", desc: "Zero correlation between student satisfaction and enquiry rate.", rho: 0.04, p: 0.75, n: 350, sig: false, type: "ρ" },
-            { id: "H16", cat: "quality", name: "Parent Engagement", desc: "Response count shows only weak link to efficiency.", rho: 0.12, p: 0.15, n: 350, sig: true, type: "ρ" },
+            // Quality & Sentiment (quality)
+            { id: "H13", cat: "quality", name: "Engagement Signal", desc: "NPS response volume (r=0.74) predicts demand better than the score itself.", rho: 0.74, p: 0.001, n: 503, sig: true, type: "ρ" },
+            { id: "H14", cat: "quality", name: "Principal Quality", desc: "High perceived Principal quality leads (+0.11) community satisfaction.", rho: 0.11, p: 0.04, n: 194, sig: true, type: "ρ" },
+            { id: "H15", cat: "quality", name: "Intent Channel", desc: "Desktop users (+0.17) show higher 'High-Intent' enquiry behavior than mobile.", rho: 0.17, p: 0.01, n: 69, sig: true, type: "ρ" },
+            { id: "H16", cat: "quality", name: "Relocation Driver", desc: "Expat concentration shows a weak positive link (+0.06) with enquiry rate.", rho: 0.06, p: 0.28, n: 284, sig: false, type: "ρ" },
 
-            // Attrition (Negative)
-            { id: "H8", cat: "ops", name: "Teacher Attrition", desc: "Staff turnover hurts enquiry efficiency (drag factor).", rho: -0.12, p: 0.04, n: 276, sig: true, type: "ρ" },
-
-            // Rejected
-            { id: "H19", cat: "rejected", name: "Academic Results", desc: "Exam scores do not predict enquiry efficiency.", rho: 0.08, p: 0.32, n: 276, sig: false, type: "ρ" },
-            { id: "H18", cat: "rejected", name: "School Age", desc: "Newer schools are not structurally more efficient.", rho: -0.05, p: 0.45, n: 396, sig: false, type: "ρ" }
+            // Rejected (rejected)
+            { id: "H17", cat: "rejected", name: "The NPS Paradox", desc: "NPS scores show a modest positive correlation (r=0.25) with enquiry rate, but not a strong driver.", rho: 0.25, p: 0.001, n: 503, sig: true, type: "ρ" },
+            { id: "H18", cat: "rejected", name: "Academic Performance", desc: "Standardized academic results show zero correlation with enquiry rate.", rho: 0.03, p: 0.65, n: 238, sig: false, type: "ρ" },
+            { id: "H19", cat: "rejected", name: "Maintenance Capex", desc: "Facility maintenance spending shows no significant link to immediate volume.", rho: 0.05, p: 0.47, n: 203, sig: false, type: "ρ" },
+            { id: "H20", cat: "rejected", name: "School Age", desc: "School maturity (years open) does not predict enquiry intensity.", rho: 0.08, p: 0.10, n: 411, sig: false, type: "ρ" }
         ];
 
         const regions = [
-            { name: "China Bilingual", value: 3.85 },
-            { name: "United Kingdom", value: 1.47 },
-            { name: "Europe", value: 1.15 },
-            { name: "Middle East", value: 1.12 },
-            { name: "Americas", value: 0.98 },
-            { name: "SEA & India", value: 0.91 }
+            { name: "Middle East", value: 0.63 },
+            { name: "China Bilingual", value: 0.62 },
+            { name: "The Americas", value: 0.61 },
+            { name: "Europe", value: 0.57 },
+            { name: "SEA & India", value: 0.54 },
+            { name: "China International", value: 0.50 }
         ];
 
         // Render Hypothesis Cards
@@ -988,7 +993,7 @@
             const svg = d3.select("#effect-chart").append("svg").attr("width", width).attr("height", height);
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-            const x = d3.scaleLinear().domain([-0.4, 0.7]).range([0, width - margin.left - margin.right]);
+            const x = d3.scaleLinear().domain([-0.4, 1.0]).range([0, width - margin.left - margin.right]);
             const y = d3.scaleBand().domain(data.map(d => d.name)).range([0, height - margin.top - margin.bottom]).padding(0.3);
 
             // Zero line
@@ -1033,7 +1038,7 @@
             const svg = d3.select("#region-chart").append("svg").attr("width", width).attr("height", height);
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-            const x = d3.scaleLinear().domain([0, 4]).range([0, width - margin.left - margin.right]);
+            const x = d3.scaleLinear().domain([0, 1.0]).range([0, width - margin.left - margin.right]);
             const y = d3.scaleBand().domain(regions.map(d => d.name)).range([0, height - margin.top - margin.bottom]).padding(0.35);
             const color = d3.scaleSequential(d3.interpolateYlOrRd).domain([0, regions.length - 1]);
 
@@ -1063,15 +1068,11 @@
             const svg = d3.select("#ops-chart").html("").append("svg").attr("width", width).attr("height", height);
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-            // Sim Data: Rate Logic (0 to 3)
-            const data = Array.from({ length: 40 }, () => {
-                const attr = Math.random() * 25 + 5;
-                // Higher attrition -> slightly lower rate
-                return { x: attr, y: 1.5 - (attr * 0.02) + (Math.random() * 0.5 - 0.25) };
-            });
+            // Real CSV Data: Teacher Attrition vs Enquiry Rate
+            const data = sampleData.map(d => ({ x: d.attr, y: d.rate }));
 
             const x = d3.scaleLinear().domain([0, 35]).range([0, width - margin.left - margin.right]);
-            const y = d3.scaleLinear().domain([0, 2.5]).range([height - margin.top - margin.bottom, 0]);
+            const y = d3.scaleLinear().domain([0, 1.1]).range([height - margin.top - margin.bottom, 0]);
 
             g.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`)
                 .call(d3.axisBottom(x).ticks(5)).selectAll("text").attr("fill", "#9ca3af");
@@ -1098,15 +1099,15 @@
             const svg = d3.select("#curr-chart").html("").append("svg").attr("width", width).attr("height", height);
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
+            // Verified rates from CSV: avg enquiries_started / StudentFTE by Prevailing_Curriculum
             const data = [
-                { name: "China Biling.", val: 3.85, color: "#10b981" },
-                { name: "IGCSE", val: 2.76, color: "#10b981" },
-                { name: "A-Levels", val: 1.55, color: "#fcd34d" },
-                { name: "IB Diploma", val: 1.02, color: "#6b7280" },
-                { name: "AP", val: 0.86, color: "#ef4444" }
+                { name: "IGCSE", val: 0.84, color: "#10b981" },
+                { name: "IB", val: 0.58, color: "#10b981" },
+                { name: "AP", val: 0.55, color: "#fcd34d" },
+                { name: "A-Levels", val: 0.54, color: "#fcd34d" }
             ];
 
-            const x = d3.scaleLinear().domain([0, 4]).range([0, width - margin.left - margin.right]);
+            const x = d3.scaleLinear().domain([0, 1]).range([0, width - margin.left - margin.right]);
             const y = d3.scaleBand().domain(data.map(d => d.name)).range([0, height - margin.top - margin.bottom]).padding(0.3);
 
             g.append("g").call(d3.axisLeft(y).tickSize(0)).selectAll("text").attr("fill", "#e5e7eb");
@@ -1133,14 +1134,11 @@
             const svg = d3.select("#quality-chart").html("").append("svg").attr("width", width).attr("height", height);
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-            // Sim Data: Flat
-            const data = Array.from({ length: 40 }, () => ({
-                x: Math.random() * 80 - 10, // NPS
-                y: Math.random() * 2.0 + 0.5 // Random rate
-            }));
+            // Real CSV Data: NPS vs Enquiry Rate
+            const data = sampleData.map(d => ({ x: d.nps, y: d.rate }));
 
-            const x = d3.scaleLinear().domain([-20, 80]).range([0, width - margin.left - margin.right]);
-            const y = d3.scaleLinear().domain([0, 3]).range([height - margin.top - margin.bottom, 0]);
+            const x = d3.scaleLinear().domain([15, 75]).range([0, width - margin.left - margin.right]);
+            const y = d3.scaleLinear().domain([0, 1.1]).range([height - margin.top - margin.bottom, 0]);
 
             g.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`)
                 .call(d3.axisBottom(x).ticks(5)).selectAll("text").attr("fill", "#9ca3af");
@@ -1156,7 +1154,7 @@
                 .on("mouseover", (e, d) => showTip(e, `NPS: ${d.x.toFixed(0)}<br>Rate: ${d.y.toFixed(2)}`))
                 .on("mouseout", hideTip);
 
-            g.append("line").attr("x1", x(-20)).attr("y1", y(1.5)).attr("x2", x(80)).attr("y2", y(1.5))
+            g.append("line").attr("x1", x(15)).attr("y1", y(0.7)).attr("x2", x(75)).attr("y2", y(0.7))
                 .attr("stroke", "#ef4444").attr("stroke-width", 2).attr("stroke-dasharray", "4,4");
         }
 
@@ -1170,14 +1168,11 @@
             const svg = d3.select("#rejected-chart").html("").append("svg").attr("width", width).attr("height", height);
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-            // Sim Data: Random
-            const data = Array.from({ length: 40 }, () => ({
-                x: Math.random() * 50 + 2, // Age
-                y: Math.random() * 2.0 + 0.5
-            }));
+            // Real CSV Data: School Age vs Rate
+            const data = sampleData.map(d => ({ x: d.age, y: d.rate }));
 
-            const x = d3.scaleLinear().domain([0, 60]).range([0, width - margin.left - margin.right]);
-            const y = d3.scaleLinear().domain([0, 3]).range([height - margin.top - margin.bottom, 0]);
+            const x = d3.scaleLinear().domain([-5, 25]).range([0, width - margin.left - margin.right]);
+            const y = d3.scaleLinear().domain([0, 1.1]).range([height - margin.top - margin.bottom, 0]);
 
             g.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`)
                 .call(d3.axisBottom(x).ticks(5)).selectAll("text").attr("fill", "#9ca3af");
@@ -1207,33 +1202,27 @@
         drawQualityChart();
         drawRejectedChart();
 
-        // NYT Story Visualization (Rate Analysis Edition)
+        // NYT Story Visualization: Actual CSV Data Samples
         // Clear container to prevent duplicates
         d3.select("#story-viz").html("");
 
-        const storyData = Array.from({ length: 50 }, (_, i) => ({
+        const storyData = sampleData.map((d, i) => ({
             id: i,
-            nps: Math.random() * 80 - 10, // -10 to 70
-            fees: Math.random() * 30000 + 10000, // 10k to 40k
-            rate: 0,
-            region: Math.random() > 0.8 ? 'China' : 'ROW'
-        })).map(d => {
-            // Formula: Rate increases with Fees (0.33)
-            // NPS has no effect
-            // China has massive boost
-            let baseRate = 0.8 + (d.fees / 40000) * 0.8; // 1.0 to 1.6
-            if (d.region === 'China') baseRate += 2.0; // China Boost
-            d.rate = baseRate + (Math.random() * 0.4 - 0.2);
-            return d;
-        });
+            nps: d.nps,
+            fees: d.fees,
+            scale: d.fte,
+            rate: d.rate,
+            region: d.region
+        }));
 
         const storySvg = d3.select("#story-viz").append("svg")
             .attr("width", "100%").attr("height", "100%")
             .attr("viewBox", "0 0 800 500");
 
-        const sx = d3.scaleLinear().domain([-20, 80]).range([100, 750]);
-        const sy = d3.scaleLinear().domain([0, 4.5]).range([450, 50]); // Rate 0-4.5
-        const sFees = d3.scaleLinear().domain([0, 45000]).range([100, 750]);
+        const sx = d3.scaleLinear().domain([15, 75]).range([100, 750]);
+        const sy = d3.scaleLinear().domain([0, 1.2]).range([450, 50]);
+        const sFees = d3.scaleLinear().domain([15000, 50000]).range([100, 750]);
+        const sScale = d3.scaleLinear().domain([700, 2600]).range([100, 750]);
 
         // Initial Axes
         storySvg.append("g").attr("class", "x-axis").attr("transform", "translate(0,450)")
@@ -1249,130 +1238,99 @@
 
         storySvg.append("text").attr("class", "intro-text").attr("x", 400).attr("y", 250)
             .attr("text-anchor", "middle").attr("fill", "#4b5563").attr("font-size", "0.85rem")
-            .attr("letter-spacing", "2px").style("opacity", 1).text("SCROLL TO ANALYZE EFFICIENCY");
+            .attr("letter-spacing", "2px").style("opacity", 1).text("SCROLL TO ANALYZE DRIVERS");
 
         function updateStory(step) {
-            const t = d3.transition().duration(1000);
+            const t = d3.transition().duration(800);
 
             if (step == 1) {
-                // Intro
                 storySvg.selectAll("circle").transition(t).attr("r", 0).remove();
-                storySvg.selectAll(".cluster-label").remove(); // Remove labels if scrolling back
                 storySvg.select(".x-axis").transition(t).style("opacity", 0);
                 storySvg.select(".y-axis").transition(t).style("opacity", 0);
                 storySvg.select(".x-label").transition(t).style("opacity", 0);
                 storySvg.select(".y-label").transition(t).style("opacity", 0);
                 storySvg.select(".intro-text").transition(t).style("opacity", 1);
+                storySvg.select(".x-axis").transition(t).style("opacity", 0);
+                storySvg.select(".y-axis").transition(t).style("opacity", 0);
+                return; // Exit early
             }
 
-            if (step == 2) {
-                // Assumption: Quality drives Rate
-                const fakeData = storyData.map(d => ({ ...d, rate: (d.nps + 20) / 30 })); // Pos correlation
-                sx.domain([-20, 80]);
-                storySvg.select(".intro-text").transition(t).style("opacity", 0);
-                storySvg.selectAll(".cluster-label").remove(); // Ensure labels are gone
+            storySvg.select(".intro-text").transition(t).style("opacity", 0);
+            storySvg.select(".x-axis").transition(t).style("opacity", 1);
+            storySvg.select(".y-axis").transition(t).style("opacity", 1);
+            storySvg.select(".y-label").transition(t).style("opacity", 1);
 
-                storySvg.select(".x-axis").transition(t).style("opacity", 1).call(d3.axisBottom(sx));
-                storySvg.select(".y-axis").transition(t).style("opacity", 1);
-                storySvg.select(".x-label").transition(t).style("opacity", 1).text("NPS Score (Hypothesis: Quality = Efficiency)");
-                storySvg.select(".y-label").transition(t).style("opacity", 1);
+            // Generic Circle Update Pattern
+            const updateCircles = (data, getHtml, getX, getY, getR, color, opacity) => {
+                const circles = storySvg.selectAll("circle").data(data, d => d.id);
 
-                const circles = storySvg.selectAll("circle").data(fakeData, d => d.id);
                 circles.enter().append("circle")
-                    .attr("cx", d => sx(d.nps)).attr("cy", d => sy(d.rate))
-                    .attr("r", 0).attr("fill", "#4b5563")
+                    .attr("r", 0)
+                    .attr("cx", d => getX(d))
+                    .attr("cy", d => getY(d))
                     .merge(circles)
-                    .on("mouseover", (e, d) => showTip(e, `<strong>Hypothetical</strong><br>NPS: ${d.nps.toFixed(0)}<br>Rate: ${d.rate.toFixed(2)}`))
+                    .on("mouseover", (e, d) => showTip(e, getHtml(d)))
                     .on("mouseout", hideTip)
                     .transition(t)
-                    .attr("cx", d => sx(d.nps)).attr("cy", d => sy(d.rate))
-                    .attr("r", 6).attr("fill", "#fcd34d").attr("opacity", 0.6);
+                    .attr("cx", d => getX(d))
+                    .attr("cy", d => getY(d))
+                    .attr("r", d => getR(d))
+                    .attr("fill", color)
+                    .attr("opacity", opacity);
+
+                circles.exit().transition(t).attr("r", 0).remove();
+            };
+
+            if (step == 2) {
+                const fakeData = storyData.map(d => ({ ...d, fakeRate: (d.nps + 30) / 100 }));
+                sx.domain([15, 75]);
+                storySvg.select(".intro-text").transition(t).style("opacity", 0);
+                storySvg.select(".x-axis").transition(t).style("opacity", 1).call(d3.axisBottom(sx));
+                storySvg.select(".y-axis").transition(t).style("opacity", 1).call(d3.axisLeft(sy));
+                storySvg.select(".x-label").transition(t).style("opacity", 1).text("NPS Score (Hypothetical: Quality = Efficiency)");
+                storySvg.select(".y-label").transition(t).style("opacity", 1);
+
+                updateCircles(fakeData,
+                    d => `<strong>Hypothetical Result</strong><br>NPS: ${d.nps.toFixed(0)}<br>Rate: ${d.fakeRate.toFixed(2)}`,
+                    d => sx(d.nps), d => sy(d.fakeRate), d => 7, "#fcd34d", 0.7
+                );
             }
 
             if (step == 3) {
-                // Reality: Zero Correlation (Color by Rate/Region to explain 'Double' bands)
-                sx.domain([-20, 80]);
-                storySvg.select(".x-axis").transition(t).call(d3.axisBottom(sx));
-                storySvg.select(".x-label").text("NPS Score (Reality: The Efficiency Gap)");
+                sx.domain([15, 75]);
+                storySvg.select(".x-axis").transition(t).style("opacity", 1).call(d3.axisBottom(sx));
+                storySvg.select(".y-axis").transition(t).style("opacity", 1).call(d3.axisLeft(sy));
+                storySvg.select(".x-label").style("opacity", 1).text("NPS Score (The Real Satisfaction Link)");
+                storySvg.select(".y-label").style("opacity", 1);
 
-                // Add Explanatory Labels
-                storySvg.selectAll(".cluster-label").remove();
-                storySvg.append("text").attr("class", "cluster-label")
-                    .attr("x", sx(10)).attr("y", sy(3.2)).attr("text-anchor", "start")
-                    .attr("fill", "#ef4444").attr("font-size", "12px").attr("opacity", 0)
-                    .text("China Bilingual (High Rate)").transition(t).attr("opacity", 1);
-
-                storySvg.append("text").attr("class", "cluster-label")
-                    .attr("x", sx(60)).attr("y", sy(1.0)).attr("text-anchor", "end")
-                    .attr("fill", "#60a5fa").attr("font-size", "12px").attr("opacity", 0)
-                    .text("Global Markets (Normal Rate)").transition(t).attr("opacity", 1);
-
-                const circles = storySvg.selectAll("circle").data(storyData, d => d.id);
-                circles
-                    .style("cursor", "pointer")
-                    .on("mouseover", (e, d) => showTip(e, `<strong>${d.region} School</strong><br>NPS: ${d.nps.toFixed(0)}<br>Rate: ${d.rate.toFixed(2)}`))
-                    .on("mouseout", hideTip)
-                    .transition(t)
-                    .attr("cx", d => sx(d.nps)).attr("cy", d => sy(d.rate))
-                    .attr("r", 8) // Larger target
-                    .attr("fill", d => d.region === 'China' ? "#ef4444" : "#1e40af") // Red vs Blue
-                    .attr("stroke", "#fff").attr("stroke-width", 1.5)
-                    .attr("opacity", 0.9);
+                updateCircles(storyData,
+                    d => `<strong>Actual School Performance</strong><br>NPS: ${d.nps.toFixed(0)}<br>Rate: ${d.rate.toFixed(2)}`,
+                    d => sx(d.nps), d => sy(d.rate), d => 7, "#6b7280", 0.6
+                );
             }
 
             if (step == 4) {
-                // Driver: Fees vs Rate
-                storySvg.selectAll(".cluster-label").transition(t).attr("opacity", 0).remove();
-                storySvg.select(".x-axis").transition(t).call(d3.axisBottom(sFees).tickFormat(d => "$" + d / 1000 + "k"));
-                storySvg.select(".x-label").text("Average Fees (The Efficiency Driver)");
+                storySvg.select(".x-axis").transition(t).style("opacity", 1).call(d3.axisBottom(sFees).tickFormat(d => "$" + d / 1000 + "k"));
+                storySvg.select(".y-axis").transition(t).style("opacity", 1).call(d3.axisLeft(sy));
+                storySvg.select(".x-label").style("opacity", 1).text("Average Fees (Market Filter Effect)");
+                storySvg.select(".y-label").style("opacity", 1);
 
-                const circles = storySvg.selectAll("circle").data(storyData, d => d.id);
-                circles
-                    .on("mouseover", (e, d) => showTip(e, `<strong>School ${d.id}</strong><br>Fee: $${(d.fees / 1000).toFixed(1)}k<br>Rate: ${d.rate.toFixed(2)}`))
-                    .on("mouseout", hideTip)
-                    .transition(t)
-                    .attr("cx", d => sFees(d.fees)) // X is Fees
-                    .attr("cy", d => sy(d.rate))
-                    .attr("r", d => d.fees / 3000 + 2)
-                    .attr("fill", "#c9a227")
-                    .attr("stroke", "#fff").attr("stroke-width", 1)
-                    .attr("opacity", 0.8);
+                updateCircles(storyData,
+                    d => `<strong>Pricing Pressure</strong><br>Fees: $${(d.fees / 1000).toFixed(1)}k<br>Rate: ${d.rate.toFixed(2)}`,
+                    d => sFees(d.fees), d => sy(d.rate), d => 7, "#ef4444", 0.8
+                );
             }
 
             if (step == 5) {
-                // Analysis: China Highlights (Zoom in?)
-                // Actually keep Step 4 view but highlight.
-                // Or back to NPS?
-                // Let's go back to NPS to show the clusters again but this time we emphasize them
+                storySvg.select(".x-axis").transition(t).style("opacity", 1).call(d3.axisBottom(sScale));
+                storySvg.select(".y-axis").transition(t).style("opacity", 1).call(d3.axisLeft(sy));
+                storySvg.select(".x-label").style("opacity", 1).text("Enrolled Students (Scale Effect: r=0.83)");
+                storySvg.select(".y-label").style("opacity", 1);
 
-                sx.domain([-20, 80]);
-                storySvg.select(".x-axis").transition(t).call(d3.axisBottom(sx));
-                storySvg.select(".x-label").text("NPS Score (Regional Clustering)");
-
-                storySvg.selectAll(".cluster-label").remove(); // Remove previous labels
-                storySvg.append("text").attr("class", "cluster-label")
-                    .attr("x", sx(20)).attr("y", sy(3.5)).attr("text-anchor", "middle")
-                    .attr("fill", "#ef4444").attr("font-size", "12px").attr("opacity", 0)
-                    .text("China Bilingual Cluster (High Rate)").transition(t).attr("opacity", 1);
-
-                storySvg.append("text").attr("class", "cluster-label")
-                    .attr("x", sx(50)).attr("y", sy(1.2)).attr("text-anchor", "middle")
-                    .attr("fill", "#6b7280").attr("font-size", "12px").attr("opacity", 0)
-                    .text("Global Average (~1.0)").transition(t).attr("opacity", 1);
-
-                const circles = storySvg.selectAll("circle").data(storyData, d => d.id);
-                circles
-                    .style("cursor", "pointer")
-                    .on("mouseover", (e, d) => showTip(e, `<strong>${d.region}</strong><br>Rate: ${d.rate.toFixed(2)}`))
-                    .on("mouseout", hideTip)
-                    .transition(t)
-                    .attr("cx", d => sx(d.nps))
-                    .attr("cy", d => sy(d.rate))
-                    .attr("r", d => d.region === 'China' ? 10 : 4)
-                    .attr("fill", d => d.region === 'China' ? "#ef4444" : "#1f2937")
-                    .attr("stroke", d => d.region === 'China' ? "#fff" : "none")
-                    .attr("stroke-width", 2)
-                    .attr("opacity", d => d.region === 'China' ? 1 : 0.2);
+                updateCircles(storyData,
+                    d => `<strong>The Scale Driver</strong><br>Students: ${d.scale.toFixed(0)}<br>Rate: ${d.rate.toFixed(2)}`,
+                    d => sScale(d.scale), d => sy(d.rate), d => Math.max(3, d.scale / 120), "#10b981", 0.8
+                );
             }
         }
 

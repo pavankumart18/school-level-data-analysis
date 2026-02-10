@@ -1,0 +1,81 @@
+Loaded 503 rows
+
+======================================================================
+COPY THESE VALUES INTO index.html
+======================================================================
+
+// trendData - Total StudentFTE by year
+const trendData = [
+    { year: "FY2020", value: 67469 },
+    { year: "FY2021", value: 78703 },
+    { year: "FY2022", value: 90841 },
+    { year: "FY2023", value: 97635 },
+    { year: "FY2024", value: 102832 },
+    { year: "FY2025", value: 110260 },
+    { year: "FY2026", value: 119830 },
+];
+
+// regionsData - Average rate by region
+const regionsData = [
+    { name: "Middle East", value: 0.63 },
+    { name: "China Bilingual", value: 0.62 },
+    { name: "The Americas", value: 0.61 },
+    { name: "Europe", value: 0.57 },
+    { name: "South East Asia & India", value: 0.54 },
+    { name: "China International", value: 0.50 },
+];
+
+// driversData - Correlation with enquiries_started
+const driversData = [
+    { name: "Leads Intensity", r: 0.95 },
+    { name: "Student FTE (Size)", r: 0.81 },
+    { name: "NPS Response Count", r: 0.65 },
+    { name: "Teacher Attrition", r: 0.55 },
+    { name: "Fees (Average)", r: -0.19 },
+    { name: "NPS Score", r: 0.10 },
+];
+
+// utilizationData - Histogram of utilization rates
+const utilizationData = [
+    { bin: "10-20%", count: 0 },
+    { bin: "20-30%", count: 0 },
+    { bin: "30-40%", count: 0 },
+    { bin: "40-50%", count: 0 },
+    { bin: "50-60%", count: 0 },
+    { bin: "60-70%", count: 0 },
+    { bin: "70-80%", count: 68 },
+    { bin: "80-90%", count: 182 },
+    { bin: "90-100%", count: 168 },
+    { bin: "100-110%", count: 85 },
+    { bin: "110%+", count: 0 },
+];
+
+======================================================================
+COPY THESE VALUES INTO hypothesis.html
+======================================================================
+
+// regions array
+const regions = [
+    { name: "Middle East", value: 0.63 },
+    { name: "China Bilingual", value: 0.62 },
+    { name: "The Americas", value: 0.61 },
+    { name: "Europe", value: 0.57 },
+    { name: "South East Asia &amp; India", value: 0.54 },
+    { name: "China International", value: 0.50 },
+];
+
+======================================================================
+SUMMARY OF ACTUAL VALUES FROM CSV
+======================================================================
+
+Total schools: 80
+Total records: 503
+Years: [2020.0, 2021.0, 2022.0, 2023.0, 2024.0, 2025.0, 2026.0]
+
+Correlations with enquiries_started:
+  Leads Intensity: rho = 0.946
+  Student FTE (Size): rho = 0.808
+  NPS Response Count: rho = 0.655
+  Teacher Attrition: rho = 0.553
+  Fees (Average): rho = -0.189
+  NPS Score: rho = 0.104

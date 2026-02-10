@@ -1,0 +1,94 @@
+﻿============================================================
+DATA ALIGNMENT VERIFICATION REPORT
+============================================================
+
+1. TREND DATA (Total StudentFTE by Year)
+----------------------------------------
+   FY2020: 58,102
+   FY2021: 70,253
+   FY2022: 76,388
+   FY2023: 78,437
+   FY2024: 72,607
+   FY2025: 83,703
+   FY2026: 0
+
+2. REGIONAL PERFORMANCE (Rate = enquiries/student)
+----------------------------------------
+   The Americas: 7.63
+   South East Asia & India: 4.39
+   Europe: 1.41
+   Middle East: 1.34
+   China Bilingual: 1.14
+   China International: 1.08
+
+3. UTILIZATION DISTRIBUTION
+----------------------------------------
+   10-20%: 14
+   20-30%: 21
+   30-40%: 13
+   40-50%: 21
+   50-60%: 20
+   60-70%: 17
+   70-80%: 12
+   80-90%: 5
+   90-100%: 15
+   100-110%: 4
+   110%+: 61
+
+4. CORRELATION ANALYSIS (Spearman rho)
+----------------------------------------
+   Leads: rho = 0.001 (n=421)
+   Fees: rho = -0.042 (n=188)
+   School Size: rho = 0.022 (n=383)
+   NPS Score: rho = 0.013 (n=350)
+   NPS Count: rho = 0.062 (n=350)
+   Teacher Attrition: rho = 0.046 (n=276)
+
+5. NOTE ON MARKETING CHANNELS
+----------------------------------------
+   Channel data is from marketing attribution system
+   Not directly derivable from this CSV
+
+============================================================
+ALIGNMENT STATUS
+============================================================
+
+python : Traceback (most 
+recent call last):
+At line:1 char:1
++ python 
+verify_alignment.py 2>&1 | 
+Out-File -FilePath 
+alignment_report ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo          
+    : NotSpecified: (Trace  
+  back (most recent call    
+ last)::String) [], Remo    
+teException
+    + FullyQualifiedErrorId 
+    : NativeCommandError
+ 
+  File "C:\Users\admin\Deskt
+op\EDA\verify_alignment.py",
+ line 73, in <module>
+    print("\u26a0\ufe0f  
+The CSV data has been 
+RANDOMIZED.")
+    ~~~~~^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\enc
+odings\cp1252.py", line 19, 
+in encode
+    return codecs.charmap_en
+code(input,self.errors,encod
+ing_table)[0]
+           ~~~~~~~~~~~~~~~~~
+~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^
+UnicodeEncodeError: 
+'charmap' codec can't 
+encode characters in 
+position 0-1: character 
+maps to <undefined>
